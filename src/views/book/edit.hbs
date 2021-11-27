@@ -1,0 +1,47 @@
+<div class="mt-4">
+    <h3>Cập nhật thông tin Truyện</h3>
+    <a href="/books/book-manager" class="mt-3 btn btn-link alert-danger">Quay lại</a>
+    <form method="post" action="/books/save/{{sach.masach}}?_method=PUT">
+        <div class="form-group mt-3">
+            <label for="tensach">Tên truyện</label>
+            <input type="text" class="form-control" id="tensach" value="{{sach.tensach}}" name="tensach" placeholder="Nhập tên truyện">
+        </div>
+        <div class="form-group mt-3">
+            <label for="des">Tác giả</label>
+            <input type="text" class="form-control" id="des" value="{{sach.tacgia}}" name="tacgia" placeholder="Nhập tên tác giả">
+        </div>
+        <div class="form-group mt-3">
+            <label for="videoId">Link ảnh</label>
+            <input type="text" class="form-control" id="Images" value="{{sach.HINHANH}}" name="HINHANH" placeholder="Nhập link hình ảnh">
+        </div>
+        <div class="form-group mt-3">
+            <label for="NXB">Nhà xuất bản</label>
+            <select class="form-control" id="NXB" value="{{sach.manxb}}" name="manxb">
+                {{#each NXB}}
+                {{{option this.manxb this.Ten ../sach.manxb }}}
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-group mt-3">
+            <label for="NgayXB">Ngày xuất bản</label>
+            <input type="date" class="form-control" id="NgayXB" value="{{sach.ngayXB}}" name="ngayXB" placeholder="Enter publication date">
+        </div>
+        <div class="form-group mt-3">
+            <label for="price">Giá</label>
+            <input type="number" min="0.00" max="10000000.00" step="1000.00" class="form-control" id="price" value="{{sach.gia}}" name="gia"
+                placeholder="Nhập giá truyện">
+        </div>
+        <div class="form-group mt-3">
+            <label for="des">Mô tả</label>
+            <textarea class="form-control" cols="86" rows="10" placeholder="Mô tả truyện" name="MOTA" id="des">{{sach.MOTA}}</textarea>
+        </div>
+
+
+
+        <button type="submit" class="btn btn-primary mt-4">Lưu</button>
+    </form>
+</div>
+
+<script>
+    
+</script>

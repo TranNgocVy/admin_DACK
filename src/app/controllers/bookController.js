@@ -1,10 +1,36 @@
 const adminservice = require('../services/adminService');
 const {
-    multipleSequelizeToObject
+    multipleSequelizeToObject, SequelizeToObject
 } = require('../../util/sequelize')
 
 class bookController {
-    //[GET] : /book/input-new-book
+
+    //[PUT] : /books/save/:id
+    async saveUpdate(req, res, next) {
+        try {
+            const book = await adminservice.getOnebook(req.params.id)
+            book.set(req.body)
+            await book.save();
+            res.redirect('/books/book-manager')
+        }catch (e) {
+            next(e);
+        }
+    }
+    //[GET]: books/:id/edit  
+    async edit(req, res, next){
+        try {
+            const book = await adminservice.getOnebook(req.params.id)
+            const NXB = await adminservice.AllNXB()
+            res.render('book/edit',{
+                NXB: multipleSequelizeToObject(NXB),
+                sach : SequelizeToObject(book),
+            })
+        }catch(e){
+            next(e);
+        }
+
+    }
+    //[GET] : /books/input-new-book
     async inputbook(req, res, next) {
         try {
             const NXB = await adminservice.AllNXB()
@@ -18,7 +44,7 @@ class bookController {
 
 
 
-    //[GET] : /book/book-manager
+    //[GET] : /books/book-manager
     async show(req, res, next) {
         const title = req.query.title;
         try {
@@ -31,7 +57,7 @@ class bookController {
         }
     }
 
-    //[POST] : /book/book-manager
+    //[POST] : /books/book-manager
     async addBook(req, res, next) {
 
         req.body.masach = await adminservice.genKeybook(req.body.hinhthuc);
@@ -52,6 +78,19 @@ class bookController {
         next();
 
     }
+    //[DELETE]:  /books/save/:id
+    async saveDelete(req, res, next){
+        try {
+            console.log('here')
+            const book = await adminservice.getOnebook(req.params.id)
+            await book.destroy();
+            res.redirect('/books/book-manager') 
+        } catch (error) {
+            next(error);
+        }
+    }
+
+
 }
 
 module.exports = new bookController

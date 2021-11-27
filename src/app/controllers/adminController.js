@@ -20,7 +20,7 @@ class adminController {
             SL : 0,
         });
         //back to create book
-        res.redirect('back')
+        res.redirect('back') 
         next();
     }
 

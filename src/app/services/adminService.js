@@ -93,3 +93,6 @@ exports.genKeybook = async (Hinhthuc) => {
         i++
     }
 }
+exports.getOnebook= (MSach) => {
+    return models.sach.findOne({where : {masach : MSach }})
+}
