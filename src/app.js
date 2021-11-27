@@ -12,7 +12,13 @@ const routes = require('./routes')
 const app = express();
 
 // view engine setup
-app.engine('.hbs',handlebars.engine({extname :'.hbs'}))
+app.engine(
+  '.hbs',
+  handlebars.engine({
+    extname :'.hbs',
+    helpers: require('./helpers/handlebars')
+  })
+);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '.hbs');
 

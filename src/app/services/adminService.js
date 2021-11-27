@@ -1,6 +1,10 @@
 const {
     models
 } = require("../../config/db")
+const {
+    Op
+  } = require("sequelize");
+  
 // support query database
 exports.oneAd = () => {
     return models.nhanvien.findAll({});
@@ -8,9 +12,43 @@ exports.oneAd = () => {
 exports.AllNXB = () => {
     return models.nxb.findAll({});
 }
-exports.getsachs = () => {
-    return models.sach;
+
+//Lấy toàn bộ sách trong Database
+exports.getBooks = (title) => {
+    var condition = '';
+    if(title){
+        condition = title;
+    }
+    return models.sach.findAll({
+        where:{
+            tensach:{
+                [Op.like]: '%'+condition+'%',
+            }
+        }
+    })
 }
+
+
+//Lấy thông tin sách còn tồn trong kho
+exports.getStock = (title) => {
+    var condition = '';
+    if(title){
+        condition = title;
+    }
+    return models.tonkho.findAll({
+        include:[{
+            model: models.sach,
+            as: "masach_sach",
+            where:{
+                tensach:{
+                    [Op.like]: '%' + condition+ '%'
+                }
+            }
+        }]
+    })
+}
+
+
 exports.getmodels = () => {
     return models;
 }
@@ -54,5 +92,4 @@ exports.genKeybook = async (Hinhthuc) => {
         }
         i++
     }
-    return s_key;
 }

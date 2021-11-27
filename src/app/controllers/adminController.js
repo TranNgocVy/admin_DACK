@@ -23,59 +23,7 @@ class adminController {
         res.redirect('back')
         next();
     }
-    //[GET] : /book/input-new-book
-    async inputbook(req, res, next) {
-        try {
-            const NXB = await adminservice.AllNXB()
-        res.render('book/newbook', {
-            NXB: multipleSequelizeToObject(NXB)
-        });
-        }catch (e) {
-            next(e)
-        }
-    }
-    //[GET]: /account-manager
-    accountM(req, res, next) {
-        res.render('account/account-manager', {
-            title: "Book Selling"
-        });
-    }
-    //[GET]: /receipt-manager
-    receiptM(req, res, next) {
-        res.render('receipt/receipt-manager', {
-            title: "Book Selling"
-        });
-    }
-    //[GET]: /order-manager
-    orderM(req, res, next) {
-        res.render('order/order-manager', {
-            title: "Book Selling"
-        });
-    }
-    //[GET]: /stock-manager
-    stockM(req, res, next) {
-        res.render('stock/stock-manager', {
-            title: "Book Selling"
-        });
-    }
-    //[GET]: /input-order
-    InputO(req, res, next) {
-        res.render('order/input-order', {
-            title: "Book Selling"
-        });
-    }
-    //[GET]: /order-detail
-    OrderD(req, res, next) {
-        res.render('order/order-detail', {
-            title: "Book Selling"
-        });
-    }
-    //[GET]: /receipt-detail
-    receiptD(req, res, next) {
-        res.render('receipt/receipt-detail', {
-            title: "Book Selling"
-        });
-    }
+
     //[GET]: /login
     async login(req, res, next) {
         const acc = await adminservice.oneAd();

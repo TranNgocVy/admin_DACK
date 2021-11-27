@@ -1,48 +1,50 @@
 <div class="mt-4">
-    <h3>Đăng sách mới</h3>
-    <form method="post" action="store">
+    <h3>Thêm truyện mới</h3>
+    <form method="post" action="/books/book-manager">
         <div class="form-group mt-3">
-            <label for="name">Tên sách</label>
-            <input type="text" class="form-control" id="name" name="tensach" placeholder="Enter name book">
+            <label for="name">Tên truyện</label>
+            <input type="text" class="form-control" id="name" name="tensach" placeholder="Nhập tên truyện">
         </div>
         <div class="form-group mt-3">
             <label for="des">Hình thức truyện</label>
-            <select class="form-select" aria-label="Theloai" name = "hinhthuc">
+            <select class="form-select" aria-label="Theloai" name="hinhthuc">
                 <option value="TT">Truyện Tranh</option>
                 <option value="TC">Truyện chữ </option>
-              </select>
+            </select>
         </div>
         <div class="form-group mt-3">
             <label for="des">Tác giả</label>
-            <input type="text" class="form-control" id="des" name="tacgia" placeholder="Enter name arthor">
+            <input type="text" class="form-control" id="des" name="tacgia" placeholder="Nhập tên tác giả">
         </div>
         <div class="form-group mt-3">
-            <label for="videoId">link ảnh</label>
-            <input type="text" class="form-control" id="Images" name="HINHANH" placeholder="Enter Images">
+            <label for="videoId">Link ảnh</label>
+            <input type="text" class="form-control" id="Images" name="HINHANH" placeholder="Nhập link hình ảnh">
         </div>
         <div class="form-group mt-3">
             <label for="NXB">Nhà xuất bản</label>
             <select class="form-control" id="NXB" name="manxb">
                 {{#each NXB}}
-                <option value="{{this.manxb}}" >{{this.Ten}}</option>
+                <option value="{{this.manxb}}">{{this.Ten}}</option>
                 {{/each}}
-              </select>
+            </select>
         </div>
         <div class="form-group mt-3">
             <label for="NgayXB">Ngày xuất bản</label>
             <input type="date" class="form-control" id="NgayXB" name="ngayXB" placeholder="Enter publication date">
         </div>
         <div class="form-group mt-3">
-            <label for="price">giá</label>
-            <input type="number" min="0.00" max="10000000.00" step="1000.00" class="form-control" id="price" name="gia" placeholder="Enter price for book">
+            <label for="price">Giá</label>
+            <input type="number" min="0.00" max="10000000.00" step="1000.00" class="form-control" id="price" name="gia"
+                placeholder="Nhập giá truyện">
         </div>
         <div class="form-group mt-3">
             <label for="des">Mô tả</label>
-            <textarea class="form-control" cols="86" rows ="10" placeholder="Leave a description here" name ="MOTA" id="des"></textarea>
+            <textarea class="form-control" cols="86" rows="10" placeholder="Mô tả truyện" name="MOTA"
+                id="des"></textarea>
         </div>
 
 
 
-        <button type="submit" class="btn btn-primary mt-4">Thêm sách mới</button>
+        <button type="submit" class="btn btn-primary mt-4">Thêm truyện mới</button>
     </form>
 </div>
