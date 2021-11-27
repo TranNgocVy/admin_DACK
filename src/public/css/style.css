@@ -33,7 +33,6 @@
 
 /* Template default CSS
 /*----------------------------------------*/
-
 html,
 body {
     height: 100%;
@@ -3523,3 +3522,6 @@ ol {
         font-size: 24px;
     }
 }
+main > .container {
+    padding: 60px 15px 0;
+  }
