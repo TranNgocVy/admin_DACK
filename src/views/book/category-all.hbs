@@ -1,0 +1,19 @@
+<div class="mt-4 row">
+
+
+  <form action="/" method="GET">
+    <h5>Gắn thể loại cho truyện</h5>
+    {{#each Theloai}}
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault">
+      {{this.TenTL}}
+      </label>
+    </div>
+    {{/each}}
+    <button type="submit" class="btn btn-primary btn-md">
+      Xác Nhận
+    </button>
+  </form>
+
+</div>

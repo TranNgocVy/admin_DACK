@@ -32,9 +32,6 @@ module.exports = function(sequelize, DataTypes) {
     },
     ngayXB: {
       type: DataTypes.DATEONLY,
-      // get: function() {
-      //   return moment.utc(this.getDataValue('regDate')).format('YYYY-MM-DD');
-      // },
       allowNull: true
     },
     gia: {
@@ -48,6 +45,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'sach',
+    hasTrigger: true,
     timestamps: false,
     indexes: [
       {

@@ -6,11 +6,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    'tênTL': {
+    tenTL: {
       type: DataTypes.STRING(50),
       allowNull: false
     },
-    'Mô tả': {
+    Mota: {
       type: DataTypes.STRING(400),
       allowNull: true
     }

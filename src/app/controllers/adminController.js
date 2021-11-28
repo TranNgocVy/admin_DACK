@@ -26,11 +26,11 @@ class adminController {
 
     //[GET]: /login
     async login(req, res, next) {
-        const acc = await adminservice.oneAd();
-        //  res.send(acc);
+        // const acc = await adminservice.oneAd();
+        // //  res.send(acc);
         res.render('login', {
             title: "Book Selling"
-        });
+        }); 
     }
     //[GET]: /forget
     forgetpass(req, res, next) {

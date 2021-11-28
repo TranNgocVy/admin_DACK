@@ -3,7 +3,17 @@ const {
     multipleSequelizeToObject, SequelizeToObject
 } = require('../../util/sequelize')
 
-class bookController {
+class bookController { 
+
+    //[GET]: /books//TL/:id 
+    async setCatagories(req, res, next){
+        try {
+            const cate = await adminservice.getmodels().theloai.findAll();
+            res.render('book/category-all',{ Theloai : multipleSequelizeToObject(cate)})
+        } catch (error) {
+            next(error)
+        }  
+    }
 
     //[PUT] : /books/save/:id
     async saveUpdate(req, res, next) {

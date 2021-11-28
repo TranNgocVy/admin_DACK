@@ -39,6 +39,15 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
+        name: "ct_phieunhap_MASACH_MAPN_unique",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "MAPN" },
+          { name: "MASACH" },
+        ]
+      },
+      {
         name: "FK_CTPNHAP_SACH",
         using: "BTREE",
         fields: [
