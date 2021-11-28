@@ -34,6 +34,15 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
+        name: "theloaicuasach_maTL_masach_unique",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "maTL" },
+          { name: "masach" },
+        ]
+      },
+      {
         name: "theloaiofsach_sach_masach_fk",
         using: "BTREE",
         fields: [
