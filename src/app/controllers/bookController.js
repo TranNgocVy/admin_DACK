@@ -5,11 +5,22 @@ const {
 
 class bookController { 
 
+    //[POST]:
+    async saveCatagories(req, res, next){
+        try {
+            res.send(req.body.category[2])
+        } catch (error) {
+            
+        }
+    }
+
     //[GET]: /books//TL/:id 
     async setCatagories(req, res, next){
         try {
             const cate = await adminservice.getmodels().theloai.findAll();
-            res.render('book/category-all',{ Theloai : multipleSequelizeToObject(cate)})
+            const sach = 'CT0003'
+            res.render('book/category-all',{ Theloai : multipleSequelizeToObject(cate), 
+                                    masach : sach,})
         } catch (error) {
             next(error)
         }  
@@ -43,9 +54,11 @@ class bookController {
     //[GET] : /books/input-new-book
     async inputbook(req, res, next) {
         try {
+            const cate = await adminservice.getmodels().theloai.findAll();
             const NXB = await adminservice.AllNXB()
             res.render('book/newbook', {
-                NXB: multipleSequelizeToObject(NXB)
+                NXB: multipleSequelizeToObject(NXB),
+                Theloai : multipleSequelizeToObject(cate),
             });
         } catch (e) {
             next(e)
@@ -83,6 +96,13 @@ class bookController {
             gia : req.body.gia,
             SL : 0,
         });
+        req.body.category.forEach(async(element) => {
+            await adminservice.getmodels().theloaicuasach.create({
+                masach : req.body.masach,
+                maTL : element,
+            });
+        });
+         
         //back to create book
         res.redirect('/books/book-manager')
         next();

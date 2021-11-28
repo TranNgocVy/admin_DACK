@@ -1,19 +1,18 @@
-<div class="mt-4 row">
 
-
-  <form action="/" method="GET">
-    <h5>Gắn thể loại cho truyện</h5>
-    {{#each Theloai}}
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+  <form action="/books/TL/{{masach}}/store" method="POST">
+    <h3>Gắn thể loại cho truyện</h3>
+    <div class="mt-4 row">
+        {{#each Theloai}}
+    <div class="form-check col-sm-3">
+      <input class="form-check-input" type="checkbox" name="category" value="{{this.maTL}}" id="flexCheckDefault">
       <label class="form-check-label" for="flexCheckDefault">
-      {{this.TenTL}}
+      {{this.tenTL}}
       </label>
     </div>
     {{/each}}
+    </div>
+    
     <button type="submit" class="btn btn-primary btn-md">
       Xác Nhận
     </button>
   </form>
-
-</div>

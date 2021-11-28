@@ -7,6 +7,10 @@
             <input type="text" class="form-control" id="name" name="tensach" placeholder="Nhập tên truyện">
         </div>
         <div class="form-group mt-3">
+            <label for="des">Tác giả</label>
+            <input type="text" class="form-control" id="des" name="tacgia" placeholder="Nhập tên tác giả">
+        </div>
+        <div class="form-group mt-3">
             <label for="des">Hình thức truyện</label>
             <select class="form-select" aria-label="Theloai" name="hinhthuc">
                 <option value="TT">Truyện Tranh</option>
@@ -14,8 +18,26 @@
             </select>
         </div>
         <div class="form-group mt-3">
-            <label for="des">Tác giả</label>
-            <input type="text" class="form-control" id="des" name="tacgia" placeholder="Nhập tên tác giả">
+            <label for="des">Thể Loại</label>
+            <div class="container" style="border : 1px solid; ">
+                <div class="row p-2 ">
+                    {{#each Theloai}}
+                    <div class="form-check col-sm-3 align-self-center">
+                        <input class="form-check-input" type="checkbox" name="category" value="{{this.maTL}}"
+                            id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            {{this.tenTL}}
+                        </label>
+                    </div>
+                    {{/each}}
+
+                </div>
+
+
+            </div>
+
+
+
         </div>
         <div class="form-group mt-3">
             <label for="videoId">Link ảnh</label>
@@ -43,7 +65,6 @@
             <textarea class="form-control" cols="86" rows="10" placeholder="Mô tả truyện" name="MOTA"
                 id="des"></textarea>
         </div>
-
 
 
         <button type="submit" class="btn btn-primary mt-4">Thêm truyện mới</button>
