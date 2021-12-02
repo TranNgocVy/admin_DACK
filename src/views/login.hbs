@@ -53,21 +53,19 @@
       </div>
       <div class="site-section">
         <div class="container">
-          <form action="/">
+          <form method="POST" action="/login">
             <div class="row justify-content-center">
               <div class="col-md-5">
                 <div class="row">
                   <div class="col-md-12 form-group">
                     <label for="username">Tên đăng nhập</label>
-                    <input type="text" id="username" class="form-control form-control-lg">
+                    <input type="text" id="username" name="username" class="form-control form-control-lg">
                   </div>
-
                   <div class="col-md-12 form-group">
                     <label for="pword">Mật khẩu</label>
-                    <input type="password" id="pword" class="form-control form-control-lg">
+                    <input type="password" id="pword" name="password" class="form-control form-control-lg">
                   </div>
                 </div>
-
                 <div class="row">
                   <div class="col-12">
                     <a href="/forgetpass" style="color:#F4622D;">

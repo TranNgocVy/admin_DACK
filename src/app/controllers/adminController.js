@@ -2,6 +2,8 @@ const adminservice = require('../services/adminService');
 const {
     multipleSequelizeToObject
 } = require('../../util/sequelize')
+const passport = require('../../config/auth/passport')
+
 class adminController {
 
     //[POST]: /book/store
@@ -38,5 +40,20 @@ class adminController {
             title: "Book Selling"
         });
     }
+    //[GET]: /
+    main(req, res, next) {
+        res.redirect('/login');
+    }
+    //[POST] : /login-handler
+    loginHandler(req, res, next) {
+        if(req.user) {
+            res.redirect('/accounts/account-manager')
+        }else {
+            res.redirect('/login')
+        }
+
+    }
+
 }
+
 module.exports = new adminController

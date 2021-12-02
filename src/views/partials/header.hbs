@@ -11,13 +11,13 @@
 
                 <ul class="navbar-nav">
                     <img src="/images/logo.png" class="mr-3" style="width: 50px; height:50px">
+                    {{#if user}}
                     <li class="nav-item">
                         <a class="nav-link" href="/books/book-manager">Quản lí truyện</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/accounts/account-manager">Quản lí tài khoản</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="/stocks/stock-manager">Quản lí kho hàng</a>
                     </li>
@@ -27,13 +27,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/orders/order-manager">Quản lý nhập hàng</a>
                     </li>
+                    {{/if}}
+
                 </ul>
 
             </div>
-
+            {{#if user}}
             <div class="col">
                 <a href="/" style="float: right;" class="btn btn-link">Đăng xuất</a>
             </div>
+            {{/if}}
 
         </div>
     </nav>

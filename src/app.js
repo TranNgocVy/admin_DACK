@@ -5,8 +5,10 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const handlebars = require('express-handlebars')
 const routes = require('./routes')
-var methodOverride = require('method-override')
-
+const passport = require('./config/auth/passport')
+const session = require("express-session")
+const methodOverride = require('method-override')
+const middleUserOnl = require("./app/middleware/userOnline")
 
 
 const app = express();
@@ -19,16 +21,28 @@ app.engine(
     helpers: require('./helpers/handlebars')
   })
 );
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '.hbs');
 //use middleware
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+//session connect passport config
+app.use(session({ secret: process.env.SESSION_SECRET }));
+app.use(passport.initialize()); 
+app.use(passport.session());
+app.use(middleUserOnl)
+
 //middleware method
 app.use(methodOverride('_method'))
+
 
 
 routes(app);

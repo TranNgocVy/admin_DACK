@@ -3,7 +3,12 @@ var router = express.Router();
 
 const adminController = require("../app/controllers/adminController");
 
+const passport = require("../config/auth/passport");
+// authenticate user name
+router.post('/login', passport.authenticate('local'),adminController.loginHandler)
+router.get('/login', adminController.login)
 router.get('/forgetpass', adminController.forgetpass)
-router.get('/', adminController.login)
+router.get('/', adminController.main)
+
 
 module.exports = router

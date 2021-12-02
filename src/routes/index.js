@@ -6,12 +6,14 @@ const orderRouter = require('./orders')
 const receiptRouter = require('./receipts')
 
 function route(app){
+
   app.use('/',adminRouter);
   app.use('/books',bookRouter);
   app.use('/stocks',stockRouter);
   app.use('/orders',orderRouter);
   app.use('/receipts',receiptRouter);
   app.use('/accounts',accountRouter);
+   
 
 }
 
