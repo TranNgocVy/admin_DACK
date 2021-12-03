@@ -7,6 +7,9 @@ class receiptController {
     //[GET]: /receipt-manager
     show(req, res, next) {
         try{
+            if (!req.user){
+                res.redirect('/login')
+            }
             res.render('receipt/receipt-manager', {
                 title: "Book Selling"
             });
@@ -18,6 +21,9 @@ class receiptController {
     //[GET]: /receipt-detail
     showDetail(req, res, next) {
         try {
+            if (!req.user){
+                res.redirect('/login')
+            }
             res.render('receipt/receipt-detail', {
                 title: "Book Selling"
             });

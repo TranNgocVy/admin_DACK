@@ -6,9 +6,18 @@ const {
 class accountController {
     //[GET]: /account-manager
     show(req, res, next) {
-        res.render('account/account-manager', {
-            title: "Book Selling"
-        });
+        try {
+            if(req.user){
+                res.render('account/account-manager', {
+                    title: "Book Selling"
+                });
+            }else {
+                res.redirect("/")
+            }
+        }catch (e) {
+            next(e)
+        }
+
     }
 }
 

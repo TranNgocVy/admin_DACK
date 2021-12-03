@@ -5,30 +5,12 @@ const {
 
 class bookController { 
 
-    //[POST]:
-    async saveCatagories(req, res, next){
-        try {
-            res.send(req.body.category[2])
-        } catch (error) {
-            
-        }
-    }
-
-    //[GET]: /books//TL/:id 
-    async setCatagories(req, res, next){
-        try {
-            const cate = await adminservice.getmodels().theloai.findAll();
-            const sach = 'CT0003'
-            res.render('book/category-all',{ Theloai : multipleSequelizeToObject(cate), 
-                                    masach : sach,})
-        } catch (error) {
-            next(error)
-        }  
-    }
-
     //[PUT] : /books/save/:id
     async saveUpdate(req, res, next) {
         try {
+            if (!req.user){
+                res.redirect('/login')
+            }
             const book = await adminservice.getOnebook(req.params.id)
             book.set(req.body)
             await book.save();
@@ -40,6 +22,9 @@ class bookController {
     //[GET]: books/:id/edit  
     async edit(req, res, next){
         try {
+            if (!req.user){
+                res.redirect('/login')
+            }
             const book = await adminservice.getOnebook(req.params.id)
             const NXB = await adminservice.AllNXB()
             res.render('book/edit',{
@@ -54,6 +39,9 @@ class bookController {
     //[GET] : /books/input-new-book
     async inputbook(req, res, next) {
         try {
+            if (!req.user){
+                res.redirect('/login')
+            }
             const cate = await adminservice.getmodels().theloai.findAll();
             const NXB = await adminservice.AllNXB()
             res.render('book/newbook', {
@@ -71,6 +59,9 @@ class bookController {
     async show(req, res, next) {
         const title = req.query.title;
         try {
+            if (!req.user){
+                res.redirect('/login')
+            }
             const books = await adminservice.getBooks(title);
             res.render('book/book-manager', {
                 books: multipleSequelizeToObject(books)
@@ -83,6 +74,9 @@ class bookController {
     //[POST] : /books/book-manager
     async addBook(req, res, next) {
         try{
+            if (!req.user){
+                res.redirect('/login')
+            }
             req.body.masach = await adminservice.genKeybook(req.body.hinhthuc);
             // insert book to db
             const book = await adminservice.getmodels().sach.create({
@@ -111,6 +105,9 @@ class bookController {
     //[DELETE]:  /books/save/:id
     async saveDelete(req, res, next){
         try {
+            if (!req.user){
+                res.redirect('/login')
+            }
             console.log('here')
             const book = await adminservice.getOnebook(req.params.id)
             await book.destroy();

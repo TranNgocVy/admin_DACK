@@ -9,6 +9,9 @@ class adminController {
     //[POST]: /book/store
     async store(req, res, next) {
         try{
+            if (!req.user){
+                res.redirect('/login')
+            }
             req.body.masach = await adminservice.genKeybook(req.body.hinhthuc);
             // insert book to db
             const book = await adminservice.getsachs().create({
@@ -32,7 +35,6 @@ class adminController {
     //[GET]: /login
     async login(req, res, next) {
         try{
-            console.log("here 1 : " + req.query.invalidlogin)
             if(!req.user){
                 res.render('login', {
                     title: "Book Selling",
@@ -47,14 +49,14 @@ class adminController {
     //[GET]: /forget
     forgetpass(req, res, next) {
         try{
-
+            res.render('forgetpass', {
+                title: "Book Selling"
+            });
         }catch (e) {
             next(e)
         }
-        res.render('forgetpass', {
-            title: "Book Selling"
-        });
     }
+   
     //[GET]: /
     main(req, res, next) {
         try{

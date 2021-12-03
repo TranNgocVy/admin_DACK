@@ -9,6 +9,9 @@ class stockController{
      async showStock(req, res, next) {
         const title = req.query.title;
         try {
+            if (!req.user){
+                res.redirect('/login')
+            }
             const books = await adminservice.getStock(title);
             res.render('stock/stock-manager', {
                 books: multipleSequelizeToObject(books)
