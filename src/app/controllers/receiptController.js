@@ -6,16 +6,25 @@ const {
 class receiptController {
     //[GET]: /receipt-manager
     show(req, res, next) {
-        res.render('receipt/receipt-manager', {
-            title: "Book Selling"
-        });
+        try{
+            res.render('receipt/receipt-manager', {
+                title: "Book Selling"
+            });
+        }catch (e) {
+            next(e)
+        }
     }
 
     //[GET]: /receipt-detail
     showDetail(req, res, next) {
-        res.render('receipt/receipt-detail', {
-            title: "Book Selling"
-        });
+        try {
+            res.render('receipt/receipt-detail', {
+                title: "Book Selling"
+            });
+        }catch (e) {
+            next(e)
+        }
+
     }
 }
 

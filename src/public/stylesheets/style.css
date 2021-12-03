@@ -6,3 +6,9 @@ body {
 a {
   color: #00B7FF;
 }
+.user-avatar{
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  margin-right: 4px;
+}

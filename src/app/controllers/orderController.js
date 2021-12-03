@@ -6,22 +6,35 @@ const {
 class orderController {
     //[GET]: /order-manager
     show(req, res, next) {
-        res.render('order/order-manager', {
-            title: "Book Selling"
-        });
+        try{
+            res.render('order/order-manager', {
+                title: "Book Selling"
+            });
+        }catch (e) {
+            next(e);
+        }
     }
 
     //[GET]: /order-detail
     showDetail(req, res, next) {
-        res.render('order/order-detail', {
-            title: "Book Selling"
-        });
+        try{
+            res.render('order/order-detail', {
+                title: "Book Selling"
+            });
+        }catch (e) {
+            next(e);
+        }
+
     }
     //[GET]: /input-order
     input(req, res, next) {
-        res.render('order/input-order', {
-            title: "Book Selling"
-        });
+        try{
+            res.render('order/input-order', {
+                title: "Book Selling"
+            });
+        }catch (e) {
+            next(e);
+        }
     }
 }
 

@@ -8,52 +8,86 @@ class adminController {
 
     //[POST]: /book/store
     async store(req, res, next) {
-        req.body.masach = await adminservice.genKeybook(req.body.hinhthuc);
-        // insert book to db
-        const book = await adminservice.getsachs().create({
-            masach: req.body.masach,
-            tensach: req.body.tensach,
-            tacgia : req.body.tacgia,
-            MOTA : req.body.MOTA,
-            HINHANH : req.body.HINHANH,
-            manxb : req.body.manxb,
-            ngayXB : req.body.ngayXB,
-            gia : req.body.gia,
-            SL : 0,
-        });
-        //back to create book
-        res.redirect('back') 
-        next();
+        try{
+            req.body.masach = await adminservice.genKeybook(req.body.hinhthuc);
+            // insert book to db
+            const book = await adminservice.getsachs().create({
+                masach: req.body.masach,
+                tensach: req.body.tensach,
+                tacgia : req.body.tacgia,
+                MOTA : req.body.MOTA,
+                HINHANH : req.body.HINHANH,
+                manxb : req.body.manxb,
+                ngayXB : req.body.ngayXB,
+                gia : req.body.gia,
+                SL : 0,
+            });
+            //back to create book
+            res.redirect('back')
+        }catch (e) {
+            next(e)
+        }
     }
 
     //[GET]: /login
     async login(req, res, next) {
-        // const acc = await adminservice.oneAd();
-        // //  res.send(acc);
-        res.render('login', {
-            title: "Book Selling"
-        }); 
+        try{
+            console.log("here 1 : " + req.query.invalidlogin)
+            if(!req.user){
+                res.render('login', {
+                    title: "Book Selling",
+                    invalidlogin: req.query.invalidlogin
+                });
+            }else
+                res.render('/accounts/account-manager')
+        }catch (e) {
+            next(e)
+        }
     }
     //[GET]: /forget
     forgetpass(req, res, next) {
+        try{
+
+        }catch (e) {
+            next(e)
+        }
         res.render('forgetpass', {
             title: "Book Selling"
         });
     }
     //[GET]: /
     main(req, res, next) {
-        res.redirect('/login');
+        try{
+            if(req.user) {
+                res.redirect('/accounts/account-manager')
+            }else {
+                res.redirect('/login')
+            }
+        }catch (e) {
+            next(e)
+        }
     }
     //[POST] : /login-handler
     loginHandler(req, res, next) {
-        if(req.user) {
-            res.redirect('/accounts/account-manager')
-        }else {
-            res.redirect('/login')
+        try{
+            if(req.user) {
+                res.redirect('/accounts/account-manager')
+            }else
+                res.redirect('/login')
+        }catch (e) {
+            next(e)
         }
-
     }
 
+    //[GET] : /logout
+    logout(req, res, next){
+        try{
+            req.logout()
+            res.redirect('/')
+        }catch (e) {
+            next(e)
+        }
+    }
 }
 
 module.exports = new adminController

@@ -7,5 +7,5 @@ const {
 
 
 exports.findUserAdmin = (username) => {
-    return models.nhanvien.findAll({where :{ USER : username}})
+    return models.nhanvien.findOne({where :{ USER : username}})
 }

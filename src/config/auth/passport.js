@@ -11,9 +11,10 @@ passport.use(new LocalStrategy(
             if(!user) {
                 return done(null,false,{message:'Invalid User'})
             }
-            if(validPassword(user,password)){
+            if(!validPassword(user,password)){
                 return  done(null,false,{message:'Invalid Password'})
             }
+
             return done(null,user)
         }catch (e) {
             return done(e)
@@ -27,7 +28,7 @@ function validPassword(username,password){
 }
 // setting session passport
 passport.serializeUser(function(user, done) {
-    done(null, {username: user.USER , id: user.MANV } );
+    return done(null, user );
 });
 
 passport.deserializeUser(function(user, done) {

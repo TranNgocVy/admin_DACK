@@ -82,31 +82,31 @@ class bookController {
 
     //[POST] : /books/book-manager
     async addBook(req, res, next) {
-
-        req.body.masach = await adminservice.genKeybook(req.body.hinhthuc);
-        // insert book to db
-        const book = await adminservice.getmodels().sach.create({
-            masach: req.body.masach,
-            tensach: req.body.tensach,
-            tacgia : req.body.tacgia,
-            MOTA : req.body.MOTA,
-            HINHANH : req.body.HINHANH,
-            manxb : req.body.manxb,
-            ngayXB : req.body.ngayXB,
-            gia : req.body.gia,
-            SL : 0,
-        });
-        req.body.category.forEach(async(element) => {
-            await adminservice.getmodels().theloaicuasach.create({
-                masach : req.body.masach,
-                maTL : element,
+        try{
+            req.body.masach = await adminservice.genKeybook(req.body.hinhthuc);
+            // insert book to db
+            const book = await adminservice.getmodels().sach.create({
+                masach: req.body.masach,
+                tensach: req.body.tensach,
+                tacgia : req.body.tacgia,
+                MOTA : req.body.MOTA,
+                HINHANH : req.body.HINHANH,
+                manxb : req.body.manxb,
+                ngayXB : req.body.ngayXB,
+                gia : req.body.gia,
+                SL : 0,
             });
-        });
-         
-        //back to create book
-        res.redirect('/books/book-manager')
-        next();
-
+            req.body.category.forEach(async(element) => {
+                await adminservice.getmodels().theloaicuasach.create({
+                    masach : req.body.masach,
+                    maTL : element,
+                });
+            });
+            //back to create book
+            res.redirect('/books/book-manager')
+        }catch (e) {
+            next(e)
+        }
     }
     //[DELETE]:  /books/save/:id
     async saveDelete(req, res, next){

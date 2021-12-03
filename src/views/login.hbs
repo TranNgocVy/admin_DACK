@@ -47,6 +47,9 @@
             <div class="col-lg-7">
               <h2 class="mb-0">Đăng nhập</h2>
               <p>Say đắm trong thế với của những bộ truyện hay.</p>
+                {{#if invalidlogin}}
+                    <div class="mt-1 mb-1 text-center text-danger">tài khoản hoặc mật khẩu không đúng!</div>
+                {{/if}}
             </div>
           </div>
         </div>
@@ -74,9 +77,10 @@
                   </div>
                 </div>
 
-                <div class="row">
+                <div class="row align-items-end justify-content-center text-center">
                   <div class="col-12">
-                    <input type="submit" value="Đăng nhập" class="btn btn-primary btn-lg px-5">
+
+                    <input type="submit" value="Đăng nhập" class="btn btn-primary btn-lg px-5 m-auto">
                   </div>
                 </div>
 
