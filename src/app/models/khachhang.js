@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       unique: "USER"
     },
     PASS: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(100),
       allowNull: false
     },
     HOTEN: {
@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     HINHANH: {
-      type: DataTypes.STRING(200),
+      type: DataTypes.STRING(500),
       allowNull: true
     },
     PHAI: {
@@ -32,15 +32,15 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     DIACHI: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(100),
       allowNull: true
     },
     SDT: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.STRING(20),
       allowNull: true
     },
     EMAIL: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(50),
       allowNull: true
     }
   }, {
