@@ -41,7 +41,7 @@ class adminController {
                     invalidlogin: req.query.invalidlogin
                 });
             }else
-                res.render('/accounts/account-manager')
+                res.render('/account/account-manager')
         }catch (e) {
             next(e)
         }

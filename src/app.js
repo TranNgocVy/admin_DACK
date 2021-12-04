@@ -9,7 +9,7 @@ const passport = require('./config/auth/passport')
 const session = require("express-session")
 const methodOverride = require('method-override')
 const middleUserOnl = require("./app/middleware/userOnline")
-
+const notBackLogout = require('./app/middleware/notBackLogout')
 
 const app = express();
 
@@ -40,7 +40,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-
+app.use(notBackLogout);
 app.use(middleUserOnl)
 
 //middleware method
