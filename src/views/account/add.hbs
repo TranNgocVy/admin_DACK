@@ -1,0 +1,191 @@
+<div class="container">
+
+    <div class="row">
+        <h1>{{title}}</h1>
+        <p>Web bán truyện được ưa thích nhất</p>
+    </div>
+
+    <div class="row">
+        <div class="d-flex justify-content-center">
+            <div class="card" style="width:40rem;padding:10px">
+                <div class="card-header">
+                    <h3>Thêm tài khoản</h3>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <form action="/accounts/add" method="post">
+                        <li class="list-group-item">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                  <span
+                          class="input-group-text"
+                          id="inputGroup-sizing-default"
+                  >Họ tên</span>
+                                </div>
+                                <input name ="HOTEN"
+                                       type="text"
+                                       class="form-control"
+                                       aria-label="Default"
+                                       aria-describedby="inputGroup-sizing-default"
+                                />
+
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                  <span
+                          class="input-group-text"
+                          id="inputGroup-sizing-default"
+                  >Email</span>
+                                </div>
+                                <input name ="EMAIL"
+                                       type="email"
+                                       class="form-control"
+                                       aria-label="Default"
+                                       aria-describedby="inputGroup-sizing-default"
+                                />
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Giới tính</label>
+                                </div>
+                                <select class="custom-select" name ="PHAI" id="inputGroupSelect01">
+                                    <option value="NAM">Nam</option>
+                                    <option value="NU">Nữ</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                  <span
+                          class="input-group-text"
+                          id="inputGroup-sizing-default"
+                  >Số điện thoại</span>
+                                </div>
+                                <input name ="SDT"
+                                       type="text"
+                                       class="form-control"
+                                       aria-label="Default"
+                                       aria-describedby="inputGroup-sizing-default"
+                                />
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                  <span
+                          class="input-group-text"
+                          id="inputGroup-sizing-default"
+                  >Địa chỉ</span>
+                                </div>
+                                <input name ="DIACHI"
+                                       type="text"
+                                       class="form-control"
+                                       aria-label="Default"
+                                       aria-describedby="inputGroup-sizing-default"
+                                />
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                  <span
+                          class="input-group-text"
+                          id="inputGroup-sizing-default"
+                  >Hình ảnh</span>
+                                </div>
+                                <input name ="HINHANH"
+                                       type="text"
+                                       class="form-control"
+                                       aria-label="Default"
+                                       aria-describedby="inputGroup-sizing-default"
+                                />
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                  <span
+                          class="input-group-text"
+                          id="inputGroup-sizing-default"
+                  >Ngày sinh</span>
+                                </div>
+                                <input name="NGAYSINH"
+                                       type="date"
+                                       class="form-control"
+                                       aria-label="Default"
+                                       aria-describedby="inputGroup-sizing-default"
+                                />
+                                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                  <span
+                          class="input-group-text"
+                          id="inputGroup-sizing-default"
+                  >Tên đăng nhập</span>
+                                </div>
+                                <input
+                                        name ="USER"
+                                        type="text"
+                                        class="form-control"
+                                        aria-label="Default"
+                                        aria-describedby="inputGroup-sizing-default"
+                                />
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                  <span
+                          class="input-group-text"
+                          id="inputGroup-sizing-default"
+                  >Mật khẩu</span>
+                                </div>
+                                <input
+                                        name ="PASS"
+                                        type="password"
+                                        class="form-control"
+                                        aria-label="Default"
+                                        aria-describedby="inputGroup-sizing-default"
+                                />
+
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                  <span
+                          class="input-group-text"
+                          id="inputGroup-sizing-default"
+                  >Nhập lại mật khẩu</span>
+                                </div>
+                                <input
+                                        name ="REPASS"
+                                        type="password"
+                                        class="form-control"
+                                        aria-label="Default"
+                                        aria-describedby="inputGroup-sizing-default"
+                                />
+                            </div>
+
+                            {{#if errorEmpty}}
+                                <div class="mt-1 mb-1 text-center text-danger">hãy điền hết thông tin!</div>
+                            {{/if}}
+                            {{#if errorPASS}}
+                                <div class="mt-1 mb-1 text-center text-danger"> mật khẩu không đúng!</div>
+                            {{/if}}
+                            {{#if errorUSER}}
+                                <div class="mt-1 mb-1 text-center text-danger">Tên đăng nhập đã tồn tại</div>
+                            {{/if}}
+
+                            <div
+                                    class="d-flex justify-content-center align-items-end text-center"
+                            >
+                                <button
+                                        type="submit"
+                                        style="background-color:#44c767;
+                    border-radius:28px;
+                    border:1px solid #18ab29;
+                    display:inline-block;
+                    cursor:pointer;color:#ffffff;font-family:Arial;font-size:17px;padding-left:20px;padding-right:20px;padding-top:10px;padding-bottom:10px;text-decoration:none;;">Thêm
+                                </button>
+                            </div>
+                        </li>
+                    </form>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
