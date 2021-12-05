@@ -2,7 +2,7 @@ const passport = require('passport')
     , LocalStrategy = require('passport-local').Strategy;
 
 const authservice = require('../../app/services/authService')
-
+const bcrypt = require('bcrypt')
 passport.use(new LocalStrategy(
     async function(username, password, done) {
         try {
@@ -11,7 +11,8 @@ passport.use(new LocalStrategy(
             if(!user) {
                 return done(null,false,{message:'Invalid User'})
             }
-            if(!validPassword(user,password)){
+            var passOk = await validPassword(user,password)
+            if(!passOk){
                 return  done(null,false,{message:'Invalid Password'})
             }
 
@@ -23,8 +24,8 @@ passport.use(new LocalStrategy(
     }
 ));
 // check password
-function validPassword(username,password){
-    return username.PASS === password
+async function validPassword(username,password){
+    return bcrypt.compare(password,username.PASS)
 }
 // setting session passport
 passport.serializeUser(function(user, done) {

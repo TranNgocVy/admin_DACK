@@ -8,6 +8,7 @@
     "models": "sequelize-auto -o './src/app/models' -h db4free.net -d dds_19120 -u ma_phong -x 12345678 -e mysql"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^10.0.0",
