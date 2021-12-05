@@ -46,10 +46,9 @@
           <h3>Quản lí tài khoản</h3>
         </div>
         <nav class="nav nav-pills nav-justified">
-          <a class="nav-link active" href="/?type=admin">Active</a>
-          <a class="nav-link" href="#">Much longer nav link</a>
-          <a class="nav-link" href="#">Link</a>
-          <a class="nav-link disabled">Disabled</a>
+          <a class="nav-link active" href="/accounts/account-manager?type=admin">Admin</a>
+          <a class="nav-link" href="/accounts/account-manager?type=customer">Customer</a>
+         
         </nav>
         <div class="overflow-auto">
           <div class="book-information" data-spy="scroll">
@@ -66,6 +65,7 @@
               </thead>
               <tbody>
                    {{#each accounts}}
+                   {{#if type}}
                 <tr>
                   <th scope="col">{{this.MANV}}</th>
                   <th scope="col">{{this.USER}}</th>
@@ -73,12 +73,18 @@
                   <th scope="col">{{this.LOAINV}}</th>
                   <th scope="col">10/11/2021</th>
                 </tr>
+
                 {{else}}
                 <tr>
-                  <td colspan="5" class="text-center">
-                    Danh sách trống
-                  </td>
+                  <th scope="col">{{this.MAKH}}</th>
+                  <th scope="col">{{this.USER}}</th>
+                  <th scope="col">{{this.PASS}}</th>
+                  <th scope="col">CUSTOMER</th>
+                  <th scope="col">10/11/2021</th>
                 </tr>
+
+                {{/if}}
+                
                 {{/each}}
               </tbody>
             </table>
@@ -86,6 +92,7 @@
         </div>
       </div>
       <div class="col-1">
+        {{#if type}}
         <div class="btn-group-vertical" style="padding-top:70px;">
           <button type="button" class="btn btn-outline-danger">
             <span>Thêm</span>
@@ -101,6 +108,7 @@
             </span>
           </button>
         </div>
+        {{/if}}
       </div>
     </div>
   </div>
