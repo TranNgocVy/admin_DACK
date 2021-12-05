@@ -3,8 +3,8 @@ const {
 } = require("../../config/db")
 const {
     Op
-  } = require("sequelize");
-  
+} = require("sequelize");
+
 // support query database
 exports.oneAd = () => {
     return models.nhanvien.findAll({});
@@ -16,13 +16,13 @@ exports.AllNXB = () => {
 //Lấy toàn bộ sách trong Database
 exports.getBooks = (title) => {
     var condition = '';
-    if(title){
+    if (title) {
         condition = title;
     }
     return models.sach.findAll({
-        where:{
-            tensach:{
-                [Op.like]: '%'+condition+'%',
+        where: {
+            tensach: {
+                [Op.like]: '%' + condition + '%',
             }
         }
     })
@@ -32,20 +32,27 @@ exports.getBooks = (title) => {
 //Lấy thông tin sách còn tồn trong kho
 exports.getStock = (title) => {
     var condition = '';
-    if(title){
+    if (title) {
         condition = title;
     }
     return models.tonkho.findAll({
-        include:[{
+        include: [{
             model: models.sach,
             as: "masach_sach",
-            where:{
-                tensach:{
-                    [Op.like]: '%' + condition+ '%'
+            where: {
+                tensach: {
+                    [Op.like]: '%' + condition + '%'
                 }
             }
         }]
     })
+}
+
+exports.getAdminAccount = () => {
+    return models.nhanvien.findAll({});
+}
+exports.getCustomerAccount = () => {
+    return models.khachhang.findAll({});
 }
 
 
@@ -53,12 +60,12 @@ exports.getmodels = () => {
     return models;
 }
 
-exports.isIdUnique = async (id) => {
+exports.isIdUnique = async(id) => {
     return await models.sach.count({
-        where: {
-            masach: id
-        }
-    })
+            where: {
+                masach: id
+            }
+        })
         .then(count => {
             console.log(count);
             if (count != 0) {
@@ -68,7 +75,7 @@ exports.isIdUnique = async (id) => {
         });
 }
 
-exports.genKeybook = async (Hinhthuc) => {
+exports.genKeybook = async(Hinhthuc) => {
     var s_key = Hinhthuc;
     var books = await models.sach.findAll({})
     var i = 1
@@ -93,6 +100,6 @@ exports.genKeybook = async (Hinhthuc) => {
         i++
     }
 }
-exports.getOnebook= (MSach) => {
-    return models.sach.findOne({where : {masach : MSach }})
+exports.getOnebook = (MSach) => {
+    return models.sach.findOne({ where: { masach: MSach } })
 }

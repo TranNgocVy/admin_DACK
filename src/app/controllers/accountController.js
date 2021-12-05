@@ -5,16 +5,20 @@ const {
 
 class accountController {
     //[GET]: /account-manager
-    show(req, res, next) {
+    async show(req, res, next) {
         try {
-            if(req.user){
+            if (req.user) {
+                const adminAccount = await adminservice.getAdminAccount();
+                const customerAccount = await adminservice.getCustomerAccount();
+                console.log(adminAccount);
                 res.render('account/account-manager', {
-                    title: "Book Selling"
+                    title: "Book Selling",
+                    accounts: multipleSequelizeToObject(adminAccount)
                 });
-            }else {
+            } else {
                 res.redirect("/")
             }
-        }catch (e) {
+        } catch (e) {
             next(e)
         }
 

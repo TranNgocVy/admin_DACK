@@ -45,6 +45,12 @@
         <div class="mt-4" style="text-align: center;">
           <h3>Quản lí tài khoản</h3>
         </div>
+        <nav class="nav nav-pills nav-justified">
+          <a class="nav-link active" href="/?type=admin">Active</a>
+          <a class="nav-link" href="#">Much longer nav link</a>
+          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link disabled">Disabled</a>
+        </nav>
         <div class="overflow-auto">
           <div class="book-information" data-spy="scroll">
 
@@ -59,111 +65,21 @@
                 </tr>
               </thead>
               <tbody>
+                   {{#each accounts}}
                 <tr>
-                  <th scope="col">11111</th>
-                  <th scope="col">vinhphan</th>
-                  <th scope="col">*********</th>
-                  <th scope="col">Admin</th>
+                  <th scope="col">{{this.MANV}}</th>
+                  <th scope="col">{{this.USER}}</th>
+                  <th scope="col">{{this.PASS}}</th>
+                  <th scope="col">{{this.LOAINV}}</th>
                   <th scope="col">10/11/2021</th>
                 </tr>
+                {{else}}
                 <tr>
-                  <th scope="col">11112</th>
-                  <th scope="col">phongfuuma</th>
-                  <th scope="col">*********</th>
-                  <th scope="col">Admin</th>
-                  <th scope="col">10/11/2021</th>
+                  <td colspan="5" class="text-center">
+                    Danh sách trống
+                  </td>
                 </tr>
-                <tr>
-                  <th scope="col">11113</th>
-                  <th scope="col">vytran</th>
-                  <th scope="col">*********</th>
-                  <th scope="col">Admin</th>
-                  <th scope="col">10/11/2021</th>
-                </tr>
-                <tr>
-                  <th scope="col">21111</th>
-                  <th scope="col">vinhphan123</th>
-                  <th scope="col">*********</th>
-                  <th scope="col">Staff</th>
-                  <th scope="col">10/11/2021</th>
-                </tr>
-                <tr>
-                  <th scope="col">21112</th>
-                  <th scope="col">phongfuuma123</th>
-                  <th scope="col">*********</th>
-                  <th scope="col">Staff</th>
-                  <th scope="col">10/11/2021</th>
-                </tr>
-                <tr>
-                  <th scope="col">21113</th>
-                  <th scope="col">vytran123</th>
-                  <th scope="col">*********</th>
-                  <th scope="col">Staff</th>
-                  <th scope="col">10/11/2021</th>
-                </tr>
-                <tr>
-                  <th scope="col">21111</th>
-                  <th scope="col">vinhphan123</th>
-                  <th scope="col">*********</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">10/11/2021</th>
-                </tr>
-                <tr>
-                  <th scope="col">21112</th>
-                  <th scope="col">phongfuuma123</th>
-                  <th scope="col">*********</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">10/11/2021</th>
-                </tr>
-                <tr>
-                  <th scope="col">21113</th>
-                  <th scope="col">vytran123</th>
-                  <th scope="col">*********</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">10/11/2021</th>
-                </tr>
-                <tr>
-                  <th scope="col">21111</th>
-                  <th scope="col">vinhphan123</th>
-                  <th scope="col">*********</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">10/11/2021</th>
-                </tr>
-                <tr>
-                  <th scope="col">21112</th>
-                  <th scope="col">phongfuuma123</th>
-                  <th scope="col">*********</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">10/11/2021</th>
-                </tr>
-                <tr>
-                  <th scope="col">21113</th>
-                  <th scope="col">vytran123</th>
-                  <th scope="col">*********</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">10/11/2021</th>
-                </tr>
-                <tr>
-                  <th scope="col">21111</th>
-                  <th scope="col">vinhphan123</th>
-                  <th scope="col">*********</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">10/11/2021</th>
-                </tr>
-                <tr>
-                  <th scope="col">21112</th>
-                  <th scope="col">phongfuuma123</th>
-                  <th scope="col">*********</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">10/11/2021</th>
-                </tr>
-                <tr>
-                  <th scope="col">21113</th>
-                  <th scope="col">vytran123</th>
-                  <th scope="col">*********</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">10/11/2021</th>
-                </tr>
+                {{/each}}
               </tbody>
             </table>
           </div>
