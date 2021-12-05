@@ -48,7 +48,7 @@
         <nav class="nav nav-pills nav-justified">
           <a class="nav-link active" href="/accounts/account-manager?type=admin">Admin</a>
           <a class="nav-link" href="/accounts/account-manager?type=customer">Customer</a>
-         
+
         </nav>
         <div class="overflow-auto">
           <div class="book-information" data-spy="scroll">
@@ -64,8 +64,8 @@
                 </tr>
               </thead>
               <tbody>
-                   {{#each accounts}}
-                   {{#if type}}
+                {{#each accounts}}
+                {{#if type}}
                 <tr>
                   <th scope="col">{{this.MANV}}</th>
                   <th scope="col">{{this.USER}}</th>
@@ -84,7 +84,7 @@
                 </tr>
 
                 {{/if}}
-                
+
                 {{/each}}
               </tbody>
             </table>
@@ -94,10 +94,12 @@
       <div class="col-1">
         {{#if type}}
         <div class="btn-group-vertical" style="padding-top:70px;">
-          <button type="button" class="btn btn-outline-danger">
-            <span>Thêm</span>
-            </span>
-          </button>
+          <a href="/accounts/add">
+            <button type="button" class="btn btn-outline-danger">
+              <span>Thêm</span>
+              </span>
+            </button>
+          </a>
           <button type="button" class="btn btn-outline-success">
             <span>Xóa
             </span>
