@@ -26,8 +26,6 @@ class accountController {
                 }
 
                 console.log(data);
-
-
                 // console.log(adminAccount);
                 res.render('account/account-manager', {
                     title: "Book Selling",
