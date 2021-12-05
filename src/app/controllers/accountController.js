@@ -11,11 +11,28 @@ class accountController {
         try {
             if (req.user) {
                 const adminAccount = await adminservice.getAdminAccount();
+                var type = req.query.type;
+                if (!type) {
+                    type = "admin";
+                }
+
                 const customerAccount = await adminservice.getCustomerAccount();
-                console.log(adminAccount);
+
+                var data = multipleSequelizeToObject(adminAccount);
+                var check = true;
+                if (type == "customer") {
+                    data = multipleSequelizeToObject(customerAccount);
+                    check = false;
+                }
+
+                console.log(data);
+
+
+                // console.log(adminAccount);
                 res.render('account/account-manager', {
                     title: "Book Selling",
-                    accounts: multipleSequelizeToObject(adminAccount)
+                    accounts: data,
+                    type: check
                 });
             } else {
                 res.redirect("/")
