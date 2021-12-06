@@ -1,11 +1,15 @@
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
 
-    {{!-- <h1>{{title}}</h1>
-    <p>Web bán truyện được ưa thích nhất</p> --}}
-
+    <img src="/images/logo.png" style="background:black;height:100px"/>
+    <h2 class="title">Thông tin tài khoản</h2>
     <div class="row">
-        <h2 class="title">Thông tin tài khoản</h2>
+        <div class="col-3">
+            <img src="{{user.HINHANH}}"/>
+        </div>
+        <div class="col">
+              <div class="row">
+        
 
     </div>
     <div class="row">
@@ -13,7 +17,7 @@
             <p>Họ và tên</p>
         </div>
         <div class="col-2">
-            <input class="input--style-5" type="text" name="name" value="{{user.HOTEN}}">
+            <input class="input--style-5" type="text" name="name" value="{{user.HOTEN}}" readonly="readonly">
         </div>
     </div>
     <div class="row">
@@ -21,7 +25,7 @@
             <p>Email</p>
         </div>
         <div class="col-2">
-            <input class="input--style-5" type="email" name="email" value="{{user.EMAIL}}">
+            <input class="input--style-5" type="email" name="email" value="{{user.EMAIL}}"readonly="readonly">
         </div>
     </div>
     <div class="row">
@@ -29,7 +33,7 @@
             <p>Số điện thoại</p>
         </div>
         <div class="col-2">
-            <input class="input--style-5" type="phone" name="phone" value="{{user.SDT}}">
+            <input class="input--style-5" type="phone" name="phone" value="{{user.SDT}}"readonly="readonly">
         </div>
     </div>
     <div class="row">
@@ -49,11 +53,17 @@
             <p>Địa chỉ</p>
         </div>
         <div class="col-2">
-            <input class="input--style-5" type="text" name="address" value="{{user.DIACHI}}">
+            <input class="input--style-5" type="text" name="address" value="{{user.DIACHI}}"readonly="readonly">
         </div>
     </div>
-    <button class="btn btn-primary">Lưu thông tin</button>
-
-
+    <button class="btn btn-primary" style="float: left;">Lưu thông tin</button>
+    <button class="btn btn-success" style="float: left; margin-left:30px;">Chỉnh sửa</button>
+        </div>
     </div>
+
+
+  
+
+
+
 </body>
