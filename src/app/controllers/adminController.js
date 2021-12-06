@@ -69,6 +69,7 @@ class adminController {
             next(e)
         }
     }
+    
     //[POST] : /login-handler
     loginHandler(req, res, next) {
         try{

@@ -3,21 +3,46 @@ const {
     SequelizeToObject
 } = require('../../util/sequelize')
 
-class stockController{
-    
-     //[GET]: /users/:username
-     async show(req, res, next) {
+class userController {
+
+    //[GET]: /users/:username
+    async show(req, res, next) {
         try {
-            if (!req.user){
+            if (!req.user) {
                 res.redirect('/login')
             }
+
+            const account = await adminservice.getOneAccount(req.params.username);
+            
             res.render('user/personal-page', {
-                user: req.user
+                user: SequelizeToObject(account)
             });
         } catch (e) {
             next(e)
         }
     }
+
+    //[PUT]: users/:username/edit
+    async edit(req, res, next) {
+        try {
+            if (!req.user) {
+                res.redirect('/login')
+            }
+            const account = await adminservice.getOneAccount(req.params.username);
+
+
+            account.set(req.body)
+
+            // res.send(req.body)
+
+            await account.save();
+            res.redirect('back')
+        } catch (e) {
+            next(e);
+        }
+    }
 }
 
-module.exports = new stockController
+
+
+module.exports = new userController

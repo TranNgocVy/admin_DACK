@@ -1,10 +1,11 @@
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+{{!-- <div data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
 
-    {{!-- <h1>{{title}}</h1>
-    <p>Web bán truyện được ưa thích nhất</p> --}}
+    <h1>{{title}}</h1>
+    <p>Web bán truyện được ưa thích nhất</p>
 
-    <div class="row">
+    <form action = "/users/{{user.USER}}/edit?_method=PUT"  method = "post">
+            <div class="row">
         <h2 class="title">Thông tin tài khoản</h2>
 
     </div>
@@ -13,7 +14,7 @@
             <p>Họ và tên</p>
         </div>
         <div class="col-2">
-            <input class="input--style-5" type="text" name="name" value="{{user.HOTEN}}">
+            <input class="input--style-5" type="text" name="HOTEN" value="{{user.HOTEN}}">
         </div>
     </div>
     <div class="row">
@@ -21,7 +22,7 @@
             <p>Email</p>
         </div>
         <div class="col-2">
-            <input class="input--style-5" type="email" name="email" value="{{user.EMAIL}}">
+            <input class="input--style-5" type="email" name="EMAIL" value="{{user.EMAIL}}">
         </div>
     </div>
     <div class="row">
@@ -29,7 +30,7 @@
             <p>Số điện thoại</p>
         </div>
         <div class="col-2">
-            <input class="input--style-5" type="phone" name="phone" value="{{user.SDT}}">
+            <input class="input--style-5" type="phone" name="SDT" value="{{user.SDT}}">
         </div>
     </div>
     <div class="row">
@@ -49,11 +50,119 @@
             <p>Địa chỉ</p>
         </div>
         <div class="col-2">
-            <input class="input--style-5" type="text" name="address" value="{{user.DIACHI}}">
+            <input class="input--style-5" type="text" name="DIACHI" value="{{user.DIACHI}}">
         </div>
     </div>
     <button class="btn btn-primary">Lưu thông tin</button>
 
 
     </div>
-</body>
+    </form>
+</div> --}}
+
+<div class="container">
+  <div class="row">
+    <div class="d-flex justify-content-center">
+      <div class="card" style="width:60rem;padding:10px">
+        <div class="card-header">
+          <h3>Thông tin tài khoản</h3>
+        </div>
+        <ul class="list-group list-group-flush">
+          <div class="row">
+            <div class="col-4">
+              <img src="{{user.HINHANH}}" />
+            </div>
+            <div class="col-8">
+              <form action="/users/{{user.USER}}/edit?_method=PUT" method="post">
+                <li class="list-group-item">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default" value="{{user.MANV}}">Họ tên</span>
+                    </div>
+                    <input name="HOTEN" type="text" class="form-control" aria-describedby="inputGroup-sizing-default"
+                      value="{{user.HOTEN}}" />
+
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+                    </div>
+                    <input name="EMAIL" type="email" class="form-control" aria-describedby="inputGroup-sizing-default"
+                      value="{{user.EMAIL}}" />
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="inputGroupSelect01">Giới
+                        tính</label>
+                    </div>
+                    <select class="custom-select" name="PHAI" id="inputGroupSelect01">
+                      <option value="NAM">Nam</option>
+                      <option value="NU">Nữ</option>
+                    </select>
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Số điện thoại</span>
+                    </div>
+                    <input name="SDT" type="text" class="form-control" aria-describedby="inputGroup-sizing-default"
+                      value="{{user.SDT}}" />
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Địa chỉ</span>
+                    </div>
+                    <input name="DIACHI" type="text" class="form-control" aria-describedby="inputGroup-sizing-default"
+                      value="{{user.DIACHI}}" />
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Hình ảnh</span>
+                    </div>
+                    <input name="HINHANH" type="text" class="form-control" aria-describedby="inputGroup-sizing-default"
+                      value="{{user.HINHANH}}" />
+                  </div>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Ngày sinh</span>
+                    </div>
+                    <input name="NGAYSINH" type="date" class="form-control" aria-describedby="inputGroup-sizing-default"
+                      value="{{user.NGAYSINH}}" />
+                    <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                  </div>
+
+                  {{#if errorEmpty}}
+                  <div class="mt-1 mb-1 text-center text-danger">hãy điền hết
+                    thông tin!</div>
+                  {{/if}}
+                  {{#if errorPASS}}
+                  <div class="mt-1 mb-1 text-center text-danger">
+                    mật khẩu không đúng!</div>
+                  {{/if}}
+                  {{#if errorUSER}}
+                  <div class="mt-1 mb-1 text-center text-danger">Tên đăng nhập đã
+                    tồn tại</div>
+                  {{/if}}
+
+                  <div class="d-flex justify-content-center align-items-end text-center">
+                    <button type="submit"
+                      style="background-color:#44c767;
+                    border-radius:28px;
+                    border:1px solid #18ab29;
+                    display:inline-block;
+                    cursor:pointer;color:#ffffff;font-family:Arial;font-size:17px;padding-left:20px;padding-right:20px;padding-top:10px;padding-bottom:10px;text-decoration:none;;">Lưu
+                      thay đổi
+                    </button>
+                  </div>
+                </li>
+              </form>
+            </div>
+          </div>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+</div>
