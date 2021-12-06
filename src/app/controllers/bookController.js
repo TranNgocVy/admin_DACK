@@ -120,8 +120,6 @@ class bookController {
             next(error);
         }
     }
-
-
 }
 
 module.exports = new bookController
