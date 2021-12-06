@@ -33,6 +33,7 @@
 
 /* Template default CSS
 /*----------------------------------------*/
+
 html,
 body {
     height: 100%;
@@ -2662,7 +2663,7 @@ ol {
 -----------------------*/
 
 .footer {
-    background: #F3F6FA;
+    /* background: #F3F6FA; */
     padding-top: 70px;
     padding-bottom: 0;
 }
@@ -3522,10 +3523,12 @@ ol {
         font-size: 24px;
     }
 }
-main > .container {
+
+main>.container {
     padding: 60px 15px 0;
-  }
-.user-avatar{
+}
+
+.user-avatar {
     width: 28px;
     height: 28px;
     border-radius: 50%;

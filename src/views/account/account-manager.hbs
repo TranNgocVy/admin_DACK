@@ -16,9 +16,6 @@
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"></script>
   <style>
     .flex-column {
       border-style: solid;
@@ -46,17 +43,11 @@
           <h3>Quản lí tài khoản</h3>
         </div>
         <nav class="nav nav-pills nav-justified">
-          <div class='container'>
-            <div class='row'>
-              <div class = 'col-md-3 col-md-6'>
-                <a class="nav-link active" href="/accounts/account-manager?type=admin">Admin</a>
-              </div>
-              <div class = 'col-md-3 col-md-6'>
-                <a class="nav-link" href="/accounts/account-manager?type=customer">Customer</a>
-
-              </div>
-            </div>
-          </div>
+      
+          <a class="nav-link active" href="/accounts/account-manager?type=admin" id="adminTab">Admin</a>
+          <a class="nav-link" href="/accounts/account-manager?type=customer" id="customerTab">Customer</a>
+       
+          
 
         </nav>
         <div class="overflow-auto">
@@ -73,35 +64,47 @@
                 </tr>
               </thead>
               <tbody>
+                {{#if admin}}
                 {{#each accounts}}
-                {{#if type}}
+                
                 <tr>
-                  <th scope="col">{{this.MANV}}</th>
+                  <th scope="col">{{this.MAKH}}</th>
                   <th scope="col">{{this.USER}}</th>
                   <th scope="col">{{this.EMAIL}}</th>
                   <th scope="col">ADM</th>
                   <th scope="col">10/11/2021</th>
                 </tr>
+           
+             
+                {{!-- <tr>
+                  <th scope="col">{{this.MAKH}}</th>
+                  <th scope="col">{{this.USER}}</th>
+                  <th scope="col">{{this.EMAIL}}</th>
+                  <th scope="col">CUSTOMER</th>
+                  <th scope="col">10/11/2021</th>
+                </tr> --}}
+                  {{/each}}
+                  {{else}}
 
-                {{else}}
-                <tr>
+                  {{#each accounts}}
+                  <tr>
                   <th scope="col">{{this.MAKH}}</th>
                   <th scope="col">{{this.USER}}</th>
                   <th scope="col">{{this.EMAIL}}</th>
                   <th scope="col">CUSTOMER</th>
                   <th scope="col">10/11/2021</th>
                 </tr>
-
+                {{/each}}
                 {{/if}}
 
-                {{/each}}
+               
               </tbody>
             </table>
           </div>
         </div>
       </div>
       <div class="col-1">
-        {{#if type}}
+        {{#if admin}}
         <div class="btn-group-vertical" style="padding-top:70px;">
           <a href="/accounts/add">
             <button type="button" class="btn btn-outline-danger">
@@ -123,4 +126,5 @@
       </div>
     </div>
   </div>
+  
 </body>

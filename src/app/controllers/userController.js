@@ -13,7 +13,6 @@ class userController {
             }
 
             const account = await adminservice.getOneAccount(req.params.username);
-            
             res.render('user/personal-page', {
                 user: SequelizeToObject(account)
             });
@@ -32,8 +31,6 @@ class userController {
 
 
             account.set(req.body)
-
-            // res.send(req.body)
 
             await account.save();
             res.redirect('back')
