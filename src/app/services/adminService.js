@@ -6,14 +6,13 @@ const {
 } = require("sequelize");
 
 // support query database
-exports.oneAd = () => {
-    return models.nhanvien.findAll({});
-}
+
+//Get all publisher
 exports.AllNXB = () => {
     return models.nxb.findAll({});
 }
 
-//Lấy toàn bộ sách trong Database
+// Get all books
 exports.getBooks = (title) => {
     var condition = '';
     if (title) {
@@ -29,7 +28,7 @@ exports.getBooks = (title) => {
 }
 
 
-//Lấy thông tin sách còn tồn trong kho
+//Get all books from stock
 exports.getStock = (title) => {
     var condition = '';
     if (title) {
@@ -48,18 +47,22 @@ exports.getStock = (title) => {
     })
 }
 
+// Get All admin account
 exports.getAdminAccount = () => {
     return models.nhanvien.findAll({});
 }
+
+// Get All customer account
 exports.getCustomerAccount = () => {
     return models.khachhang.findAll({});
 }
 
-
+//Get models
 exports.getmodels = () => {
     return models;
 }
 
+// Check id exists
 exports.isIdUnique = async(id) => {
     return await models.sach.count({
             where: {
@@ -75,6 +78,7 @@ exports.isIdUnique = async(id) => {
         });
 }
 
+//Automatic create book
 exports.genKeybook = async(Hinhthuc) => {
     var s_key = Hinhthuc;
     var books = await models.sach.findAll({})
@@ -100,6 +104,14 @@ exports.genKeybook = async(Hinhthuc) => {
         i++
     }
 }
+
+//Get one book
 exports.getOnebook = (MSach) => {
     return models.sach.findOne({ where: { masach: MSach } })
+}
+
+
+//Get one account
+exports.getOneAccount = (username) => {
+    return models.nhanvien.findOne({ where: { USER: username } })
 }
