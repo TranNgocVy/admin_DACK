@@ -3,7 +3,11 @@ const {
     SequelizeToObject
 } = require('../../util/sequelize')
 
+<<<<<<< HEAD
 class userController {
+=======
+class stockController {
+>>>>>>> b3616051e09a8c76a59f528b38535c3897b02883
 
     //[GET]: /users/:username
     async show(req, res, next) {
@@ -11,9 +15,13 @@ class userController {
             if (!req.user) {
                 res.redirect('/login')
             }
+<<<<<<< HEAD
 
             const account = await adminservice.getOneAccount(req.params.username);
             
+=======
+            console.log(req.user);
+>>>>>>> b3616051e09a8c76a59f528b38535c3897b02883
             res.render('user/personal-page', {
                 user: SequelizeToObject(account)
             });
