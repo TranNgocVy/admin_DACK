@@ -19,16 +19,21 @@ class accountController {
                     const customerAccount = await adminservice.getCustomerAccount();
 
                     var data = multipleSequelizeToObject(adminAccount);
-                    var check = true;
-                    if (type == "customer") {
+                    var admin = true;
+
+                    if (type != "admin") {
                         data = multipleSequelizeToObject(customerAccount);
-                        check = false;
+                        admin = false;
+
                     }
                     console.log(data);
+                    console.log(admin);
+
                     res.render('account/account-manager', {
                         title: "Book Selling",
                         accounts: data,
-                        type: check
+                        admin: admin,
+
                     });
                 } else {
                     res.redirect("/")
