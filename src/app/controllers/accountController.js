@@ -10,30 +10,26 @@ class accountController {
     async show(req, res, next) {
             try {
                 if (req.user) {
-                    const adminAccount = await adminservice.getAdminAccount();
+                    var accounts;
                     var type = req.query.type;
+                    var admin = true;
+
                     if (!type) {
                         type = "admin";
                     }
-
-                    const customerAccount = await adminservice.getCustomerAccount();
-
-                    var data = multipleSequelizeToObject(adminAccount);
-                    var admin = true;
-
-                    if (type != "admin") {
-                        data = multipleSequelizeToObject(customerAccount);
-                        admin = false;
-
+                    
+                    if(type === 'admin'){
+                        accounts = await adminservice.getAdminAccount();
                     }
-                    console.log(data);
-                    console.log(admin);
+                    else{
+                        accounts = await adminservice.getCustomerAccount();
+                        admin = false;
+                    }
 
                     res.render('account/account-manager', {
                         title: "Book Selling",
-                        accounts: data,
-                        admin: admin,
-
+                        accounts: multipleSequelizeToObject(accounts),
+                        admin,
                     });
                 } else {
                     res.redirect("/")
