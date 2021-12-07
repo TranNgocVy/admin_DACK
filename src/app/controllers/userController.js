@@ -13,6 +13,7 @@ class userController {
             }
 
             const account = await adminservice.getOneAccount(req.params.username);
+            console.log(account);
             res.render('user/personal-page', {
                 user: SequelizeToObject(account)
             });

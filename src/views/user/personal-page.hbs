@@ -65,6 +65,7 @@
                   class="custom-select"
                   name="PHAI"
                   id="inputGroupSelect01"
+                  
                 >
                   <option value="NAM">Nam</option>
                   <option value="NU">Nữ</option>
@@ -175,3 +176,8 @@
     </div>
   </div>
 </div>
+<script>
+  var sexEl=document.getElementById("inputGroupSelect01");
+  console.log(sexEl); 
+  sexEl.value="{{user.PHAI}}";
+</script>
