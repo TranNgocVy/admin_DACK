@@ -1,10 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const multer = require('multer');
+const accountController = require('../app/controllers/accountController');
+const upload = multer({storage: multer.memoryStorage()})
 
-const accountController = require("../app/controllers/accountController");
+router.get('/account-manager', accountController.show);
+router.get('/add', accountController.add);
+router.post('/add',upload.single('file'), accountController.adding);
 
-router.get('/account-manager', accountController.show)
-router.get('/add', accountController.add)
-router.post('/add', accountController.adding)
-
-module.exports = router
+module.exports = router;
