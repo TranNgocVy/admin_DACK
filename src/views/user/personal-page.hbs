@@ -39,67 +39,86 @@
                       value="{{user.HOTEN}}"
                     />
 
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span
-                        class="input-group-text"
-                        id="inputGroup-sizing-default"
-                      >Email</span>
-                    </div>
-                    <input
-                      name="EMAIL"
-                      type="email"
-                      class="form-control"
-                      aria-describedby="inputGroup-sizing-default"
-                      value="{{user.EMAIL}}"
-                    />
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <label
-                        class="input-group-text"
-                        for="inputGroupSelect01"
-                      >Giới tính</label>
-                    </div>
-                    <select
-                      class="custom-select"
-                      name="PHAI"
-                      id="inputGroupSelect01">
-                      <option value="NAM">Nam</option>
-                      <option value="NU">Nữ</option>
-                    </select>
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span
-                        class="input-group-text"
-                        id="inputGroup-sizing-default"
-                      >Số điện thoại</span>
-                    </div>
-                    <input
-                      name="SDT"
-                      type="text"
-                      class="form-control"
-                      aria-describedby="inputGroup-sizing-default"
-                      value="{{user.SDT}}"
-                    />
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span
-                        class="input-group-text"
-                        id="inputGroup-sizing-default"
-                      >Địa chỉ</span>
-                    </div>
-                    <input
-                      name="DIACHI"
-                      type="text"
-                      class="form-control"
-                      aria-describedby="inputGroup-sizing-default"
-                      value="{{user.DIACHI}}"
-                    />
-                  </div>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span
+                    class="input-group-text"
+                    id="inputGroup-sizing-default"
+                  >Email</span>
+                </div>
+                <input
+                  name="EMAIL"
+                  type="email"
+                  class="form-control"
+                  
+                  aria-describedby="inputGroup-sizing-default"
+                  value="{{user.EMAIL}}"
+                />
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">Giới
+                    tính</label>
+                </div>
+                <select
+                  class="custom-select"
+                  name="PHAI"
+                  id="inputGroupSelect01"
+                  
+                >
+                  <option value="NAM">Nam</option>
+                  <option value="NU">Nữ</option>
+                </select>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span
+                    class="input-group-text"
+                    id="inputGroup-sizing-default"
+                  >Số điện thoại</span>
+                </div>
+                <input
+                  name="SDT"
+                  type="text"
+                  class="form-control"
+                  
+                  aria-describedby="inputGroup-sizing-default"
+                  value="{{user.SDT}}"
+                />
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span
+                    class="input-group-text"
+                    id="inputGroup-sizing-default"
+                  >Địa chỉ</span>
+                </div>
+                <input
+                  name="DIACHI"
+                  type="text"
+                  class="form-control"
+                 
+                  aria-describedby="inputGroup-sizing-default"
+                  value="{{user.DIACHI}}"
+                />
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span
+                    class="input-group-text"
+                    id="inputGroup-sizing-default"
+                  >Hình ảnh</span>
+                </div>
+                <input
+                  name="HINHANH"
+                  type="text"
+                  class="form-control"
+                  
+                  aria-describedby="inputGroup-sizing-default"
+                  value="{{user.HINHANH}}"
+                />
+              </div>
 
 
                   <div class="input-group mb-3">
@@ -173,3 +192,8 @@
     </div>
   </div>
 </div>
+<script>
+  var sexEl=document.getElementById("inputGroupSelect01");
+  console.log(sexEl); 
+  sexEl.value="{{user.PHAI}}";
+</script>
