@@ -15,7 +15,6 @@ class accountController {
         if (!type) {
           type = 'admin';
         }
-
         if (type === 'admin') {
           accounts = await adminservice.getAdminAccount();
         } else {

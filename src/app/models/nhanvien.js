@@ -55,10 +55,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true
     },
-    ATDELETED: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
     ATCREATED: {
       type: DataTypes.DATE,
       allowNull: true
@@ -72,6 +68,7 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'nhanvien',
     hasTrigger: true,
     timestamps: false,
+    paranoid: true,
     indexes: [
       {
         name: "PRIMARY",

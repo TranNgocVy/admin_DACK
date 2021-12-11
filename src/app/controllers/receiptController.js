@@ -7,10 +7,12 @@ class receiptController {
     try {
       if (!req.user) {
         res.redirect('/login');
+      }else{
+        res.render('receipt/receipt-manager', {
+          title: 'Book Selling',
+        });
       }
-      res.render('receipt/receipt-manager', {
-        title: 'Book Selling',
-      });
+      
     } catch (e) {
       next(e);
     }
@@ -21,10 +23,12 @@ class receiptController {
     try {
       if (!req.user) {
         res.redirect('/login');
+      }else{
+        res.render('receipt/receipt-detail', {
+          title: 'Book Selling',
+        });
       }
-      res.render('receipt/receipt-detail', {
-        title: 'Book Selling',
-      });
+      
     } catch (e) {
       next(e);
     }

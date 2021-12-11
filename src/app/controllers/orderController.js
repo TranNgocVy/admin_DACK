@@ -22,10 +22,12 @@ class orderController {
     try {
       if (!req.user) {
         res.redirect('/login');
+      }else{
+        res.render('order/order-detail', {
+          title: 'Book Selling',
+        });
       }
-      res.render('order/order-detail', {
-        title: 'Book Selling',
-      });
+      
     } catch (e) {
       next(e);
     }
@@ -35,10 +37,12 @@ class orderController {
     try {
       if (!req.user) {
         res.redirect('/login');
+      }else{
+        res.render('order/input-order', {
+          title: 'Book Selling',
+        });
       }
-      res.render('order/input-order', {
-        title: 'Book Selling',
-      });
+      
     } catch (e) {
       next(e);
     }

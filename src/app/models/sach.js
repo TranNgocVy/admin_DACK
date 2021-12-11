@@ -50,10 +50,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true
     },
-    ATDELETED: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
     IDHINHANH: {
       type: DataTypes.STRING(100),
       allowNull: true
@@ -63,6 +59,7 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'sach',
     hasTrigger: true,
     timestamps: false,
+    paranoid: true,
     indexes: [
       {
         name: "PRIMARY",
