@@ -15,171 +15,90 @@
         <ul class="list-group list-group-flush">
           <div class="row">
             <div class="col-4">
-              <img src="{{user.HINHANH}}" />
+              <img src="{{user.HINHANH}}" alt="{{user.IDHINHANH}}" />
+              <input type="file" class="mt-auto mb-auto ml-2" name="file">
             </div>
             <div class="col-8">
-              <form
-                action="/users/{{user.USER}}/edit?_method=put"
-                method="post"
-              >
+              <form action="/users/{{user.USER}}/edit?_method=put" method="post">
                 <li class="list-group-item">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span
-                        class="input-group-text"
-                        id="inputGroup-sizing-default"
-                        value="{{user.MANV}}"
-                      >Họ tên</span>
+                      <span class="input-group-text" id="inputGroup-sizing-default" value="{{user.MANV}}">Họ tên</span>
                     </div>
-                    <input
-                      name="HOTEN"
-                      type="text"
-                      class="form-control"
-                      aria-describedby="inputGroup-sizing-default"
-                      value="{{user.HOTEN}}"
-                    />
+                    <input name="HOTEN" type="text" class="form-control" aria-describedby="inputGroup-sizing-default"
+                      value="{{user.HOTEN}}" />
 
-              </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span
-                    class="input-group-text"
-                    id="inputGroup-sizing-default"
-                  >Email</span>
-                </div>
-                <input
-                  name="EMAIL"
-                  type="email"
-                  class="form-control"
-                  
-                  aria-describedby="inputGroup-sizing-default"
-                  value="{{user.EMAIL}}"
-                />
-              </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="inputGroupSelect01">Giới
-                    tính</label>
-                </div>
-                <select
-                  class="custom-select"
-                  name="PHAI"
-                  id="inputGroupSelect01"
-                  
-                >
-                  <option value="NAM">Nam</option>
-                  <option value="NU">Nữ</option>
-                </select>
-              </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span
-                    class="input-group-text"
-                    id="inputGroup-sizing-default"
-                  >Số điện thoại</span>
-                </div>
-                <input
-                  name="SDT"
-                  type="text"
-                  class="form-control"
-                  
-                  aria-describedby="inputGroup-sizing-default"
-                  value="{{user.SDT}}"
-                />
-              </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span
-                    class="input-group-text"
-                    id="inputGroup-sizing-default"
-                  >Địa chỉ</span>
-                </div>
-                <input
-                  name="DIACHI"
-                  type="text"
-                  class="form-control"
-                 
-                  aria-describedby="inputGroup-sizing-default"
-                  value="{{user.DIACHI}}"
-                />
-              </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span
-                    class="input-group-text"
-                    id="inputGroup-sizing-default"
-                  >Hình ảnh</span>
-                </div>
-                <input
-                  name="HINHANH"
-                  type="text"
-                  class="form-control"
-                  
-                  aria-describedby="inputGroup-sizing-default"
-                  value="{{user.HINHANH}}"
-                />
-              </div>
-
-
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span
-                        class="input-group-text"
-                        id="inputGroup-sizing-default"
-                      >Hình ảnh</span>
-                    </div>
-                    <input
-                      name="HINHANH"
-                      type="text"
-                      class="form-control"
-                      aria-describedby="inputGroup-sizing-default"
-                      value="{{user.HINHANH}}"
-                    />
                   </div>
-
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span
-                        class="input-group-text"
-                        id="inputGroup-sizing-default"
-                      >Ngày sinh</span>
+                      <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
                     </div>
-                    <input
-                      name="NGAYSINH"
-                      type="date"
-                      class="form-control"
-                      aria-describedby="inputGroup-sizing-default"
-                      value="{{user.NGAYSINH}}"
-                    />
+                    <input name="EMAIL" type="email" class="form-control" aria-describedby="inputGroup-sizing-default"
+                      value="{{user.EMAIL}}" />
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="inputGroupSelect01">Giới
+                        tính</label>
+                    </div>
+                    <select class="custom-select" name="PHAI" id="inputGroupSelect01">
+                      <option value="NAM">Nam</option>
+                      <option value="NU">Nữ</option>
+                    </select>
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Số điện thoại</span>
+                    </div>
+                    <input name="SDT" type="text" class="form-control" aria-describedby="inputGroup-sizing-default"
+                      value="{{user.SDT}}" />
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Địa chỉ</span>
+                    </div>
+                    <input name="DIACHI" type="text" class="form-control" aria-describedby="inputGroup-sizing-default"
+                      value="{{user.DIACHI}}" />
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Hình ảnh</span>
+                    </div>
+                    <input name="HINHANH" type="text" class="form-control" aria-describedby="inputGroup-sizing-default"
+                      value="{{user.HINHANH}}" />
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Ngày sinh</span>
+                    </div>
+                    <input name="NGAYSINH" type="date" class="form-control" aria-describedby="inputGroup-sizing-default"
+                      value="{{user.NGAYSINH}}" />
                     <span class="input-group-addon">
                       <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                   </div>
 
                   {{#if errorEmpty}}
-                    <div class="mt-1 mb-1 text-center text-danger">hãy điền hết
-                      thông tin!</div>
+                  <div class="mt-1 mb-1 text-center text-danger">hãy điền hết
+                    thông tin!</div>
                   {{/if}}
                   {{#if errorPASS}}
-                    <div class="mt-1 mb-1 text-center text-danger">
-                      mật khẩu không đúng!</div>
+                  <div class="mt-1 mb-1 text-center text-danger">
+                    mật khẩu không đúng!</div>
                   {{/if}}
                   {{#if errorUSER}}
-                    <div class="mt-1 mb-1 text-center text-danger">Tên đăng nhập
-                      đã tồn tại</div>
+                  <div class="mt-1 mb-1 text-center text-danger">Tên đăng nhập
+                    đã tồn tại</div>
                   {{/if}}
 
-                  <div
-                    class="d-flex justify-content-center align-items-end text-center"
-                  >
-                    <button
-                      type="submit"
+                  <div class="d-flex justify-content-center align-items-end text-center">
+                    <button type="submit"
                       style="background-color:#44c767;
                     border-radius:28px;
                     border:1px solid #18ab29;
                     display:inline-block;
-                    cursor:pointer;color:#ffffff;font-family:Arial;font-size:17px;padding-left:20px;padding-right:20px;padding-top:10px;padding-bottom:10px;text-decoration:none;;"
-                    >Lưu thay đổi
+                    cursor:pointer;color:#ffffff;font-family:Arial;font-size:17px;padding-left:20px;padding-right:20px;padding-top:10px;padding-bottom:10px;text-decoration:none;;">Lưu
+                      thay đổi
                     </button>
                   </div>
                 </li>
@@ -193,7 +112,7 @@
   </div>
 </div>
 <script>
-  var sexEl=document.getElementById("inputGroupSelect01");
-  console.log(sexEl); 
-  sexEl.value="{{user.PHAI}}";
+  var sexEl = document.getElementById("inputGroupSelect01");
+  console.log(sexEl);
+  sexEl.value = "{{user.PHAI}}";
 </script>

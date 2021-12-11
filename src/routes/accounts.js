@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
+
 const accountController = require('../app/controllers/accountController');
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = require('../config/uploadIMG/multer') ;
 
 router.get('/account-manager', accountController.show);
 router.get('/add', accountController.add);

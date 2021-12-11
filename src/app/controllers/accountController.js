@@ -2,7 +2,7 @@ const adminservice = require('../services/adminService');
 const authservice = require('../services/authService');
 const passport = require('../../config/auth/passport');
 const { multipleSequelizeToObject } = require('../../util/sequelize');
-
+const cloudImage = require('../../config/uploadIMG/cloudinary');
 class accountController {
   //[GET]: accounts/account-manager
   async show(req, res, next) {
@@ -56,19 +56,12 @@ class accountController {
   async adding(req, res, next) {
     try {
       if (req.user) {
-        // if(!req.file){
-        //   req.body.HINHANH = null;
-        // }else{
-        //   req.body.HINHANH = await authservice.processUpload(req.file,req.body.MANV)
-        //   const h = await authservice.getImg(req.body.HINHANH)
-        //   res.send(req.body.HINHANH + " " + h)
-        // }
+        
         if (
           req.body.HOTEN === '' ||
           req.body.USER === '' ||
           req.body.EMAIL === '' ||
           req.body.PHAI === '' ||
-          req.body.HINHANH === '' ||
           req.body.NGAYSINH === '' ||
           req.body.SDT === '' ||
           req.body.PASS === '' ||
@@ -91,7 +84,12 @@ class accountController {
         }
         req.body.MANV = await authservice.genIDNV();
         req.body.PASS = await authservice.hashPassword(req.body.PASS);
-
+        if(req.file){
+          var path = "img/adminImg/"+req.body.MANV+"/"
+          var result = await cloudImage.uploadIMG(req.file.path,path);
+          req.body.HINHANH = result.secure_url
+          req.body.IDHINHANH = result.public_id
+        }
         var Nhanvien = await authservice.getAdmin().create({
           MANV: req.body.MANV,
           HOTEN: req.body.HOTEN,
@@ -100,6 +98,7 @@ class accountController {
           PHAI: req.body.PHAI,
           NGAYSINH: req.body.NGAYSINH,
           HINHANH: req.body.HINHANH,
+          IDHINHANH: req.body.IDHINHANH,
           EMAIL: req.body.EMAIL,
           SDT: req.body.SDT,
           DIACHI: req.body.DIACHI,
