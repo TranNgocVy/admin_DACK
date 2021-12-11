@@ -9,13 +9,12 @@ class stockController {
     try {
       if (!req.user) {
         res.redirect('/login');
-      }else{
+      } else {
         const books = await adminservice.getStock(title);
         res.render('stock/stock-manager', {
-        books: multipleSequelizeToObject(books),
-      });
+          books: multipleSequelizeToObject(books),
+        });
       }
-      
     } catch (e) {
       next(e);
     }

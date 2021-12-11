@@ -7,14 +7,12 @@ class userController {
     try {
       if (!req.user) {
         res.redirect('/login');
-      }else{
+      } else {
         const account = await adminservice.getOneAccount(req.params.username);
         res.render('user/personal-page', {
-        user: SequelizeToObject(account),
-      });
+          user: SequelizeToObject(account),
+        });
       }
-
-      
     } catch (e) {
       next(e);
     }
@@ -25,14 +23,12 @@ class userController {
     try {
       if (!req.user) {
         res.redirect('/login');
-        
-      }else{
+      } else {
         const account = await adminservice.getOneAccount(req.params.username);
         account.set(req.body);
         await account.save();
         res.redirect('back');
       }
-      
     } catch (e) {
       next(e);
     }

@@ -33,7 +33,7 @@ class adminController {
   async login(req, res, next) {
     try {
       if (!req.user) {
-          res.render('login', {
+        res.render('login', {
           title: 'Book Selling',
           invalidlogin: req.query.invalidlogin,
         });

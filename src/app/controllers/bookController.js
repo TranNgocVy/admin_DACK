@@ -10,10 +10,10 @@ class bookController {
     try {
       if (!req.user) {
         res.redirect('/login');
-      }else{
-        const book = await bookservice.updateBook(req)
+      } else {
+        const book = await bookservice.updateBook(req);
         res.redirect('/books/book-manager');
-      }  
+      }
     } catch (e) {
       next(e);
     }
@@ -23,7 +23,7 @@ class bookController {
     try {
       if (!req.user) {
         res.redirect('/login');
-      }else{
+      } else {
         const book = await bookservice.getOnebook(req.params.id);
         const NXB = await bookservice.AllNXB();
         res.render('book/edit', {
@@ -41,33 +41,33 @@ class bookController {
     try {
       if (!req.user) {
         res.redirect('/login');
-      }else{
-        const error = req.query.namebookerro
+      } else {
+        const error = req.query.namebookerro;
         const cate = await bookservice.getmodels().theloai.findAll();
         const NXB = await bookservice.AllNXB();
         res.render('book/newbook', {
           NXB: multipleSequelizeToObject(NXB),
           Theloai: multipleSequelizeToObject(cate),
-          error
+          error,
         });
       }
     } catch (e) {
       next(e);
     }
   }
-  
+
   //[GET] : /books/book-manager
   async show(req, res, next) {
     const title = req.query.title;
     try {
       if (!req.user) {
-        res.redirect('/login'); 
-      }else{
+        res.redirect('/login');
+      } else {
         const books = await bookservice.getBooks(title);
         res.render('book/book-manager', {
-        books: multipleSequelizeToObject(books),
-      });
-      }    
+          books: multipleSequelizeToObject(books),
+        });
+      }
     } catch (e) {
       next(e);
     }
@@ -78,19 +78,21 @@ class bookController {
     try {
       if (!req.user) {
         res.redirect('/login');
-      }else{
-      if(req.body.tensach == "" || 
-          req.body.tacgia ==""||
-          req.body.manxb == "" ||
-          req.body.ngayXB == ""){
-          res.redirect('/books/input-new-book?namebookerro=true')
-          }else{
-            req.body.masach = await bookservice.genKeybook(req.body.hinhthuc);
-           // insert book to db
-            await bookservice.createBook(req)
-            //back to book-manager
-            res.redirect('/books/book-manager');    
-          }
+      } else {
+        if (
+          req.body.tensach == '' ||
+          req.body.tacgia == '' ||
+          req.body.manxb == '' ||
+          req.body.ngayXB == ''
+        ) {
+          res.redirect('/books/input-new-book?namebookerro=true');
+        } else {
+          req.body.masach = await bookservice.genKeybook(req.body.hinhthuc);
+          // insert book to db
+          await bookservice.createBook(req);
+          //back to book-manager
+          res.redirect('/books/book-manager');
+        }
       }
     } catch (e) {
       next(e);
@@ -102,8 +104,8 @@ class bookController {
     try {
       if (!req.user) {
         res.redirect('/login');
-      }else{
-        await bookservice.DeleteBook(req)
+      } else {
+        await bookservice.DeleteBook(req);
         res.redirect('/books/book-manager');
       }
     } catch (error) {

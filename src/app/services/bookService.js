@@ -103,7 +103,7 @@ exports.getOneAccount = (username) => {
 };
 //create book
 exports.createBook = async (req) => {
-    const book = await models.sach.create({
+  const book = await models.sach.create({
     masach: req.body.masach,
     tensach: req.body.tensach,
     tacgia: req.body.tacgia,
@@ -113,26 +113,25 @@ exports.createBook = async (req) => {
     ngayXB: req.body.ngayXB,
     gia: req.body.gia,
     SL: 0,
-    });
-    if(req.body.category){
-      req.body.category.forEach(async (element) => {
-        await models.theloaicuasach.create({
-          masach: req.body.masach,
-          maTL: element,
-        });
+  });
+  if (req.body.category) {
+    req.body.category.forEach(async (element) => {
+      await models.theloaicuasach.create({
+        masach: req.body.masach,
+        maTL: element,
       });
-    }
-    return true
-}
-//delete book 
-exports.DeleteBook = async (req) =>{
-      const book = await models.sach.findOne({ where: { masach: req.params.id } });
-      return  await book.destroy();
-}
+    });
+  }
+  return true;
+};
+//delete book
+exports.DeleteBook = async (req) => {
+  return await models.sach.destroy({ where: { masach: req.params.id } });
+};
 //update book
-exports.updateBook = async (req) =>{
-  const book = await models.sach.findOne({ where: { masach: req.params.id }});
+exports.updateBook = async (req) => {
+  const book = await models.sach.findOne({ where: { masach: req.params.id } });
   req.body.ATUPDATED = Date.now();
   book.set(req.body);
   await book.save();
-}
+};

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const accountController = require('../app/controllers/accountController');
-const upload = require('../config/uploadIMG/multer') ;
+const upload = require('../config/uploadIMG/multer');
 
 router.get('/account-manager', accountController.show);
 router.get('/add', accountController.add);

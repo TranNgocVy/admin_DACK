@@ -55,7 +55,6 @@ class accountController {
   async adding(req, res, next) {
     try {
       if (req.user) {
-        
         if (
           req.body.HOTEN === '' ||
           req.body.USER === '' ||
@@ -83,11 +82,11 @@ class accountController {
         }
         req.body.MANV = await authservice.genIDNV();
         req.body.PASS = await authservice.hashPassword(req.body.PASS);
-        if(req.file){
-          var path = "img/adminImg/"+req.body.MANV+"/"
-          var result = await cloudImage.uploadIMG(req.file.path,path);
-          req.body.HINHANH = result.secure_url
-          req.body.IDHINHANH = result.public_id
+        if (req.file) {
+          var path = 'img/adminImg/' + req.body.MANV + '/';
+          var result = await cloudImage.uploadIMG(req.file.path, path);
+          req.body.HINHANH = result.secure_url;
+          req.body.IDHINHANH = result.public_id;
         }
         var Nhanvien = await authservice.getAdmin().create({
           MANV: req.body.MANV,
