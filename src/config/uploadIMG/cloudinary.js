@@ -6,17 +6,10 @@ cloudinary.config({
 });
 
 exports.uploadIMG = (file, path) => {
+  const today = new Date(Date.now())
   return cloudinary.v2.uploader.upload(file, {
     folder: path,
+    filename: today.toUTCString(),
   });
 };
 
-exports.updateIMG = async (file, IMG_ID, path) => {
-  await cloudinary.v2.uploader.destroy(IMG_ID);
-  return cloudinary.v2.uploader.upload(file, {
-    folder: path,
-  });
-};
-exports.deleteIMG = async (IMG_ID) => {
-  await cloudinary.v2.uploader.destroy(IMG_ID);
-};

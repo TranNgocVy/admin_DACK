@@ -4,7 +4,7 @@
     {{#if error}}
             <div class="mt-1 mb-1 text-center text-danger">hãy điền tên sách và tác giả !</div>
     {{/if}}
-    <form method="post" action="/books/book-manager">
+    <form method="post" action="/books/book-manager" enctype="multipart/form-data" >
         <div class="form-group mt-3">
             <label for="name">Tên truyện</label>
             <input type="text" class="form-control" id="name" name="tensach" placeholder="Nhập tên truyện">
@@ -36,10 +36,15 @@
                 </div>
             </div>
         </div>
-        <div class="form-group mt-3">
-            <label for="videoId">Link ảnh</label>
-            <input type="text" class="form-control" id="Images" name="HINHANH" placeholder="Nhập link hình ảnh">
+        <div class="input-group mb-3">
+               <div class="input-group-prepend">
+                  <span
+                    class="input-group-text"
+                    id="inputGroup-sizing-default"> Hình ảnh </span>
+                </div>
+                <input type="file" class="mt-auto mb-auto ml-2" name="file">
         </div>
+    
         <div class="form-group mt-3">
             <label for="NXB">Nhà xuất bản</label>
             <select class="form-control" id="NXB" name="manxb">

@@ -1,6 +1,6 @@
 const { models } = require('../../config/db');
 const { Op } = require('sequelize');
-
+const cloudImage = require('../../config/uploadIMG/cloudinary')
 // support query database
 
 //Get all publisher
@@ -58,7 +58,6 @@ exports.isIdUnique = async (id) => {
       },
     })
     .then((count) => {
-      console.log(count);
       if (count != 0) {
         return false;
       } else return true;
@@ -91,28 +90,31 @@ exports.genKeybook = async (Hinhthuc) => {
     i++;
   }
 };
-
 //Get one book
 exports.getOnebook = (MSach) => {
   return models.sach.findOne({ where: { masach: MSach } });
 };
 
-//Get one account
-exports.getOneAccount = (username) => {
-  return models.nhanvien.findOne({ where: { USER: username } });
-};
 //create book
 exports.createBook = async (req) => {
+  req.body.HINHANH = ""
+  if (req.file) {
+    var path = 'img/books/' + req.body.masach + '/';
+    var result = await cloudImage.uploadIMG(req.file.path, path);
+    req.body.HINHANH = result.secure_url;
+    req.body.IDHINHANH = result.public_id;
+  }
   const book = await models.sach.create({
     masach: req.body.masach,
     tensach: req.body.tensach,
     tacgia: req.body.tacgia,
     MOTA: req.body.MOTA,
-    HINHANH: req.body.HINHANH,
     manxb: req.body.manxb,
     ngayXB: req.body.ngayXB,
     gia: req.body.gia,
     SL: 0,
+    HINHANH : req.body.HINHANH,
+    IDHINHANH: req.body.IDHINHANH,
   });
   if (req.body.category) {
     req.body.category.forEach(async (element) => {
@@ -131,7 +133,12 @@ exports.DeleteBook = async (req) => {
 //update book
 exports.updateBook = async (req) => {
   const book = await models.sach.findOne({ where: { masach: req.params.id } });
-  req.body.ATUPDATED = Date.now();
+  if (req.file) {
+    var path = 'img/books/' + book.masach ;
+    var result = await cloudImage.uploadIMG(req.file.path, path);
+    req.body.HINHANH = result.secure_url;
+    req.body.IDHINHANH = result.public_id;
+  }
   book.set(req.body);
   await book.save();
 };
@@ -167,6 +174,10 @@ exports.restorebook = async (req) => {
 };
 //delete book force
 exports.deletBookForce = async (req) => {
+  const book = await models.sach.findOne({ where: { masach: req.params.id } });
+  if(book.IDHINHANH){
+    result = await cloudImage.deleteIMG(book.IDHINHANH);
+  }
   return await models.sach.destroy({
     where: {
       masach: req.params.id,
