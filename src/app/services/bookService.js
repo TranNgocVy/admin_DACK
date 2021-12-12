@@ -136,39 +136,41 @@ exports.updateBook = async (req) => {
   await book.save();
 };
 // count delete book
-exports.countDeleteBook = async () =>{
+exports.countDeleteBook = async () => {
   return await models.sach.count({
     where: {
-      deletedAt:{
-        [Op.ne] : null
-    }},
-    paranoid: false
-  })
-}
+      deletedAt: {
+        [Op.ne]: null,
+      },
+    },
+    paranoid: false,
+  });
+};
 //get list deleted from
-exports.getlistdeletedBook= async() => {
+exports.getlistdeletedBook = async () => {
   return await models.sach.findAll({
     where: {
-      deletedAt:{
-        [Op.ne] : null
-    }},
-    paranoid: false
-  })
-}
+      deletedAt: {
+        [Op.ne]: null,
+      },
+    },
+    paranoid: false,
+  });
+};
 //restore book from trash
 exports.restorebook = async (req) => {
-    return await models.sach.restore({
-      where: {
-        masach : req.params.id
-      }
-    })
-}
+  return await models.sach.restore({
+    where: {
+      masach: req.params.id,
+    },
+  });
+};
 //delete book force
 exports.deletBookForce = async (req) => {
   return await models.sach.destroy({
     where: {
-      masach : req.params.id
+      masach: req.params.id,
     },
-    force:true,
-  })
-}
+    force: true,
+  });
+};
