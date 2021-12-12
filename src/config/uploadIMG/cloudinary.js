@@ -12,4 +12,7 @@ exports.uploadIMG = (file, path) => {
     filename: today.toUTCString(),
   });
 };
+exports.deleteIMG = async (path) => {
+  return await cloudinary.v2.uploader.destroy(path,{resource_type: 'image'});
+}
 

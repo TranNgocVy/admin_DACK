@@ -132,9 +132,12 @@ exports.DeleteBook = async (req) => {
 };
 //update book
 exports.updateBook = async (req) => {
-  const book = await models.sach.findOne({ where: { masach: req.params.id } });
+  var book = await models.sach.findOne({ where: { masach: req.params.id } });
   if (req.file) {
     var path = 'img/books/' + book.masach ;
+    if(book.IDHINHANH){
+      await cloudImage.deleteIMG(book.IDHINHANH)
+    }
     var result = await cloudImage.uploadIMG(req.file.path, path);
     req.body.HINHANH = result.secure_url;
     req.body.IDHINHANH = result.public_id;
@@ -174,10 +177,9 @@ exports.restorebook = async (req) => {
 };
 //delete book force
 exports.deletBookForce = async (req) => {
-  const book = await models.sach.findOne({ where: { masach: req.params.id } });
-  if(book.IDHINHANH){
-    result = await cloudImage.deleteIMG(book.IDHINHANH);
-  }
+  var book = await models.sach.findOne({ where: { masach: req.params.id },paranoid: false });
+  var path = 'img/books/' + book.masach + '';
+  result = await cloudImage.deleteIMG(book.IDHINHANH);
   return await models.sach.destroy({
     where: {
       masach: req.params.id,
