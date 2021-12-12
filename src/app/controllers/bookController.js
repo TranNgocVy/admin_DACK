@@ -64,8 +64,10 @@ class bookController {
         res.redirect('/login');
       } else {
         const books = await bookservice.getBooks(title);
+        const count = await bookservice.countDeleteBook()
         res.render('book/book-manager', {
           books: multipleSequelizeToObject(books),
+          count
         });
       }
     } catch (e) {
@@ -112,6 +114,50 @@ class bookController {
       next(error);
     }
   }
+  //[GET]: /books/book-manager-trash
+  async showTrash(req, res, next) {
+    try {
+      if(req.user){
+        var books = await bookservice.getlistdeletedBook()
+        res.render('book/book-manager-trash',{
+          books: multipleSequelizeToObject(books)
+        })
+      }else{
+        res.redirect('/')
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+  
+  //[DELETE]: /books/save/:id/delete
+  async deleteTrash(req, res, next) {
+    try {
+      if(req.user){
+        await bookservice.deletBookForce(req);
+        res.redirect('/books/book-manager-trash');
+      }else{
+        res.redirect('/')
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+  
+  //[PATH]: /books/save/:id/restore
+  async restoreTrash(req, res, next) {
+    try {
+      if(req.user){
+        await bookservice.restorebook(req);
+        res.redirect('/books/book-manager-trash');
+      }else{
+        res.redirect('/')
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+
 }
 
 module.exports = new bookController();

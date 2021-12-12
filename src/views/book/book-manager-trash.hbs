@@ -43,7 +43,7 @@
       <div class="col">
         <div class="mt-4">
           <div class="text-center">
-            <H3>Danh sách truyện</H3>
+            <H3>Thùng rác</H3>
           </div>
 
           <form action="?title=" class="form-inline my-2 my-lg-0 mt-5">
@@ -51,21 +51,10 @@
               name="title" />
             <button class="-outline-success my-2 my-sm-0" type="submit">Tìm</button>
           </form>
-
+          <a href="/books/book-manager" class="mt-3 btn btn-link alert-danger">Quay lại</a>
           <!-- Thêm dùm link đến đơn nhập hàng -->
-          <div class="float-right md-4">
-            <a href="/books/input-new-book" class="-link">
-              Thêm truyện
-              <i class="ml-2 fas fa-book-medical"></i>
-            </a>
-          </div>
-          <div class="float-right md-4 mr-4">
-            <a href="/books/book-manager-trash" class="-link">
-              Thùng rác({{count}})
-              <i class="ml-2 fas fa-recycle"></i>
-            </a>
-          </div>
-          <br/>
+          
+          <br />
           <div>
             <table class="table table-striped mt-4">
               <thead>
@@ -93,9 +82,9 @@
                   <td>{{this.ngayXB}}</td>
                   <td>{{this.gia}}</td>
                   <td>
-                    <a href="/books/{{this.masach}}/edit" class="btn-link mr-1 mt-1 mb-1"><i class="fas fa-cog"></i></a>
+                    <a href="" class="btn-restore btn-link mr-1 mt-1 mb-1"><i class="fas fa-trash-restore-alt" data-masach="{{this.masach}}" style="color:green" ></i></a>
                     <a href="" class="btn-link mr-1 mt-1 mb-1" data-bs-toggle="modal" data-idbook="{{this.masach}}"
-                      data-bs-target="#delete-book-modals"><i class="fas fa-trash"></i></a>
+                      data-bs-target="#delete-book-modals"><i class="fas fa-times" style="color:red"></i></a>
                   </td>
                 </tr>
                 {{else}}
@@ -116,6 +105,7 @@
 </body>
 {{!-- FORM DELETE --}}
 <form name="form-delete-books" method="post"></form>
+<form name="form-restore-books" method="post"></form>
 
 <!-- Modal delete -->
 <div class="modal fade" id="delete-book-modals" tabindex="-1" aria-labelledby="delete-book-modals-Label" aria-hidden="true">
@@ -126,7 +116,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Bạn có thật sự muốn xóa ?
+        Bạn có thật sự muốn xóa viễn vĩnh môn học này ?
       </div>   
       <div class="modal-footer">
         <button type="button" id="btn-delete-book" class="btn btn-primary btn-danger">Xóa bỏ</button>
@@ -139,6 +129,7 @@
 {{! script }}
 <script>
   var deleteForm = document.forms['form-delete-books']
+  var restoreForm = document.forms['form-restore-books']
   var DeleteModel = document.getElementById('delete-book-modals')
   var maSach ;
   DeleteModel.addEventListener('show.bs.modal', function (event) { 
@@ -146,9 +137,19 @@
     maSach = button.getAttribute('data-idbook')
   })
   var btnDelete = document.getElementById('btn-delete-book')
+  var btnRestores = Array.from(document.getElementsByClassName('btn-restore')) 
   btnDelete.onclick = function(){
-    deleteForm.action = '/books/save/' + maSach +'?_method=DELETE';
+    deleteForm.action = '/books/save/' + maSach +'/delete?_method=DELETE';
     deleteForm.submit();
   }
+  for(const restoreBtn of btnRestores){
+    restoreBtn.onclick = function(e){
+        e.preventDefault();
+        var masach = e.target.dataset.masach;
+        restoreForm.action = '/books/save/'+ masach +'/restore?_method=PATCH'
+        restoreForm.submit()
+    }
+  }
+  
 
 </script>
