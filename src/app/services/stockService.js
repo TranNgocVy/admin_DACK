@@ -18,3 +18,8 @@ exports.getStock = (title) => {
         }, ],
     });
 };
+
+//Get models
+exports.getmodels = () => {
+    return models;
+};

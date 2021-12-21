@@ -15,3 +15,8 @@ exports.getAdminAccount = () => {
 exports.getCustomerAccount = () => {
     return models.khachhang.findAll({});
 };
+
+//Get models
+exports.getmodels = () => {
+    return models;
+};

@@ -180,3 +180,8 @@ exports.deletBookForce = async(req) => {
         force: true,
     });
 };
+
+//Get models
+exports.getmodels = () => {
+    return models;
+};
