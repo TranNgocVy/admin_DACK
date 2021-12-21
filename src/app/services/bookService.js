@@ -2,6 +2,9 @@ const { models } = require('../../config/db');
 const { Op } = require('sequelize');
 const cloudImage = require('../../config/uploadIMG/cloudinary')
     // support query database
+exports.getmodels = () => {
+    return models;
+}
 
 //Get all publisher
 exports.AllNXB = () => {
@@ -171,8 +174,10 @@ exports.restorebook = async(req) => {
 //delete book force
 exports.deletBookForce = async(req) => {
     var book = await models.sach.findOne({ where: { masach: req.params.id }, paranoid: false });
-    var path = 'img/books/' + book.masach + '';
-    result = await cloudImage.deleteIMG(book.IDHINHANH);
+    if(book.IDHINHANH){
+       await cloudImage.deleteIMG(book.IDHINHANH);
+    }
+    
     return await models.sach.destroy({
         where: {
             masach: req.params.id,

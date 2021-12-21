@@ -37,9 +37,7 @@
 
 <body>
   <div class="container">
-
     <div class="row" style="margin-top:20px;  ">
-
       <div class="col">
         <div class="mt-4">
           <div class="text-center">
@@ -47,20 +45,17 @@
           </div>
 
           <form class="form-inline my-2 my-lg-0 mt-5">
-            <input class="form-control mr-sm-2" type="search" placeholder="Tìm tên truyện" aria-label="Search" name = "title">
+            <input class="form-control mr-sm-2" type="search" placeholder="Tìm tên truyện" aria-label="Search"
+              name="title">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm</button>
           </form>
           <div class="mt-4">
-            <h6> Tháng Năm : </h6>
+            {{!-- <h6> Tháng Năm : </h6> --}}
+            <form method="get" action='' id = "submitMonth">
+              <input type="month" id="month" name="month" value="{{month}}" onchange="getBooks()">
+            </form>
           </div>
-          <div class="btn-group mt-1 float-left md-4">
-            <select class="form-select" aria-label="Default select example" id="month-year">
-              <option value="202111">11/2021</option>
-              <option value="202109">09/2021</option>
-              <option value="202110">10/2021</option>
-              <option value="202112">12/2021</option>
-            </select>
-          </div>
+
           <!-- Thêm dùm link đến đơn nhập hàng -->
           <div class="float-right md-4">
             <a href="/orders/input-order" class="btn btn-link">
@@ -109,4 +104,16 @@
       </div>
     </div>
   </div>
+
+  <script>
+    function getBooks() {
+      const date = document.getElementById('month').value;
+      console.log(date)
+      console.log(document.getElementById('submitMonth'))
+
+      document.getElementById('submitMonth').submit();
+    }
+
+  </script>
+
 </body>

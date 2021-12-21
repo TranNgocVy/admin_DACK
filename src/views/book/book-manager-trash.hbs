@@ -67,6 +67,7 @@
                   <th scope="col">Ngày xuất bản</th>
                   <th scope="col">Giá</th>
                   <th scope="col-2"></th>
+                  <th scope="col-2"></th>
                 </tr>
               </thead>
               <tbody>
@@ -83,6 +84,8 @@
                   <td>{{this.gia}}</td>
                   <td>
                     <a href="" class="btn-restore btn-link mr-1 mt-1 mb-1"><i class="fas fa-trash-restore-alt" data-masach="{{this.masach}}" style="color:green" ></i></a>
+                  </td>
+                  <td>
                     <a href="" class="btn-link mr-1 mt-1 mb-1" data-bs-toggle="modal" data-idbook="{{this.masach}}"
                       data-bs-target="#delete-book-modals"><i class="fas fa-times" style="color:red"></i></a>
                   </td>
@@ -116,7 +119,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Bạn có thật sự muốn xóa viễn vĩnh môn học này ?
+        Bạn có thật sự muốn xóa viễn vĩnh truyện này ?
       </div>   
       <div class="modal-footer">
         <button type="button" id="btn-delete-book" class="btn btn-primary btn-danger">Xóa bỏ</button>

@@ -1,15 +1,18 @@
 const orderservice = require('../services/orderService');
-const { multipleSequelizeToObject } = require('../../util/sequelize');
+const { multipleSequelizeToObject,SequelizeToObject } = require('../../util/sequelize');
 
 class orderController {
     //[GET]: /order-manager
-    show(req, res, next) {
+    async show(req, res, next) {
         try {
             if (!req.user) {
                 res.redirect('/');
             } else {
+                const orderId = req.query.orderId;
+                const order = await orderservice.getOrder(orderId);
                 res.render('order/order-manager', {
                     title: 'Book Selling',
+                    order: multipleSequelizeToObject(order),
                 });
             }
         } catch (e) {
@@ -17,14 +20,21 @@ class orderController {
         }
     }
 
-    //[GET]: /order-detail
-    showDetail(req, res, next) {
+    //[GET]: /order-detail/:id
+    async showDetail(req, res, next) {
             try {
                 if (!req.user) {
                     res.redirect('/login');
                 } else {
+
+                const id = req.params.id
+                const order = await orderservice.getOneOrder(id);
+                const detailOrder = await orderservice.getDetailOrder(id);
+
                     res.render('order/order-detail', {
                         title: 'Book Selling',
+                        order: SequelizeToObject(order),
+                        detailOrder: multipleSequelizeToObject(detailOrder)
                     });
                 }
             } catch (e) {

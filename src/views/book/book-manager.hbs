@@ -78,6 +78,8 @@
                   <th scope="col">Ngày xuất bản</th>
                   <th scope="col">Giá</th>
                   <th scope="col-2"></th>
+                  <th scope="col-2"></th>
+
                 </tr>
               </thead>
               <tbody>
@@ -94,6 +96,8 @@
                   <td>{{this.gia}}</td>
                   <td>
                     <a href="/books/{{this.masach}}/edit" class="btn-link mr-1 mt-1 mb-1"><i class="fas fa-cog"></i></a>
+                  </td>
+                  <td>
                     <a href="" class="btn-link mr-1 mt-1 mb-1" data-bs-toggle="modal" data-idbook="{{this.masach}}"
                       data-bs-target="#delete-book-modals"><i class="fas fa-trash"></i></a>
                   </td>

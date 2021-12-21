@@ -1,73 +1,69 @@
 <!doctype html>
 <html lang="en">
-  <head>
-  <title>Chi tiết đơn đặt hàng</title>
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-    crossorigin="anonymous"
-  />
-  <!-- Google Font -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
-    rel="stylesheet"
-  />
 
-  <!-- Css Styles -->
-  <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
-  <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css" />
-  <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css" />
-  <link rel="stylesheet" href="../css/nice-select.css" type="text/css" />
-  <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css" />
-  <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
-  <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
-  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+<head>
+    <title>Chi tiết đơn đặt hàng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+        rel="stylesheet" />
 
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"
-  ></script>
-   <style>
-    .flex-column {
-        border-style: solid; 
-        border-color: #77B4E3;
-        border-width: 1px; 
-    }
-    .active { 
-        color: white; 
-    } 
-    .overflow-auto {
-    border-style: solid; 
-    height: 600px; 
-    border-color: #77B4E3; 
-    border-width: 1px; 
-    }
-  </style>
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="../css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <style>
+        .flex-column {
+            border-style: solid;
+            border-color: #77B4E3;
+            border-width: 1px;
+        }
+
+        .active {
+            color: white;
+        }
+
+        .overflow-auto {
+            border-style: solid;
+            height: 600px;
+            border-color: #77B4E3;
+            border-width: 1px;
+        }
+    </style>
 
 </head>
-  <body>
+
+<body>
     <div class="container">
         <div class="mt-4">
             <div class="text-center">
                 <h3>Chi tiết đơn nhập</h3>
             </div>
             <div class="mt-5">
-                <h6> Nhà xuất bản : NXB Kim Đồng </h6>
+                <h6> Nhà xuất bản : <b>{{order.MANXB_nxb.Ten}}</b> </h6>
             </div>
             <div class="mt-1">
-                <h6> Sđt : 0123456789  </h6>
+                <h6> Sđt : <b>{{order.MANXB_nxb.std}}</b> </h6>
             </div>
             <div class="mt-1">
-                <h6> Địa chỉ : ### </h6>
+                <h6> Địa chỉ : <b>{{order.MANXB_nxb.diachi}}</b> </h6>
             </div>
             <div class="mt-1">
-                <h6> Thời gian : 13:15 Thứ Bảy, 13 tháng 11, 2021 </h6>
+                <h6> Thời gian : <b>{{order.NGAYNHAP}}</b> </h6>
             </div>
-            
+
             <!-- Thêm dùm link đến đơn nhập hàng -->
-            
+
             <br>
             <table id="cart" class="table table-hover table-condensed">
                 <thead>
@@ -80,78 +76,76 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each detailOrder}}
                     <tr>
                         <td data-th="Product">
                             <div class="row">
                                 <div class="col-lg-3 hidden-xs">
-                                    <img src="https://cdn0.fahasa.com/media/catalog/product/cache/1/small_image/600x600/9df78eab33525d08d6e5fb8d27136e95/i/m/image_195509_1_46642.jpg"
+                                    <img src="{{this.MASACH_sach.HINHANH}}"
                                         alt="Sản phẩm 1" class="img-responsive" width="100">
                                 </div>
                                 <div class="col-sm-9 ">
-                                    <h4 class="nomargin">Trạng Quỷnh tập 340</h4>
+                                    <h4 class="nomargin">{{this.MASACH_sach.tensach}}</h4>
                                 </div>
                             </div>
                         </td>
-                        <td data-th="Price">10.000 đ</td>
-                        <td data-th="Quantity">1</td>
-                        <td data-th="Subtotal">10.000 đ</td>
+                        <td data-th="Price">{{this.MASACH_sach.gia}}  đ</td>
+                        <td data-th="Quantity">{{this.SL}}</td>
+                        <td data-th="Subtotal">{{totalMoney this.MASACH_sach.gia this.SL}} đ</td>
                         </td>
                         <td class="actions" data-th="">
-                            <button class="btn btn-success btn-sm"><i class="fa fa-trash-o">duyệt</i>
+                            <button class="btn btn-success btn-sm" ><i class="fa fa-trash-o">duyệt</i>
                             </button>
                         </td>
                     </tr>
+                    {{else}}
                     <tr>
-                        <td data-th="Product">
-                            <div class="row">
-                                <div class="col-lg-3 hidden-xs"><img
-                                        src="https://cdn0.fahasa.com/media/catalog/product/cache/1/small_image/400x400/9df78eab33525d08d6e5fb8d27136e95/i/m/image_195509_1_50089.jpg"
-                                        alt="Sản phẩm 1" class="img-responsive" width="100">
-                                </div>
-                                <div class="col-sm-9">
-                                    <h4 class="nomargin">Trạng quỷnh tập 100</h4>
-                                </div>
-                            </div>
-                        </td>
-                        <td data-th="Price" >10.000 đ</td>
-                        <td data-th="Quantity">1</td>
-                        <td data-th="Subtotal">10.000 đ</td>
-                        </td>
-                        <td class="actions" data-th="">
-                            <button class="btn btn-success btn-sm"><i class="fa fa-trash-o">duyệt</i>
-    
+                        <td colspan="7" class="text-center">
+                            Danh sách trống
                         </td>
                     </tr>
+                    {{/each}}
+
+
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td> <a href="orders/order-manager" class="btn btn-warning"><i class="fa fa-angle-left"></i> Trở Lại</a>
+                        <td> <a href="/orders/order-manager" class="btn btn-warning"><i class="fa fa-angle-left"></i> Trở
+                                Lại</a>
                         </td>
-                        <td colspan="2" class="hidden-xs"> </td>
-                        <td class="hidden-xs text-start"><strong>Tổng tiền: 20.000 đ</strong>
-                        </td>
+                        <td colspan="1" class="hidden-xs"> </td>
+                        {{!-- <td class="hidden-xs text-start"><strong>Tổng tiền: {{totalMoneyForReceiptOrOrder detailOrder}} đ</strong> --}}
+                        
+                        
+                        <td class="hidden-xs text-start"><strong>Tổng tiền: </strong></td>
+                        <td class="hidden-xs text-start"><strong>{{totalMoneyForReceiptOrOrder detailOrder}} đ</strong></td>
+
                         <td class="text-end"> Đã Thanh toán <i class="fa fa-angle-right"></i>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="3"> <i class="fa fa-angle-left"></i> 
+                        <td colspan="3"> <i class="fa fa-angle-left"></i>
                         </td>
-                        <td colspan="2" > NV. Tên nhân viên 
+                        <td colspan="2"> <b>NV. {{order.MANV_nhanvien.HOTEN}}</b>
                         </td>
                     </tr>
-                    
+
                 </tfoot>
             </table>
-            
-                
+
+
         </div>
-           
+
     </div>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
@@ -159,6 +153,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
     -->
-  </body>
-</html>
+</body>
 
+</html>

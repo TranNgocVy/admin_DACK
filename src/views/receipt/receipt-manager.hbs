@@ -47,7 +47,7 @@
           </div>
 
           <form class="form-inline my-2 my-lg-0 mt-5">
-            <input class="form-control mr-sm-2" type="search" placeholder="Tìm mã hóa đơn" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" name ="receiptId" placeholder="Tìm mã hóa đơn" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm</button>
           </form>
 
@@ -68,62 +68,29 @@
                 </tr>
               </thead>
               <tbody>
+                {{#each receipt}}
                 <tr>
-                  <th scope="row">1</th>
+                  <th scope="row">{{sum @index 1}}</th>
                   <td>
-                    <a href="/receipts/receipt-detail" class="btn btn-link">M0001</a>
+                    <a href="/receipts/receipt-detail/{{this.this.MAPM}}" class="btn-link">{{this.MAPM}}</a>
                   </td>
-                  <td>Nguyễn Anh Vinh</td>
-                  <td>###</td>
-                  <td>0913344123</td>
-                  <td>13:15 Thứ Bảy, 13 tháng 11, 2021</td>
+                  <td>{{this.MAKH_khachhang.HOTEN}}</td>
+                  <td>{{this.MAKH_khachhang.DIACHI}}</td>
+                  <td>{{this.MAKH_khachhang.SDT}}</td>
+                  <td>{{this.NGAYMUA}}</td>
                   <td>
-                    <a href="#" class="btn btn-link">Sửa</a>
-                    <a href="#" class="btn btn-link">Xóa</a>
+                    <a href="#" class="btn-link" style = "padding-right: 10px;">Sửa</a>
+                    <a href="#" class="btn-link">Xóa</a>
                   </td>
                 </tr>
+                {{else}}
                 <tr>
-                  <th scope="row">2</th>
-                  <td>
-                    <a href="/receipt-detail" class="btn btn-link">M0002</a>
-                  </td>
-                  <td>Phan Nguyễn Anh Vinh</td>
-                  <td>###</td>
-                  <td>0913344126</td>
-                  <td>13:15 Thứ Bảy, 13 tháng 11, 2021</td>
-                  <td>
-                    <a href="#" class="btn btn-link">Sửa</a>
-                    <a href="#" class="btn btn-link">Xóa</a>
+                  <td colspan="7" class="text-center">
+                    Danh sách trống
                   </td>
                 </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>
-                    <a href="/receipt-detail" class="btn btn-link">M0003</a>
-                  </td>
-                  <td>Nguyễn Phan Anh Vinh</td>
-                  <td>###</td>
-                  <td>0913344125</td>
-                  <td>13:15 Thứ Bảy, 13 tháng 11, 2021</td>
-                  <td>
-                    <a href="#" class="btn btn-link">Sửa</a>
-                    <a href="#" class="btn btn-link">Xóa</a>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">4</th>
-                  <td>
-                    <a href="/receipt-detail" class="btn btn-link">M0004</a>
-                  </td>
-                  <td>Nguyễn Anh Phan Vinh</td>
-                  <td>###</td>
-                  <td>0913344124</td>
-                  <td>13:15 Thứ Bảy, 13 tháng 11, 2021</td>
-                  <td>
-                    <a href="#" class="btn btn-link">Sửa</a>
-                    <a href="#" class="btn btn-link">Xóa</a>
-                  </td>
-                </tr>
+                {{/each}}
+               
               </tbody>
             </table>
           </div>

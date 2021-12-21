@@ -1,5 +1,3 @@
-
-
 <body>
   <div class="container">
 
@@ -11,7 +9,8 @@
             <H3>Phiếu Nhập hàng </H3>
           </div>
           <form class="form-inline my-2 my-lg-0 mt-5">
-            <input class="form-control mr-sm-2" type="search" placeholder="Tìm mã hóa đơn" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" name="orderId" placeholder="Tìm mã hóa đơn"
+              aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm</button>
           </form>
 
@@ -31,31 +30,29 @@
                 </tr>
               </thead>
               <tbody>
+                {{#each order}}
                 <tr>
-                  <th scope="row">1</th>
+                  <th scope="row">{{sum @index 1}}</th>
                   <td>
-                    <a href="/orders/order-detail" class="btn-link">M0001</a>
+                    <a href="/orders/order-detail/{{this.MAPN}}" class="btn-link">{{this.MAPN}}</a>
                   </td>
-                  <td>Nguyễn Anh Vinh studio</td>
-                  <td>0913344123</td>
-                  <td>13:15 Thứ Bảy, 13 tháng 11, 2021</td>
-                  <td>
-                    <a href="#" class="btn btn-link">Sửa</a>
-                    <a href="#" class="btn btn-link">Xóa</a>
-                  </td>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>
-                    <a href="/order-detail" class="btn-link">M0002</a>
-                  </td>
-                  <td>Nguyễn Phan Anh Vinh studio</td>
-                  <td>0913344123</td>
-                  <td>13:15 Thứ Bảy, 13 tháng 11, 2021</td>
+                  <td>{{this.MANXB_nxb.Ten}}</td>
+                  <td>{{this.MANXB_nxb.std}}</td>
+                  <td>{{this.NGAYNHAP}}</td>
                   <td>
                     <a href="#" class="btn btn-link">Sửa</a>
                     <a href="#" class="btn btn-link">Xóa</a>
                   </td>
                 </tr>
+                {{else}}
+                <tr>
+                  <td colspan="7" class="text-center">
+                    Danh sách trống
+                  </td>
+                </tr>
+                {{/each}}
+
+
               </tbody>
               <tfoot>
                 <td><i class="fa fa-angle-left"></i></td>
