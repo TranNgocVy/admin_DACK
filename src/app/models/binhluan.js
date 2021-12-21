@@ -1,27 +1,36 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('theloaicuasach', {
-    maTL: {
-      type: DataTypes.INTEGER,
+  return sequelize.define('binhluan', {
+    USER: {
+      type: DataTypes.CHAR(15),
       allowNull: false,
       primaryKey: true,
       references: {
-        model: 'theloai',
-        key: 'maTL'
+        model: 'khachhang',
+        key: 'USER'
       }
     },
-    masach: {
-      type: DataTypes.STRING(6),
+    MASACH: {
+      type: DataTypes.CHAR(6),
       allowNull: false,
       primaryKey: true,
       references: {
         model: 'sach',
         key: 'masach'
       }
+    },
+    THOIGIAN: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      primaryKey: true
+    },
+    NOIDUNG: {
+      type: DataTypes.STRING(1000),
+      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'theloaicuasach',
+    tableName: 'binhluan',
     timestamps: false,
     indexes: [
       {
@@ -29,24 +38,16 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "maTL" },
-          { name: "masach" },
+          { name: "USER" },
+          { name: "MASACH" },
+          { name: "THOIGIAN" },
         ]
       },
       {
-        name: "theloaicuasach_maTL_masach_unique",
-        unique: true,
+        name: "binhluan_sach_masach_fk",
         using: "BTREE",
         fields: [
-          { name: "maTL" },
-          { name: "masach" },
-        ]
-      },
-      {
-        name: "theloaiofsach_sach_masach_fk",
-        using: "BTREE",
-        fields: [
-          { name: "masach" },
+          { name: "MASACH" },
         ]
       },
     ]

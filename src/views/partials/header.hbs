@@ -28,26 +28,28 @@
                     {{/if}}
                 </ul>
 
-                
+
 
                 {{#if user}}
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{user.HINHANH}}" alt="avatar" class="user-avatar">
-                                {{user.HOTEN}}
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/users/{{user.USER}}">Thông tin của tôi</a>
-                                <a class="dropdown-item" href="#">Thêm nhà xuất bản</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/logout">Đăng xuất</a>
-                            </div>
-                        </li>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{{user.HINHANH}}" alt="avatar" class="user-avatar">
+                            {{user.HOTEN}}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/users/{{user.USER}}">Thông tin của tôi</a></li>
+                    <li><a class="dropdown-item" href="/users/{{user.USER}}/changepass">Đổi mật khẩu</a></li>
+                    <li><a class="dropdown-item" href="#">Thêm nhà xuất bản</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+            </ul>
+            </li>
 
-                    </ul>
-                {{/if}}
-            </div>
+            </ul>
+            {{/if}}
+        </div>
 
 
         </div>

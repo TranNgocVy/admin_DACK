@@ -42,6 +42,54 @@ class userController {
             next(e);
         }
     }
+    // [POST]: user/:username/changepass
+    async changepass (req, res, next) {
+        try {
+            if(req.user){
+                if(req.user.USER == req.params.username){
+                    var check = !(await userservice.changePass(req))
+                    res.redirect(`/users/${req.user.USER}/changepass?passErr=${check}`)
+                }else{
+                    res.send('respond with a resource'); 
+                }
+            }else{
+                res.redirect('/')
+            }
+        } catch (error) {
+            next(error);
+        }
+    }
+    // [GET]: user/:username/changepass
+    async getchangepass (req, res, next) {
+        try {
+            if(req.user){
+                if(req.user.USER === req.params.username){
+                    var message;
+                    var titile = req.query.passErr
+                    if(titile == 'true'){
+                        message = 'password old wrong'
+                        console.log(titile)
+                    }
+                    if(titile == 'false'){
+                        message = 'change success'
+                        console.log(titile)
+                    }
+                    console.log(message)
+                    res.render('user/changepass', {message})
+                }else{
+                    res.send('respond with a resource'); 
+                }
+            }else{
+                res.redirect('/')
+            }
+            
+        } catch (error) {
+            next(error);
+        }
+    }
+
+
+
 }
 
 module.exports = new userController();
