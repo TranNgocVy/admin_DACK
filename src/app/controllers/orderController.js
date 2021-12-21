@@ -31,20 +31,37 @@ class orderController {
                 next(e);
             }
         }
-        //[GET]: /input-order
-    input(req, res, next) {
+    //[GET]: /input-order
+    async input(req, res, next) {
         try {
             if (!req.user) {
                 res.redirect('/login');
             } else {
+                var NXB = await orderservice.getNXBs()
                 res.render('order/input-order', {
                     title: 'Book Selling',
+                    NXB
                 });
             }
         } catch (e) {
             next(e);
         }
     }
+    //[GET]: orders/api/getBookNXB
+    async getBookNXB(req, res, next){
+        try {
+            if(true){
+                var NXB = req.query.NXB
+                var books = await orderservice.getSachNXBs(NXB)
+                res.status(201).json({books})
+            }else{
+                res.status(500).json({})
+            }
+        } catch (error) {
+            next(error);
+        }
+    }
+
 }
 
 module.exports = new orderController();

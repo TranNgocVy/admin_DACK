@@ -5,3 +5,16 @@ const { Op } = require('sequelize');
 exports.getmodels = () => {
     return models;
 };
+//get NXB
+exports.getNXBs = async () => {
+    return await models.nxb.findAll({raw : true});
+}
+//get sach from NXB
+exports.getSachNXBs = async (NXB) => {
+    return await models.sach.findAll({
+        where: {
+            manxb : NXB 
+        },
+        raw : true
+    })
+}
