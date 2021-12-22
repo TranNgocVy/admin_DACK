@@ -46,7 +46,8 @@
             border-color: darkmagenta;
             border-spacing: Arial;
         }
-}
+        }
+
         .form-label {
             margin-top: 10px;
             margin-bottom: 3px;
@@ -60,9 +61,9 @@
     <form action="" class="needs-validation" novalidate>
         <div class=" mt-5 col-4">
             <label for="validationCustom01" class="form-label">Nhà Xuất Bản</label>
-            <select class="form-select" id='NXB' name='NXB'  aria-label="Default select example">
-                {{#each NXB}}  
-                    <option value="{{this.manxb}}">{{this.Ten}}</option>
+            <select class="form-select" id='NXB' name='NXB' aria-label="Default select example">
+                {{#each NXB}}
+                <option value="{{this.manxb}}">{{this.Ten}}</option>
                 {{/each}}
             </select>
         </div>
@@ -113,28 +114,8 @@
                     </button>
                 </td>
             </tr>
-            <tr>
-                <td data-th="Product">
-                    <div class="row">
-                        <div class="col-lg-3 hidden-xs"><img
-                                src="https://cdn0.fahasa.com/media/catalog/product/cache/1/small_image/400x400/9df78eab33525d08d6e5fb8d27136e95/i/m/image_195509_1_50089.jpg"
-                                alt="Sản phẩm 1" class="img-responsive" width="100">
-                        </div>
-                        <div class="col-sm-9">
-                            <h4 class="nomargin">Trạng quỷnh tập 100</h4>
-                        </div>
-                    </div>
-                </td>
-                <td data-th="Price">10.000 đ</td>
-                <td data-th="Quantity"><input class="form-control text-center" value="1" type="number">
-                <td data-th="Subtotal">10.000 đ</td>
-                </td>
-                <td class="actions" data-th="">
-                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o">Loại bỏ</i>
-
-                </td>
-            </tr>
         </tbody>
+
         <tfoot>
             <tr>
                 <td><a href="/" data-toggle="modal" data-target="#addBookModel" class="btn btn-warning"><i
@@ -168,16 +149,17 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form autocomplete="off" action="/action_page.php">
+                {{!-- <form autocomplete="off" action="/action_page.php"> --}}
+                <form method = 'post' autocomplete="off" action="/books/input-new-book" id = "formNameBook">
                     <div class="autocomplete" style="width:300px;">
                         <label for="myBook">Nhập tên sách:</label>
-                        <input id="myBook" type="text" name="addbook" placeholder="Tên sách">
+                        <input id="myBook" type="text" name="bookname" placeholder="Tên sách">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button"  class="btn btn-secondary btn-success">Thêm sách mới</button>
-                <button type="button" class="btn btn-primary" id="ADDTOCART">Thêm</button>
+                <button type="button" class="btn btn-secondary btn-success" id="btnAddNewBook">Thêm sách mới</button>
+                <button type="button" class="btn btn-primary" id="btnAddBook">Thêm</button>
                 <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Đóng</button>
             </div>
         </div>
@@ -190,7 +172,7 @@
     crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-    var NXB ='';
+    var NXB = '';
     var ListSach = []
     function autocomplete(inp, arr) {
         var currentFocus;
@@ -204,7 +186,7 @@
             a.setAttribute("class", "autocomplete-items");
             this.parentNode.appendChild(a);
             for (i = 0; i < arr.length; i++) {
-                if ((arr[i].toUpperCase()).indexOf(val.toUpperCase()) != -1 ) {
+                if ((arr[i].toUpperCase()).indexOf(val.toUpperCase()) != -1) {
                     b = document.createElement("DIV");
                     b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
                     b.innerHTML += arr[i].substr(val.length);
@@ -223,7 +205,7 @@
             if (e.keyCode == 40) {
                 currentFocus++;
                 addActive(x);
-            } else if (e.keyCode == 38) { 
+            } else if (e.keyCode == 38) {
                 currentFocus--;
                 addActive(x);
             } else if (e.keyCode == 13) {
@@ -259,27 +241,38 @@
     }
 
 
-    function loadFunction(){
-       NXB = $('#NXB').val()
-       console.log(NXB)
-       $.getJSON('/orders/api/getBookNXB',{NXB}, function (data) {
-                    if(data.message){
-                        alert(data.message)
-                    }
-                    for(const key of data.books){
-                        ListSach.push(key.tensach)
-                    }
-                    console.log(ListSach)
-                    autocomplete(document.getElementById("myBook"), ListSach);
-                }
-       )
+    function loadFunction() {
+        NXB = $('#NXB').val()
+
+        $.getJSON('/orders/api/getBookNXB', { NXB }, function (data) {
+            ListSach = []
+            if (data.message) {
+                alert(data.message)
+            }
+            for (const key of data.books) {
+                ListSach.push(key.tensach)
+            }
+            console.log(ListSach)
+            autocomplete(document.getElementById("myBook"), ListSach);
+        }
+        )
     }
     $('#NXB').on('change', function (e) {
-        console.log(document.getElementById('NXB').value)
         loadFunction();
-    })  
+    })
 
-   
-    loadFunction();
+    $('#btnAddBook').on('click', function (e) {
+        console.log($('#myBook').val());
+    })
+
+    $('#btnAddNewBook').on('click', function (e) {
+
+        console.log($('#myBook').val());
+        $('#formNameBook').submit();
+
+    })
+
+
+
 
 </script>
