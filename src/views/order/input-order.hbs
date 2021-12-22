@@ -188,7 +188,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <script type="text/javascript">
-    var NXB ='';
+    var NXB = $('#NXB').val();
     var ListSach = []
     function autocomplete(inp, arr) {
         var currentFocus;
@@ -202,10 +202,15 @@
             a.setAttribute("class", "autocomplete-items");
             this.parentNode.appendChild(a);
             for (i = 0; i < arr.length; i++) {
-                if ((arr[i].toUpperCase()).indexOf(val.toUpperCase()) != -1 ) {
+                var string = arr[i].toUpperCase()
+                var key = val.toUpperCase()
+                var keyword = string.indexOf(key)
+                
+                if ( keyword != -1 ) {
                     b = document.createElement("DIV");
-                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                    b.innerHTML += arr[i].substr(val.length);
+                    b.innerHTML = arr[i].substr(0, keyword);
+                    b.innerHTML += "<strong>" + arr[i].substr(keyword,val.length) + "</strong>";
+                    b.innerHTML += arr[i].substr(val.length+keyword);
                     b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
                     b.addEventListener("click", function (e) {
                         inp.value = this.getElementsByTagName("input")[0].value;
@@ -261,22 +266,27 @@
         loadFunction()
     })
 
-    NXB = $('#NXB').val()
     function loadFunction(){
-       $.getJSON(`/orders/api/getBookNXB`,{NXB}, function (data) {
-
-                    if(data.message){
+    ListSach = []
+        $.ajax({
+            url:`/orders/api/getBookNXB`,
+            method : "GET",
+            data:{
+                NXB
+            },success : function (data) {
+                if(data.message){
                         alert(data.message)
-                    }
-                    ListSach =[]
-                    for(const key of data.books){
-                        ListSach.push(key.tensach)
-                    }
-                    console.log(ListSach)
-                    autocomplete(document.getElementById("myBook"), ListSach);
                 }
-       )
-    }
+                ListSach =[]
+                for(const key of data.books){
+                    ListSach.push(key.tensach)
+                }
+                console.log(ListSach)
+                autocomplete(document.getElementById("myBook"), ListSach);
+               }
+            
+        })
+    }      
     loadFunction();
 
 </script>
