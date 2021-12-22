@@ -1,6 +1,12 @@
 const { models } = require('../../config/db');
 const { Op } = require('sequelize');
 
+//Get models
+exports.getmodels = () => {
+    return models;
+};
+
+
 //Get all receipt has id like "id"
 exports.getReceipt = (receiptId) => {
     var id = '';

@@ -14,12 +14,16 @@
 
         <ul class="list-group list-group-flush">
           <div class="row">
+            <form action="/users/{{user.USER}}/edit?_method=put" method="POST" enctype="multipart/form-data">
+            
+            <div class="row">
             <div class="col-4">
-              <img src="{{user.HINHANH}}" alt="{{user.IDHINHANH}}" />
+               
+              <img src="{{user.HINHANH}}" alt="{{user.IDHINHANH}}" style="margin-bottom: 10px;" />
               <input type="file" class="mt-auto mb-auto ml-2" name="file">
             </div>
             <div class="col-8">
-              <form action="/users/{{user.USER}}/edit?_method=put" method="post">
+             
                 <li class="list-group-item">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -60,13 +64,7 @@
                     <input name="DIACHI" type="text" class="form-control" aria-describedby="inputGroup-sizing-default"
                       value="{{user.DIACHI}}" />
                   </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="inputGroup-sizing-default">Hình ảnh</span>
-                    </div>
-                    <input name="HINHANH" type="text" class="form-control" aria-describedby="inputGroup-sizing-default"
-                      value="{{user.HINHANH}}" />
-                  </div>
+                  
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-default">Ngày sinh</span>
@@ -102,13 +100,20 @@
                     </button>
                   </div>
                 </li>
-              </form>
+              
             </div>
+            </div>
+            </form>
           </div>
         </ul>
 
       </div>
     </div>
+  </div>
+
+  <div class="row empty-space">
+  
+
   </div>
 </div>
 <script>

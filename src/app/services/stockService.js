@@ -26,3 +26,8 @@ exports.getStock = (title, month) => {
         }, ],
     });
 };
+
+//Get models
+exports.getmodels = () => {
+    return models;
+};

@@ -3534,3 +3534,27 @@ main>.container {
     border-radius: 50%;
     margin-right: 4px;
 }
+
+
+/* --------------------------CUSTOM CSS--------------------------------------- */
+
+body {
+    padding: 0px;
+    font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin-right: 4px;
+}
+
+.empty-space {
+    width: max-content;
+    height: 250px;
+}
