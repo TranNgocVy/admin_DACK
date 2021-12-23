@@ -96,7 +96,7 @@
 
         <tfoot>
             <tr>
-                <td><a href="/" data-toggle="modal" data-target="#addBookModel" class="btn btn-warning"><i
+                <td><a href="/" data-toggle="modal" data-target="#addBookModel" id ="add-btn" class="btn btn-warning"><i
                             class="fa fa-angle-left"></i> Thêm Sản Phẩm</a>
                 </td>
                 <td colspan="1" class="hidden-xs"> </td>
@@ -433,5 +433,8 @@
 
 
     loadFunction();
+    $('#add-btn').on("click", function (e) {
+        $('#myBook').val('')
+    })
 
 </script>
