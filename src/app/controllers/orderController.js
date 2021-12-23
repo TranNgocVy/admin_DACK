@@ -60,10 +60,39 @@ class orderController {
     //[GET]: orders/api/getBookNXB
     async getBookNXB(req, res, next){
         try {
-            if(true){
+            if(req.user){
                 var NXB = req.query.NXB
-                var books = await orderservice.getSachNXBs(NXB)
-                res.status(201).json({books})
+                var books = await orderservice.getSachNXBs(NXB);
+                var publisher = await orderservice.getOneNXB(NXB);
+
+                var message;
+
+                if (!books){
+                    message = "Loại sách này chưa nhập từ nhà xuất bản này.";
+                }
+                res.status(201).json({publisher, books, message})
+            }else{
+                res.status(500).json({})
+            }
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    //[GET]: orders/api/getBookNameNXB
+    async getBookNameNXB(req, res, next){
+        try {
+            if(req.user){
+                var name = req.query.bookName
+                var publisher = req.query.nxb
+
+                var book = await orderservice.getBookNameNXB(name, publisher);
+                var message;
+
+                if (!book){
+                    message = "Chưa từng nhập sách'" + name + "'";
+                }
+                res.status(201).json({book, message})
             }else{
                 res.status(500).json({})
             }

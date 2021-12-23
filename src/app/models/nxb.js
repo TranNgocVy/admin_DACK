@@ -12,11 +12,15 @@ module.exports = function(sequelize, DataTypes) {
       unique: "nxb_Ten_uindex"
     },
     diachi: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(100),
       allowNull: true
     },
-    std: {
-      type: DataTypes.STRING(10),
+    sdt: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    },
+    email: {
+      type: DataTypes.STRING(30),
       allowNull: true
     }
   }, {

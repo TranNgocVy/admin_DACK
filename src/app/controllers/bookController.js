@@ -42,10 +42,17 @@ class bookController {
             if (!req.user) {
                 res.redirect('/login');
             } else {
+
+                //Khi chuyển từ trang thêm phiếu nhập về trang thêm sách sẽ có thêm 1 query là bookname
+                const name = req.query.bookname
+                if(!name){
+                    name = ''
+                }
                 const error = req.query.namebookerro;
                 const cate = await bookservice.getmodels().theloai.findAll();
                 const NXB = await bookservice.AllNXB();
                 res.render('book/newbook', {
+                    name,
                     NXB: multipleSequelizeToObject(NXB),
                     Theloai: multipleSequelizeToObject(cate),
                     error,

@@ -1,5 +1,9 @@
-const { models } = require('../../config/db');
-const { Op } = require('sequelize');
+const {
+    models
+} = require('../../config/db');
+const {
+    Op
+} = require('sequelize');
 
 //Get models
 exports.getmodels = () => {
@@ -14,7 +18,7 @@ exports.getOrder = (orderId) => {
     }
 
     return models.phieunhap.findAll({
-        where:{
+        where: {
             MAPN: {
                 [Op.like]: '%' + id + '%',
             },
@@ -34,7 +38,7 @@ exports.getOneOrder = (orderId) => {
     }
 
     return models.phieunhap.findOne({
-        where:{
+        where: {
             MAPN: {
                 [Op.like]: id,
             },
@@ -43,9 +47,9 @@ exports.getOneOrder = (orderId) => {
             model: models.nxb,
             as: 'MANXB_nxb',
         }, ],
-                
+
         include: [{
-            model:models.nhanvien,
+            model: models.nhanvien,
             as: 'MANV_nhanvien',
         }]
     });
@@ -59,29 +63,59 @@ exports.getDetailOrder = (orderId) => {
     }
 
     return models.ct_phieunhap.findAll({
-        where:{
+        where: {
             MAPN: {
-                [Op.like]: id ,
+                [Op.like]: id,
             },
         },
         include: [{
             model: models.sach,
             as: 'MASACH_sach',
-            
+
         }, ],
     });
 };
 
 //get NXB
 exports.getNXBs = async () => {
-    return await models.nxb.findAll({raw : true});
+    return await models.nxb.findAll({
+        raw: true
+    });
 }
+
+//get 1 NXB
+exports.getOneNXB = async (nxb) => {
+    return await models.nxb.findOne({
+        where:{
+            manxb: nxb
+        },
+        raw: true
+    });
+}
+
 //get sach from NXB
 exports.getSachNXBs = async (NXB) => {
     return await models.sach.findAll({
         where: {
-            manxb : NXB 
+            manxb: NXB
         },
-        raw : true
+        raw: true
+    })
+}
+
+//get sach base on 'name' and 'pulisher' 
+exports.getBookNameNXB = async (name, pulisher) => {
+    console.log(pulisher)
+
+    return await models.sach.findOne({
+        where: {
+            manxb: pulisher,
+            tensach: {
+                [Op.like]: name
+
+            }
+
+        },
+        raw: true
     })
 }

@@ -7,7 +7,7 @@
     <form method="post" action="/books/book-manager" enctype="multipart/form-data" >
         <div class="form-group mt-3">
             <label for="name">Tên truyện</label>
-            <input type="text" class="form-control" id="name" name="tensach" placeholder="Nhập tên truyện">
+            <input type="text" class="form-control" id="name" name="tensach" placeholder="Nhập tên truyện" value='{{name}}'>
         </div>
         <div class="form-group mt-3">
             <label for="des">Tác giả</label>
@@ -16,7 +16,7 @@
         <div class="form-group mt-3">
             <label for="des">Hình thức truyện</label>
             <select class="form-select" aria-label="Theloai" name="hinhthuc">
-                <option value="TT">Truyện Tranh</option>
+                <option value="TT">Truyện tranh</option>
                 <option value="TC">Truyện chữ </option>
             </select>
         </div>
