@@ -4,8 +4,8 @@ const stockRouter = require('./stocks');
 const accountRouter = require('./accounts');
 const orderRouter = require('./orders');
 const receiptRouter = require('./receipts');
-const userRouter = require('./users');
-
+const apiRouter = require('./api');
+const userRouter = require('./users')
 function route(app) {
   app.use('/', adminRouter);
   app.use('/books', bookRouter);
@@ -14,6 +14,7 @@ function route(app) {
   app.use('/receipts', receiptRouter);
   app.use('/accounts', accountRouter);
   app.use('/users', userRouter);
+  app.use('/api', apiRouter);
 }
 
 module.exports = route;

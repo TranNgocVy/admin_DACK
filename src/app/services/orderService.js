@@ -83,39 +83,3 @@ exports.getNXBs = async () => {
     });
 }
 
-//get 1 NXB
-exports.getOneNXB = async (nxb) => {
-    return await models.nxb.findOne({
-        where:{
-            manxb: nxb
-        },
-        raw: true
-    });
-}
-
-//get sach from NXB
-exports.getSachNXBs = async (NXB) => {
-    return await models.sach.findAll({
-        where: {
-            manxb: NXB
-        },
-        raw: true
-    })
-}
-
-//get sach base on 'name' and 'pulisher' 
-exports.getBookNameNXB = async (name, pulisher) => {
-    console.log(pulisher)
-
-    return await models.sach.findOne({
-        where: {
-            manxb: pulisher,
-            tensach: {
-                [Op.like]: name
-
-            }
-
-        },
-        raw: true
-    })
-}

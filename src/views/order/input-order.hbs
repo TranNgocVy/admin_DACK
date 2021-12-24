@@ -84,11 +84,11 @@
     <table id="cart" class="table table-hover table-condensed mt-4">
         <thead>
             <tr>
-                <th style="width:50%">Tên sản phẩm</th>
-                <th style="width:10%">Giá</th>
+                <th style="width:40%">Tên truyện</th>
+                <th style="width:15%">Giá</th>
                 <th style="width:15%">Số lượng</th>
                 <th style="width:15%">Thành tiền</th>
-                <th style="width:10%"> </th>
+                <th style="width:15%"> </th>
             </tr>
         </thead>
         <tbody id="orderTable">
@@ -96,15 +96,16 @@
 
         <tfoot>
             <tr>
-                <td><a href="/" data-toggle="modal" data-target="#addBookModel" id ="add-btn" class="btn btn-warning"><i
-                            class="fa fa-angle-left"></i> Thêm Sản Phẩm</a>
+                <td><a href="/" data-toggle="modal" data-target="#addBookModel" id="add-btn" class="btn btn-warning"><i
+                            class="fa fa-angle-left"></i> Thêm truyện</a>
                 </td>
                 <td colspan="1" class="hidden-xs"> </td>
                 <td class="hidden-xs "><strong>Tổng tiền</strong>
                 <td class="hidden-xs " id="sumMoney"><strong>0 đ</strong>
 
                 </td>
-                <td><button href="/" type="submit" class="btn btn-success btn-block">Lưu <i
+                <td><button href="/" type="submit" class="btn btn-success btn-block" id = "btnSave"
+                        style="background-color:gray; border-color: gray;" disabled>Lưu <i
                             class="fa fa-angle-right"></i></button>
 
                 </td>
@@ -168,15 +169,20 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-success" id="btnAddNewBook"
                         data-dismiss="modal">Thêm sách mới</button>
-                    <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">
+                        <a href="/" data-toggle="modal" id="linkdeleteBook" data-target="#addBookModel"
+                            style="color: white;">Đóng</a>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+{{!-- Form dùng để submit thông tin sách nhập vào --}}
+{{!-- <form id="submitForm" method="post" action='/orders/input-order' hidden>
 
-
+</form> --}}
 
 
 
@@ -190,6 +196,8 @@
     var NXB = $('#NXB').val();
     var ListSach = [];
     var nameList = [];
+    var idList = [];
+    var quantityList = [];
 
     function autocomplete(inp, arr) {
         var currentFocus;
@@ -265,7 +273,7 @@
     function loadFunction() {
         ListSach = [];
         $.ajax({
-            url: `/orders/api/getBookNXB`,
+            url: `/api/orders/getBookNXB`,
             method: "GET",
             data: {
                 NXB
@@ -299,10 +307,29 @@
             return name == bookName;
         })
 
+        const isContain = ListSach.find(function (name) {
+            return name == bookName;
+        })
+
         var linkAddBook = document.getElementById('linkAddBook');
 
         if (!isDuplicate) {
-            loadBookNameNXB(bookName, nxb);
+            if (isContain) {
+
+                if (linkAddBook.hasAttribute('data-target')) {
+                    linkAddBook.removeAttribute('data-target');
+                }
+                loadBookNameNXB(bookName, nxb)
+
+            }
+            else {
+                document.getElementById('AnnouncementContent').innerText = "Chưa từng nhập truyện '" + bookName + "' từ nhà xuất bản " + $('#' + NXB).text();
+                document.getElementById('btnAddNewBook').style.display = 'inline-block';
+
+                if (!linkAddBook.hasAttribute('data-target')) {
+                    linkAddBook.setAttribute('data-target', '#announcement');
+                }
+            }
         }
         else {
             document.getElementById('AnnouncementContent').innerText = "Truyện '" + bookName + "' đã có trong danh sách đặt hàng";
@@ -317,7 +344,7 @@
 
     function loadBookNameNXB(bookName, nxb) {
         $.ajax({
-            url: `/orders/api/getBookNameNXB`,
+            url: `/api/orders/getBookNameNXB`,
             method: "GET",
             data: {
                 bookName,
@@ -326,18 +353,8 @@
 
                 var linkAddBook = document.getElementById('linkAddBook');
 
-                if (data.message) {
-                    document.getElementById('AnnouncementContent').innerText = "Chưa từng nhập truyện '" + bookName + "' từ nhà xuất bản " + $('#' + NXB).text();
-                    document.getElementById('btnAddNewBook').style.display = 'inline-block';
-                    if (!linkAddBook.hasAttribute('data-target')) {
-                        linkAddBook.setAttribute('data-target', '#announcement');
-                    }
-                }
-                else {
-                    
-                    if (linkAddBook.hasAttribute('data-target')) {
-                        linkAddBook.removeAttribute('data-target');
-                    }
+                if (!data.message) 
+                {
                     var html =
                         `<tr id='${data.book.masach}'>
                             <td data-th="Product">
@@ -358,23 +375,47 @@
                             <td data-th="Subtotal" id="subtotal${data.book.masach}"> ${data.book.gia}  đ</td>
 
                             <td class="actions" data-th="" >
-                                <button class="btn btn-danger btn-sm" onclick="removeItem(${data.book.masach})">
+                                <button class="btn btn-danger btn-sm" id="btnRemove${data.book.masach}" onclick="removeItem(${data.book.masach})">
                                     <i class="fa fa-trash-o">Loại bỏ</i>
                                 </button>
                             </td>
                         </tr>`
+
+                    /*var form = 
+                        `<div id = 'div${data.book.masach}'>
+                            <input type = "text" id="form_bookId${data.book.masach}" value = "${data.book.masach}" name="form_bookId${data.book.masach}">
+                            <input type = "number" id="form_price${data.book.masach}" value = 1>
+                        </div>`*/
                     $('#orderTable').append(html);
+                    //$('#submitForm').append(form);
+
                     nameList.push(data.book.tensach);
+                    idList.push(data.book.masach)
+                    quantityList.push(1);
+                    document.getElementById('btnSave').removeAttribute('disabled');
+                    document.getElementById('btnSave').removeAttribute('style');
+
                     totalMoney();
+
                 }
             }
         })
+
     }
 
     function removeItem(id) {
         const name = id.getElementsByTagName('h4')[0].textContent;
+        idList.splice(nameList.indexOf(name), 1);
+        quantityList.splice(nameList.indexOf(name), 1);
         nameList.splice(nameList.indexOf(name), 1);
-        id.remove();
+        if(nameList.length == 0){
+            document.getElementById('btnSave').setAttribute('disabled', 'true');
+            document.getElementById('btnSave').setAttribute('style', 'background-color:gray; border-color: gray;');
+        }
+        //document.getElementById('submitForm').removeChild(document.getElementById('div'+id.id));
+        
+        document.getElementById('orderTable').removeChild(id);
+        
         totalMoney();
 
     }
@@ -384,13 +425,16 @@
         const priceId = '#price' + id.id;
         const subtotalId = '#subtotal' + id.id;
 
-
         const quantity = $(quantityId).val();
         const price = $(priceId).text().slice(0, -2);
 
         $(subtotalId).text((quantity * price) + " đ");
+        quantityList[idList.indexOf(id.id)] = quantity;
 
         totalMoney()
+
+
+        //$('#form_price'+id.id).val(quantity)
     }
 
     function totalMoney() {
@@ -412,7 +456,7 @@
 
     document.getElementById('btnAddNewBook').addEventListener('click', function (e) {
 
-        const input = `<input type="text" name='NXB' value="${ $('#' + NXB).val() }">`
+        const input = `<input type="text" name='NXB' value="${$('#' + NXB).val()}">`
         $('#formNameBook').append(input);
         $('#formNameBook').submit()
     })
@@ -430,11 +474,34 @@
         }
     })
 
+    document.getElementById('btnSave').addEventListener('click', function (e) {
+        console.log(idList)
+        console.log(quantityList)
 
+        //document.getElementById('submitForm').submit();
+        $.ajax({
+            url: `/api/orders/submit`,
+            method: "POST",
+            data: {
+                NXB,
+                idList,
+                quantityList,
+            }, success: function (data) {
+                $('#add-btn').attr('hidden','true')
+                $('#btnSave').text('Đã lưu')
+                $('#btnSave').attr('disabled','true')
+                for(var i=0; i< idList.length; i++){
+                    $('#btnRemove' + idList[i]).attr('hidden', 'true')
+                    $('#quantity'+idList[i]).attr('disabled','true')
+                }
+            }
+        })
+    })
 
     loadFunction();
+
+    //Set input của tên truyện về ""
     $('#add-btn').on("click", function (e) {
         $('#myBook').val('')
     })
-
 </script>

@@ -44,7 +44,7 @@ class bookController {
             } else {
 
                 //Khi chuyển từ trang thêm phiếu nhập về trang thêm sách sẽ có thêm 1 query là bookname
-                const name = req.query.bookname
+                var name = req.query.bookname
                 if(!name){
                     name = ''
                 }
