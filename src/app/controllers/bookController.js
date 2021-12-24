@@ -43,17 +43,24 @@ class bookController {
                 res.redirect('/login');
             } else {
 
-                //Khi chuyển từ trang thêm phiếu nhập về trang thêm sách sẽ có thêm 1 query là bookname
+                //Khi chuyển từ trang thêm phiếu nhập về trang thêm sách sẽ có thêm 1 query là bookname và NXB
                 var name = req.query.bookname
+                var NXB = req.query.NXB
+
                 if(!name){
                     name = ''
                 }
+                if(!NXB){
+                    NXB = ''
+                }
+
                 const error = req.query.namebookerro;
                 const cate = await bookservice.getmodels().theloai.findAll();
-                const NXB = await bookservice.AllNXB();
+                const publisher = await bookservice.AllNXB();
                 res.render('book/newbook', {
                     name,
-                    NXB: multipleSequelizeToObject(NXB),
+                    NXB,
+                    publisher: multipleSequelizeToObject(publisher),
                     Theloai: multipleSequelizeToObject(cate),
                     error,
                 });

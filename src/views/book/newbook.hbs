@@ -46,9 +46,9 @@
         </div>
         <div class="form-group mt-3">
             <label for="NXB">Nhà xuất bản</label>
-            <select class="form-control" id="NXB" name="manxb">
-                {{#each NXB}}
-                <option value="{{this.manxb}}">{{this.Ten}}</option>
+            <select class="form-control" id="NXB" name="manxb"  defaultpublisher = "{{NXB}}">
+                {{#each publisher}}
+                <option value="{{this.manxb}}" id = "{{this.manxb}}">{{this.Ten}}</option>
                 {{/each}}
             </select>
         </div>
@@ -70,3 +70,8 @@
         <button type="submit" class="btn btn-primary mt-4">Thêm truyện mới</button>
     </form>
 </div>
+<script type="text/javascript">
+    const nxb = document.getElementById('NXB').getAttribute('defaultpublisher')
+    console.log(nxb)
+    document.getElementById(nxb).setAttribute('selected','selected')
+</script>

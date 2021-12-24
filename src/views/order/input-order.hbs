@@ -69,15 +69,15 @@
         </div>
         <div class="col-md-4 mt-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email">
+            <input type="email" class="form-control" id="email" readonly>
         </div>
         <div class="col-md-4 mt-3">
             <label for="phone" class="form-label">Số điện thoại </label>
-            <input type="text" class="form-control" id="phone">
+            <input type="text" class="form-control" id="phone" readonly>
         </div>
         <div class="col-6 mt-3">
             <label for="address" class="form-label">Điện chỉ</label>
-            <input type="text" class="form-control" id="address" placeholder="1234 Main St">
+            <input type="text" class="form-control" id="address" placeholder="1234 Main St" readonly>
         </div>
     </form>
     <br>
@@ -96,24 +96,27 @@
 
         <tfoot>
             <tr>
-                <td><a href="/" data-toggle="modal" data-target="#addBookModel" id="add-btn" class="btn btn-warning"><i
-                            class="fa fa-angle-left"></i> Thêm truyện</a>
+                <td><a href="/" data-toggle="modal" data-target="#addBookModel" id="add-btn" class="btn btn-warning">
+                    <i class="fa fa-angle-left"></i> Thêm truyện</a>
                 </td>
                 <td colspan="1" class="hidden-xs"> </td>
                 <td class="hidden-xs "><strong>Tổng tiền</strong>
                 <td class="hidden-xs " id="sumMoney"><strong>0 đ</strong>
 
                 </td>
-                <td><button href="/" type="submit" class="btn btn-success btn-block" id = "btnSave"
+                <td><button href="/" type="submit" class="btn btn-success btn-block" id="btnSave"
                         style="background-color:gray; border-color: gray;" disabled>Lưu <i
                             class="fa fa-angle-right"></i></button>
 
                 </td>
             </tr>
             <tr>
-                <td colspan="3"> <i class="fa fa-angle-left"></i>
+                <td>
+                    <a href="/orders/order-manager"  id="btnBack" class="btn btn-success">
+                    <i class="fa fa-angle-left"></i> Trở về
+                </a>
                 </td>
-                <td colspan="2" class="hidden-xs text-end "> NV. Tên nhân viên <i class="fa fa-angle-right"></i>
+                <td colspan="4" class="hidden-xs text-end "> NV. Tên nhân viên <i class="fa fa-angle-right"></i>
                 </td>
             </tr>
         </tfoot>
@@ -141,8 +144,7 @@
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn btn-primary" id="btnAddBook" data-dismiss="modal"
-                        style="background-color:gray; border-color: gray;" disabled>
+                    <button type="button" class="btn btn-primary" id="btnAddBook" data-dismiss="modal">
                         <a href="/" data-toggle="modal" id="linkAddBook" data-target="#announcement"
                             style="color: white;">Thêm</a></button>
                     <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Đóng</button>
@@ -341,7 +343,6 @@
         }
     })
 
-
     function loadBookNameNXB(bookName, nxb) {
         $.ajax({
             url: `/api/orders/getBookNameNXB`,
@@ -353,8 +354,7 @@
 
                 var linkAddBook = document.getElementById('linkAddBook');
 
-                if (!data.message) 
-                {
+                if (!data.message) {
                     var html =
                         `<tr id='${data.book.masach}'>
                             <td data-th="Product">
@@ -381,13 +381,7 @@
                             </td>
                         </tr>`
 
-                    /*var form = 
-                        `<div id = 'div${data.book.masach}'>
-                            <input type = "text" id="form_bookId${data.book.masach}" value = "${data.book.masach}" name="form_bookId${data.book.masach}">
-                            <input type = "number" id="form_price${data.book.masach}" value = 1>
-                        </div>`*/
                     $('#orderTable').append(html);
-                    //$('#submitForm').append(form);
 
                     nameList.push(data.book.tensach);
                     idList.push(data.book.masach)
@@ -408,14 +402,14 @@
         idList.splice(nameList.indexOf(name), 1);
         quantityList.splice(nameList.indexOf(name), 1);
         nameList.splice(nameList.indexOf(name), 1);
-        if(nameList.length == 0){
+        if (nameList.length == 0) {
             document.getElementById('btnSave').setAttribute('disabled', 'true');
             document.getElementById('btnSave').setAttribute('style', 'background-color:gray; border-color: gray;');
         }
         //document.getElementById('submitForm').removeChild(document.getElementById('div'+id.id));
-        
+
         document.getElementById('orderTable').removeChild(id);
-        
+
         totalMoney();
 
     }
@@ -432,9 +426,6 @@
         quantityList[idList.indexOf(id.id)] = quantity;
 
         totalMoney()
-
-
-        //$('#form_price'+id.id).val(quantity)
     }
 
     function totalMoney() {
@@ -455,7 +446,6 @@
     }
 
     document.getElementById('btnAddNewBook').addEventListener('click', function (e) {
-
         const input = `<input type="text" name='NXB' value="${$('#' + NXB).val()}">`
         $('#formNameBook').append(input);
         $('#formNameBook').submit()
@@ -475,10 +465,6 @@
     })
 
     document.getElementById('btnSave').addEventListener('click', function (e) {
-        console.log(idList)
-        console.log(quantityList)
-
-        //document.getElementById('submitForm').submit();
         $.ajax({
             url: `/api/orders/submit`,
             method: "POST",
@@ -487,13 +473,21 @@
                 idList,
                 quantityList,
             }, success: function (data) {
-                $('#add-btn').attr('hidden','true')
-                $('#btnSave').text('Đã lưu')
-                $('#btnSave').attr('disabled','true')
-                for(var i=0; i< idList.length; i++){
+                $('select').attr('disabled', 'disabled')
+
+                for (var i = 0; i < idList.length; i++) {
                     $('#btnRemove' + idList[i]).attr('hidden', 'true')
-                    $('#quantity'+idList[i]).attr('disabled','true')
+                    $('#quantity' + idList[i]).attr('disabled', 'true')
                 }
+
+                $('#btnSave').attr('disabled', 'true')
+                $('#btnSave').text('Đã lưu')
+
+                $('#add-btn').text('Thêm phiếu nhập')
+                $('#add-btn').removeAttr('data-target')
+                $('#add-btn').removeAttr('data-toggle')
+                $('#add-btn').attr('href','/orders/input-order')
+                $('#add-btn').prepend('<i class="fa fa-angle-left"></i>')
             }
         })
     })
@@ -503,5 +497,7 @@
     //Set input của tên truyện về ""
     $('#add-btn').on("click", function (e) {
         $('#myBook').val('')
+        document.getElementById('btnAddBook').setAttribute('disabled', 'true');
+        document.getElementById('btnAddBook').setAttribute('style', 'background-color:gray; border-color: gray;');
     })
 </script>
