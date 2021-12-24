@@ -8,12 +8,11 @@ class receiptController {
             if (!req.user) {
                 res.redirect('/login');
             } else {
-                const receiptId = req.query.receiptId;
-                const receipt = await receiptservice.getReceipt(receiptId);
-
+                const search = req.query.search;
+                var receipt = await receiptservice.getReceipt(search);
                 res.render('receipt/receipt-manager', {
                     title: 'Book Selling',
-                    receipt: multipleSequelizeToObject(receipt)
+                    receipt: receipt[0]
                 });
             }
         } catch (e) {

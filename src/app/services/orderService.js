@@ -1,5 +1,5 @@
 const {
-    models
+    models, sequelize
 } = require('../../config/db');
 const {
     Op
@@ -11,23 +11,29 @@ exports.getmodels = () => {
 };
 
 //Get all order has id like "id"
-exports.getOrder = (orderId) => {
+exports.getOrder = (search) => {
     var id = '';
-    if (orderId) {
-        id = orderId;
+    if (search) {
+        id = search;
     }
 
-    return models.phieunhap.findAll({
-        where: {
-            MAPN: {
-                [Op.like]: '%' + id + '%',
-            },
-        },
-        include: [{
-            model: models.nxb,
-            as: 'MANXB_nxb',
-        }, ],
-    });
+    return sequelize.query(
+        "SELECT * FROM `phieunhap` AS `PN` INNER JOIN `nxb` AS `NXB` " + 
+        "ON `PN`.`MANXB` = `NXB`.`manxb` " +
+        "WHERE `PN`.`MAPN` LIKE '%" + id + "%' OR `NXB`.`Ten` LIKE '%" + id + "%'"
+    )
+
+    // return models.phieunhap.findAll({
+    //     where: {
+    //         MAPN: {
+    //             [Op.like]: '%' + id + '%',
+    //         },
+    //     },
+    //     include: [{
+    //         model: models.nxb,
+    //         as: 'MANXB_nxb',
+    //     }, ],
+    // });
 };
 
 //Get one order has id like "id"
@@ -46,9 +52,7 @@ exports.getOneOrder = (orderId) => {
         include: [{
             model: models.nxb,
             as: 'MANXB_nxb',
-        }, ],
-
-        include: [{
+        },{
             model: models.nhanvien,
             as: 'MANV_nhanvien',
         }]

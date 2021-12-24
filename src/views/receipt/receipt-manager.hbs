@@ -47,13 +47,9 @@
           </div>
 
           <form class="form-inline my-2 my-lg-0 mt-5">
-            <input class="form-control mr-sm-2" type="search" name ="receiptId" placeholder="Tìm mã hóa đơn" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" name ="search" placeholder="Tìm mã hóa đơn hoặc tên khách hàng" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm</button>
           </form>
-
-          <a href="#" class="mt-4 btn btn-link" style="float: right;">
-            Thùng rác
-          </a>
           <div>
             <table class="table table-striped mt-4">
               <thead>
@@ -64,7 +60,6 @@
                   <th scope="col">Địa chỉ</th>
                   <th scope="col">Số điện thoại</th>
                   <th scope="col">Thời gian</th>
-                  <th scope="col" colspan="2"> Lựa Chọn </th>
                 </tr>
               </thead>
               <tbody>
@@ -72,16 +67,13 @@
                 <tr>
                   <th scope="row">{{sum @index 1}}</th>
                   <td>
-                    <a href="/receipts/receipt-detail/{{this.this.MAPM}}" class="btn-link">{{this.MAPM}}</a>
+                    <a href="/receipts/receipt-detail/{{this.MAPM}}" class="btn-link">{{this.MAPM}}</a>
                   </td>
-                  <td>{{this.MAKH_khachhang.HOTEN}}</td>
-                  <td>{{this.MAKH_khachhang.DIACHI}}</td>
-                  <td>{{this.MAKH_khachhang.SDT}}</td>
+                  <td>{{this.HOTEN}}</td>
+                  <td>{{this.DIACHI}}</td>
+                  <td>{{this.SDT}}</td>
                   <td>{{this.NGAYMUA}}</td>
-                  <td>
-                    <a href="#" class="btn-link" style = "padding-right: 10px;">Sửa</a>
-                    <a href="#" class="btn-link">Xóa</a>
-                  </td>
+
                 </tr>
                 {{else}}
                 <tr>

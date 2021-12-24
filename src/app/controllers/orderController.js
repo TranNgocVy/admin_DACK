@@ -11,11 +11,12 @@ class orderController {
             if (!req.user) {
                 res.redirect('/');
             } else {
-                const orderId = req.query.orderId;
-                const order = await orderservice.getOrder(orderId);
+                const search = req.query.search;
+                const order = await orderservice.getOrder(search);
+                console.log(order)
                 res.render('order/order-manager', {
                     title: 'Book Selling',
-                    order: multipleSequelizeToObject(order),
+                    order: order[0],
                 });
             }
         } catch (e) {
@@ -32,6 +33,7 @@ class orderController {
 
                 const id = req.params.id
                 const order = await orderservice.getOneOrder(id);
+
                 const detailOrder = await orderservice.getDetailOrder(id);
 
                 res.render('order/order-detail', {
@@ -53,6 +55,7 @@ class orderController {
                 var NXB = await orderservice.getNXBs()
                 res.render('order/input-order', {
                     title: 'Book Selling',
+                    user: req.user.HOTEN,
                     NXB
                 });
             }

@@ -50,7 +50,32 @@
             <div class="text-center">
                 <H3>Chi tiết hóa đơn</H3>
             </div>
-            <div class="mt-5">
+                        <div>
+                <div class=" mt-5 col-4">
+                    <label for="validationCustom01" class="form-label">Họ tên </label>
+                    <input type="text" class="form-control" id="name" readonly
+                        value='{{receipt.MAKH_khachhang.HOTEN}}'>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" readonly value='{{receipt.MAKH_khachhang.EMAIL}}'>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <label for="phone" class="form-label">Số điện thoại </label>
+                    <input type="text" class="form-control" id="phone" readonly value='{{receipt.MAKH_khachhang.SDT}}'>
+                </div>
+                <div class="col-6 mt-3">
+                    <label for="address" class="form-label">Điện chỉ</label>
+                    <input type="text" class="form-control" id="address" placeholder="1234 Main St" readonly
+                        value='{{receipt.MAKH_khachhang.DIACHI}}'>
+                </div>
+                <div class="col-4 mt-3">
+                    <label for="date" class="form-label">Ngày mua</label>
+                    <input type="text" class="form-control" id="date" placeholder="dd/mm/yyyy" readonly
+                        value='{{receipt.NGAYMUA}}'>
+                </div>
+            </div>
+            {{!-- <div class="mt-5">
                 <h6 style="margin: 10px"> Họ tên : <b>{{receipt.MAKH_khachhang.HOTEN}}</b> </h6>
             </div>
             <div class="mt-1">
@@ -61,7 +86,7 @@
             </div>
             <div class="mt-1">
                 <h6 style="margin: 10px"> Thời gian : <b>{{receipt.NGAYMUA}}</b></h6>
-            </div>
+            </div> --}}
 
             <!-- Thêm dùm link đến đơn nhập hàng -->
             <br>
@@ -69,10 +94,10 @@
                 <thead>
                     <tr>
                         <th style="width:50%">Tên sản phẩm</th>
-                        <th style="width:10%">Giá</th>
-                        <th style="width:10%">Số lượng</th>
+                        <th style="width:15%">Giá</th>
+                        <th style="width:15%">Số lượng</th>
                         <th style="width:20%">Thành tiền</th>
-                        <th style="width:10%"> </th>
+                        {{!-- <th style="width:10%"> </th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -93,10 +118,10 @@
                         <td data-th="Quantity">{{this.SL}}</td>
                         <td data-th="Subtotal">{{totalMoney this.MASACH_sach.gia this.SL}} đ</td>
                         </td>
-                        <td class="actions" data-th="">
+                        {{!-- <td class="actions" data-th="">
                             <button class="btn btn-success btn-sm"><i class="fa fa-trash-o">duyệt</i>
                             </button>
-                        </td>
+                        </td> --}}
                     </tr>
                     {{else}}
                     <tr>
@@ -115,8 +140,8 @@
                         <td class="hidden-xs text-start"><strong>Tổng tiền</strong>
                         <td class="hidden-xs text-start"><strong>{{totalMoneyForReceiptOrOrder detailReceipt}} đ</strong>
                         </td>
-                        <td class="text-end"> Đã Thanh toán <i class="fa fa-angle-right"></i>
-                        </td>
+                        {{!-- <td class="text-end"> Đã Thanh toán <i class="fa fa-angle-right"></i>
+                        </td> --}}
                     </tr>
 
                 </tfoot>
