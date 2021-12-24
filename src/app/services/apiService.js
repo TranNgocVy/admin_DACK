@@ -68,9 +68,12 @@ exports.genKeyOrder = async () =>{
 
 //Tạo 1 phiếu nhập mới
 exports.createOrder = async (mapn,publisher,manv) => {
+    const d = new Date()
+    var ngaynhap = d.getFullYear()+"-"+(d.getMonth() + 1)+"-"+d.getDate()
     const order = await models.phieunhap.create({
         MAPN: mapn,
         MANXB: publisher,
+        NGAYNHAP : ngaynhap,
         MANV: manv,
     });
     return true;
@@ -81,10 +84,10 @@ exports.createDetailOrder = async (mapn,idList,quantityList) => {
         console.log(i," ", idList[i])
         console.log(i," ", quantityList[i])
 
-        const order = await models.ct_phieunhap.create({
+        await models.ct_phieunhap.create({
             MAPN: mapn,
             MASACH: idList[i],
-            SL: quantityList[i],
+            SL: parseInt(quantityList[i]),
         });
     }
     return true;
