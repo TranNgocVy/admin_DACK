@@ -13,7 +13,6 @@ class orderController {
             } else {
                 const search = req.query.search;
                 const order = await orderservice.getOrder(search);
-                console.log(order)
                 res.render('order/order-manager', {
                     title: 'Book Selling',
                     order: order[0],
@@ -55,7 +54,7 @@ class orderController {
                 var NXB = await orderservice.getNXBs()
                 res.render('order/input-order', {
                     title: 'Book Selling',
-                    user: req.user.HOTEN,
+                    name: req.user.HOTEN,
                     NXB
                 });
             }
@@ -70,7 +69,6 @@ class orderController {
             if (!req.user) {
                 res.redirect('/login');
             } else {
-                console.log(req.body)
                 await orderservice.getNXBs()
 
                 res.redirect('/orders/order-manager');
