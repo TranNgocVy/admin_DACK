@@ -35,10 +35,9 @@ class adminController {
             try {
                 if (!req.user) {
                     res.render('login', {
-                        title: 'Book Selling',
                         invalidlogin: req.query.invalidlogin,
                     });
-                } else res.render('/account/account-manager');
+                } else res.redirect('/accounts/account-manager');
             } catch (e) {
                 next(e);
             }
@@ -47,7 +46,6 @@ class adminController {
     forgetpass(req, res, next) {
         try {
             res.render('forgetpass', {
-                title: 'Book Selling',
             });
         } catch (e) {
             next(e);

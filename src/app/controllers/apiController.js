@@ -63,17 +63,29 @@ class apiController {
                 const publisher = req.body.NXB
                 const idList = req.body.idList
                 const quantityList = req.body.quantityList
-                console.log(idList)
-                console.log(quantityList)
-                console.log(req.user.MANV)
                 const mapn = await apiservice.genKeyOrder();
-                console.log("id moi: ", mapn)
 
                 await apiservice.createOrder(mapn,publisher,req.user.MANV);
                 await apiservice.createDetailOrder(mapn,idList,quantityList);
 
                 res.status(201).json({})
+            } else {
+                res.status(500).json({})
+            }
+        } catch (error) {
+            next(error);
+        }
+    }
 
+    //[PUT]: /api/accounts/lockOrUnlockAccount
+    async lockCustomer(req, res, next){
+        try {
+            if (req.user) {
+                var MAKH = req.body.MAKH
+                var status = req.body.status
+
+                await apiservice.updateStatusCustomer(MAKH, status);
+                res.status(201).json({})
 
             } else {
                 res.status(500).json({})
@@ -84,4 +96,6 @@ class apiController {
     }
 
 }
+
+
 module.exports = new apiController();

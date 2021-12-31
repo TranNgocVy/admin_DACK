@@ -120,7 +120,7 @@ exports.createBook = async(req) => {
             });
         });
     }
-    return true;
+    return book;
 };
 //delete book
 exports.DeleteBook = async(req) => {

@@ -19,11 +19,12 @@ class accountController {
                         accounts = await accountservice.getAdminAccount();
                     } else {
                         accounts = await accountservice.getCustomerAccount();
+                    // res.json(accounts)
+
                         admin = false;
                     }
 
                     res.render('account/account-manager', {
-                        title: 'Book Selling',
                         accounts: multipleSequelizeToObject(accounts),
                         admin,
                     });
@@ -33,13 +34,30 @@ class accountController {
             } catch (e) {
                 next(e);
             }
+    }
+    //[GET]: /accounts/customer/:id
+    async detailCustomer(req, res, next){
+        try {
+            if (req.user) {
+                const {id} = req.params;
+                const customer = await accountservice.getDetailCustomer(id);
+                res.render('account/customer-detail',{
+                    customer
+                })
+            } else {
+                res.redirect('/');
+            }
+        } catch (e) {
+            next(e);
         }
-        //[GET]: accounts/add
+    }
+
+
+    //[GET]: accounts/add
     async add(req, res, next) {
             try {
                 if (req.user) {
                     res.render('account/add', {
-                        title: 'Book Selling',
                         errorEmpty: req.query.errorEmpty,
                         errorUSER: req.query.errorUSER,
                         errorPASS: req.query.errorPASS,

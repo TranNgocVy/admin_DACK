@@ -46,6 +46,7 @@ class bookController {
                 //Khi chuyển từ trang thêm phiếu nhập về trang thêm sách sẽ có thêm 1 query là bookname và NXB
                 var name = req.query.bookname
                 var NXB = req.query.NXB
+                var isAddBook = req.query.isAddBook
 
                 if(!name){
                     name = ''
@@ -60,6 +61,7 @@ class bookController {
                 res.render('book/newbook', {
                     name,
                     NXB,
+                    isAddBook,
                     publisher: multipleSequelizeToObject(publisher),
                     Theloai: multipleSequelizeToObject(cate),
                     error,
@@ -105,9 +107,16 @@ class bookController {
                 } else {
                     req.body.masach = await bookservice.genKeybook(req.body.hinhthuc);
                     // insert book to db
-                    await bookservice.createBook(req);
+                    const book = await  bookservice.createBook(req);
                     //back to book-manager
-                    res.redirect('/books/book-manager');
+                    if (req.body.isAddBook){
+                        res.redirect('/orders/input-order',{
+                            book,
+                        });
+                    }
+                    else {
+                        res.redirect('/books/book-manager');
+                    }
                 }
             }
         } catch (e) {

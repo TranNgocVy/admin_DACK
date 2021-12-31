@@ -14,7 +14,6 @@ class orderController {
                 const search = req.query.search;
                 const order = await orderservice.getOrder(search);
                 res.render('order/order-manager', {
-                    title: 'Book Selling',
                     order: order[0],
                 });
             }
@@ -36,7 +35,6 @@ class orderController {
                 const detailOrder = await orderservice.getDetailOrder(id);
 
                 res.render('order/order-detail', {
-                    title: 'Book Selling',
                     order: SequelizeToObject(order),
                     detailOrder: multipleSequelizeToObject(detailOrder)
                 });
@@ -53,7 +51,6 @@ class orderController {
             } else {
                 var NXB = await orderservice.getNXBs()
                 res.render('order/input-order', {
-                    title: 'Book Selling',
                     name: req.user.HOTEN,
                     NXB
                 });

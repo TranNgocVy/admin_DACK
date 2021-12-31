@@ -11,7 +11,6 @@ class receiptController {
                 const search = req.query.search;
                 var receipt = await receiptservice.getReceipt(search);
                 res.render('receipt/receipt-manager', {
-                    title: 'Book Selling',
                     receipt: receipt[0]
                 });
             }
@@ -30,7 +29,6 @@ class receiptController {
                 const receipt = await receiptservice.getOneReceipt(id);
                 const detailReceipt = await receiptservice.getDetailReceipt(id);
                 res.render('receipt/receipt-detail', {
-                    title: 'Book Selling',
                     receipt: SequelizeToObject(receipt),
                     detailReceipt: multipleSequelizeToObject(detailReceipt)
 
