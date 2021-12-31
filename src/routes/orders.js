@@ -11,5 +11,4 @@ router.get('/order-manager', orderController.show);
 router.get('/api/getBookNXB', orderController.getBookNXB);
 router.get('/api/getBookNameNXB', orderController.getBookNameNXB);
 
-
 module.exports = router;

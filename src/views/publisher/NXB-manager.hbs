@@ -1,0 +1,194 @@
+{{!--
+
+<head>
+  <title>Admin's Page {{title}}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
+
+  <!-- Css Styles -->
+  <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css" />
+  <link rel="stylesheet" href="../css/nice-select.css" type="text/css" />
+  <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css" />
+  <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
+  <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+
+  <style>
+    .flex-column {
+      border-style: solid;
+      border-color: #77B4E3;
+      border-width:
+        1px;
+    }
+
+    .overflow-auto {
+      border-style: solid;
+      height: 600px;
+      border-color: #77B4E3;
+      border-width:
+        1px;
+    }
+  </style>
+
+</head> --}}
+
+<body>
+  <div class="container">
+    <div class="row" style="margin-top:20px;  ">
+      <div class="col-11">
+        <div class="mt-4" style="text-align: center;">
+          <h3>Quản lí tài khoản</h3>
+        </div>
+        <nav class="nav nav-pills nav-justified mt-4">
+          <div class="float-right md-4">
+            <a href="/books/input-new-book" data-toggle="modal" data-target="#add-NXB" class="btn-link btn-light">
+              Thêm Nhà Xuất Bản
+              <i class="ml-2 fas fa-book-medical"></i>
+            </a>
+          </div>
+        </nav>
+        <div class="overflow-auto">
+          <div class="book-information" data-spy="scroll">
+            <table class="table table-striped mt-4">
+              <thead>
+                <tr>
+                  
+                  <th scope="col">Mã Nhà Xuất Bản </th>
+                  <th scope="col">Tên Nhà Xuất Bản</th>
+                  <th scope="col">Số điện thoại</th>
+                  <th scope="col">Địa chỉ </th>
+                  <th scope="col">Email</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each publishers}}
+                <tr>
+                  
+                  <td>
+                    {{this.manxb}}
+                    {{!-- <a href="#" class="-link">{{this.masach}}</a> --}}
+                  </td>
+                  <td>{{this.Ten}}</td>
+                  <td>{{this.diachi}}</td>
+                  <td>{{this.sdt}}</td>
+                  <td>{{this.email}}</td>
+                  
+                  <td>
+                    <a href="" class="btn-link mr-1 mt-1 mb-1" data-bs-toggle="modal" data-manxb="{{this}}"
+                      data-bs-target="#update-NXB"><i class="fas fa-cog"></i></a>
+                  </td>
+                </tr>
+                {{else}}
+                <tr>
+                  <td colspan="7" class="text-center">
+                    Danh sách trống
+                  </td>
+                </tr>
+                {{/each}}
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-1">
+
+      </div>
+    </div>
+  </div>
+</body>
+<div class="modal" id="add-NXB" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm nhà xuất bản</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/publishers/add" id="form-add-NXB" method="post">
+          <div class="form-group">
+            <label for="Ten">Tên Nhà Xuất Bản</label>
+            <input type="text" class="form-control" name="Ten" id="Ten" required placeholder="Nhập tên">
+          </div>
+          <div class="form-group">
+            <label for="sdt">Số điện thoại</label>
+            <input type="text" class="form-control" name="sdt" id="sdt" required placeholder="Nhập số điện thoại">
+          </div>
+          <div class="form-group">
+            <label for="diachi">Địa chỉ</label>
+            <input type="text" class="form-control" name="diachi" id="diachi" required placeholder="Nhập địa chỉ">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="mail" class="form-control" name="email" id="email" required placeholder="Nhập email">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" form="form-add-NXB" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="update-NXB" tabindex="-1" role="dialog" aria-labelledby="update-NXB" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="form-update-NXB" method="post">
+          <div class="form-group">
+            <label for="Ten">Tên Nhà Xuất Bản</label>
+            <input type="text" class="form-control" name="Ten" id="TenU" readonly required placeholder="Nhập tên">
+          </div>
+          <div class="form-group">
+            <label for="sdt">Số điện thoại</label>
+            <input type="text" class="form-control" name="sdt" id="sdtU" required placeholder="Nhập số điện thoại">
+          </div>
+          <div class="form-group">
+            <label for="diachi">Địa chỉ</label>
+            <input type="text" class="form-control" name="diachi" id="diachiU" required placeholder="Nhập địa chỉ">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="mail" class="form-control" name="email" id="emailU" required placeholder="Nhập email">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="update-btn" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+   
+  
+  document.getElementById("update-NXB").addEventListener('shown.bs.modal', function (e) {
+    var button = e.relatedTarget
+    var recipient = button.getAttribute('data-manxb')
+    $.ajax({
+      
+    })
+
+    // deleteForm.action = '/books/save/' + maSach +'?_method=DELETE';
+    // deleteForm.submit();
+  })
+</script>

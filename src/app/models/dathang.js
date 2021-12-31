@@ -1,18 +1,22 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'binhluan',
+    'dathang',
     {
-      USER: {
-        type: DataTypes.CHAR(15),
+      iddathang: {
+        type: DataTypes.CHAR(20),
         allowNull: false,
         primaryKey: true,
+      },
+      makh: {
+        type: DataTypes.CHAR(6),
+        allowNull: false,
         references: {
           model: 'khachhang',
-          key: 'USER',
+          key: 'MAKH',
         },
       },
-      MASACH: {
+      masach: {
         type: DataTypes.CHAR(6),
         allowNull: false,
         primaryKey: true,
@@ -21,31 +25,44 @@ module.exports = function (sequelize, DataTypes) {
           key: 'masach',
         },
       },
+      SOLUONG: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
       THOIGIAN: {
         type: DataTypes.DATE,
         allowNull: false,
-        primaryKey: true,
       },
-      NOIDUNG: {
-        type: DataTypes.STRING(1000),
+      TRANGTHAI: {
+        type: DataTypes.CHAR(10),
         allowNull: false,
+        primaryKey: true,
       },
     },
     {
       sequelize,
-      tableName: 'binhluan',
+      tableName: 'dathang',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'USER' }, { name: 'MASACH' }, { name: 'THOIGIAN' }],
+          fields: [
+            { name: 'iddathang' },
+            { name: 'masach' },
+            { name: 'TRANGTHAI' },
+          ],
         },
         {
-          name: 'binhluan_sach_masach_fk',
+          name: 'makh',
           using: 'BTREE',
-          fields: [{ name: 'MASACH' }],
+          fields: [{ name: 'makh' }],
+        },
+        {
+          name: 'masach',
+          using: 'BTREE',
+          fields: [{ name: 'masach' }],
         },
       ],
     },
