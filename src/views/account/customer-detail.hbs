@@ -1,0 +1,112 @@
+<div class="container">
+
+    <div class="row">
+        <div class="d-flex justify-content-center">
+            <div class="card" style="width:60rem;padding:10px">
+                <div class="card-header">
+                    <h3>Thông tin khách hàng</h3>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="{{customer.HINHANH}}" alt="{{customer.IDHINHANH}}"
+                                    style="margin-bottom: 10px;" />
+                                <input type="file" class="mt-auto mb-auto ml-2" name="file">
+                            </div>
+                            <div class="col-8">
+
+                                <li class="list-group-item">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default"
+                                                value="{{customer.USER}}">Tên tài khoản</span>
+                                        </div>
+                                        <input name="HOTEN" type="text" class="form-control"
+                                            aria-describedby="inputGroup-sizing-default" value="{{customer.USER}}" readonly />
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default"
+                                                value="{{customer.MAKH}}">Mã khách hàng</span>
+                                        </div>
+                                        <input name="HOTEN" type="text" class="form-control"
+                                            aria-describedby="inputGroup-sizing-default" value="{{customer.MAKH}}" readonly />
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default"
+                                                value="{{customer.MANV}}">Họ tên</span>
+                                        </div>
+                                        <input name="HOTEN" type="text" class="form-control"
+                                            aria-describedby="inputGroup-sizing-default" value="{{customer.HOTEN}}" readonly />
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+                                        </div>
+                                        <input name="EMAIL" type="email" class="form-control"
+                                            aria-describedby="inputGroup-sizing-default" value="{{customer.EMAIL}}" readonly />
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="inputGroupSelect01">Giới
+                                                tính</label>
+                                        </div>
+                                        <select class="custom-select" name="PHAI" id="inputGroupSelect01" disabled>
+                                            <option value="NAM">Nam</option>
+                                            <option value="NU">Nữ</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">Số điện
+                                                thoại</span>
+                                        </div>
+                                        <input name="SDT" type="text" class="form-control"
+                                            aria-describedby="inputGroup-sizing-default" value="{{customer.SDT}}" readonly />
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">Địa
+                                                chỉ</span>
+                                        </div>
+                                        <input name="DIACHI" type="text" class="form-control"
+                                            aria-describedby="inputGroup-sizing-default" value="{{customer.DIACHI}}" readonly />
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">Ngày
+                                                sinh</span>
+                                        </div>
+                                        <input name="NGAYSINH" type="date" class="form-control"
+                                            aria-describedby="inputGroup-sizing-default"
+                                            value="{{customer.NGAYSINH}}" readonly />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+
+                                </li>
+
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row empty-space">
+
+
+    </div>
+</div>
+<script>
+    var sexEl = document.getElementById("inputGroupSelect01");
+    console.log(sexEl);
+    sexEl.value = "{{customer.PHAI}}";
+</script>

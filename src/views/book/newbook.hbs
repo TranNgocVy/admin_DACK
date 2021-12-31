@@ -5,6 +5,7 @@
             <div class="mt-1 mb-1 text-center text-danger">Hãy điền tên sách và tác giả !</div>
     {{/if}}
     <form method="post" action="/books/book-manager" enctype="multipart/form-data" >
+        <input type="hidden" value= "{{isAddBook}}" name = "isAddBook">
         <div class="form-group mt-3">
             <label for="name">Tên truyện</label>
             <input type="text" class="form-control" id="name" name="tensach" placeholder="Nhập tên truyện" value='{{name}}'>

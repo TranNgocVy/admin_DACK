@@ -110,6 +110,22 @@ class accountController {
       next(e);
     }
   }
+  //[GET]: /accounts/customer/:id
+  async detailCustomer(req, res, next) {
+    try {
+      if (req.user) {
+        const { id } = req.params;
+        const customer = await accountservice.getDetailCustomer(id);
+        res.render('account/customer-detail', {
+          customer,
+        });
+      } else {
+        res.redirect('/');
+      }
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 module.exports = new accountController();

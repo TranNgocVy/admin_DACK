@@ -83,3 +83,24 @@ exports.createDetailOrder = async (mapn, idList, quantityList) => {
   }
   return true;
 };
+
+//Cập nhật trạng thái của tài khoản khách hàng
+exports.updateStatusCustomer = (makh, status) => {
+  if (status == 'lock') {
+    return models.khachhang.restore({
+      where: {
+        MAKH: {
+          [Op.like]: makh,
+        },
+      },
+    });
+  } else {
+    return models.khachhang.destroy({
+      where: {
+        MAKH: {
+          [Op.like]: makh,
+        },
+      },
+    });
+  }
+};
