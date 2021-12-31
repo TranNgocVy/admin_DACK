@@ -80,7 +80,12 @@
                   <td>{{this.email}}</td>
                   
                   <td>
-                    <a href="" class="btn-link mr-1 mt-1 mb-1" data-bs-toggle="modal" data-manxb="{{this}}"
+                    <a href="" class="btn-link mr-1 mt-1 mb-1" data-bs-toggle="modal" 
+                    data-manxb="{{this.manxb}}"
+                    data-Ten="{{this.Ten}}"
+                    data-sdt="{{this.sdt}}"
+                    data-email="{{this.email}}"
+                    data-diachi="{{this.diachi}}"
                       data-bs-target="#update-NXB"><i class="fas fa-cog"></i></a>
                   </td>
                 </tr>
@@ -134,7 +139,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="submit" form="form-add-NXB" class="btn btn-primary">Save changes</button>
+        <button type="submit" form="form-add-NXB" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -145,13 +150,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Thông tin nhà xuất bản </h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="form-update-NXB" method="post">
+        <form id="form-update-NXB" name="form-update-NXB" method="post">
           <div class="form-group">
             <label for="Ten">Tên Nhà Xuất Bản</label>
             <input type="text" class="form-control" name="Ten" id="TenU" readonly required placeholder="Nhập tên">
@@ -171,8 +176,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="update-btn" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="update-btn" >Save</button>
       </div>
     </div>
   </div>
@@ -180,15 +185,18 @@
 
 <script>
    
-  
+  const updateForm = document.forms['form-update-NXB']
   document.getElementById("update-NXB").addEventListener('shown.bs.modal', function (e) {
     var button = e.relatedTarget
-    var recipient = button.getAttribute('data-manxb')
-    $.ajax({
-      
+    var NXB = button.getAttribute('data-manxb')
+    $('#TenU').val(button.getAttribute('data-Ten'))
+    $('#sdtU').val(button.getAttribute('data-sdt'))
+    $('#diachiU').val(button.getAttribute('data-diachi'))
+    $('#emailU').val(button.getAttribute('data-email'))
+    document.getElementById('update-btn').addEventListener('click', function (e) {
+      updateForm.action = '/publishers/' + NXB +'/update?_method=PUT';
+      updateForm.submit();
     })
 
-    // deleteForm.action = '/books/save/' + maSach +'?_method=DELETE';
-    // deleteForm.submit();
   })
 </script>

@@ -53,8 +53,19 @@ exports.addPublisher = async (req) => {
   return await models.nxb.create({
     manxb: req.body.manxb,
     Ten: req.body.Ten,
-    std: req.body.std,
+    sdt: req.body.sdt,
     diachi: req.body.diachi,
     email: req.body.email,
   });
 };
+
+exports.upPublisher = async (req) => {
+  var nxb = await models.nxb.findOne({ 
+    where: {
+      manxb : req.params.nxb
+    }
+  })
+  nxb.set(req.body)
+  await nxb.save()
+  return nxb
+}

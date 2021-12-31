@@ -36,7 +36,16 @@ class publisherController {
   }
   //[PUT] : publishers/:nxb/update
   async update(req, res, next) {
-    res.send(req.body);
+    try {
+      if(req.user){
+        var nxbup = await publisherservice.upPublisher(req)
+        res.redirect('back')
+      }else{
+        res.redirect('/');
+      }
+    } catch (error) {
+      next(error);
+    }
   }
 }
 
