@@ -17,7 +17,9 @@ exports.getDetailCustomer = (id) => {
 };
 // Get All admin account
 exports.getAdminAccount = () => {
-  return models.nhanvien.findAll({});
+  return models.nhanvien.findAll({
+    paranoid: false,
+  });
 };
 
 // Get All customer account
