@@ -9,5 +9,4 @@ router.post('/input-order', orderController.submit);
 
 router.get('/order-manager', orderController.show);
 
-
 module.exports = router;

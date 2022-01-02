@@ -1,7 +1,7 @@
 const orderservice = require('../services/orderService');
 const {
     multipleSequelizeToObject,
-    SequelizeToObject
+    SequelizeToObject,
 } = require('../../util/sequelize');
 
 
@@ -15,6 +15,7 @@ class orderController {
                 const search = req.query.search;
                 const order = await orderservice.getOrder(search);
                 res.render('order/order-manager', {
+                    title: 'Book Selling',
                     order: order[0],
                 });
             }
@@ -29,15 +30,15 @@ class orderController {
             if (!req.user) {
                 res.redirect('/login');
             } else {
-
-                const id = req.params.id
+                const id = req.params.id;
                 const order = await orderservice.getOneOrder(id);
 
                 const detailOrder = await orderservice.getDetailOrder(id);
 
                 res.render('order/order-detail', {
+                    title: 'Book Selling',
                     order: SequelizeToObject(order),
-                    detailOrder: multipleSequelizeToObject(detailOrder)
+                    detailOrder: multipleSequelizeToObject(detailOrder),
                 });
             }
         } catch (e) {
@@ -75,7 +76,7 @@ class orderController {
             if (!req.user) {
                 res.redirect('/login');
             } else {
-                await orderservice.getNXBs()
+                await orderservice.getNXBs();
 
                 res.redirect('/orders/order-manager');
             }
@@ -83,57 +84,6 @@ class orderController {
             next(e);
         }
     }
-    //[GET]: orders/api/getBookNXB
-    // async getBookNXB(req, res, next) {
-    //     try {
-    //         if (req.user) {
-    //             var NXB = req.query.NXB
-    //             var books = await orderservice.getSachNXBs(NXB);
-    //             var publisher = await orderservice.getOneNXB(NXB);
-
-    //             var message;
-
-    //             if (!books) {
-    //                 message = "Loại sách này chưa nhập từ nhà xuất bản này.";
-    //             }
-    //             res.status(201).json({
-    //                 publisher,
-    //                 books,
-    //                 message
-    //             })
-    //         } else {
-    //             res.status(500).json({})
-    //         }
-    //     } catch (error) {
-    //         next(error);
-    //     }
-    // }
-
-    //[GET]: orders/api/getBookNameNXB
-    // async getBookNameNXB(req, res, next) {
-    //     try {
-    //         if (req.user) {
-    //             var name = req.query.bookName
-    //             var publisher = req.query.nxb
-
-    //             var book = await orderservice.getBookNameNXB(name, publisher);
-    //             var message;
-
-    //             if (!book) {
-    //                 message = "Chưa từng nhập sách'" + name + "'";
-    //             }
-    //             res.status(201).json({
-    //                 book,
-    //                 message
-    //             })
-    //         } else {
-    //             res.status(500).json({})
-    //         }
-    //     } catch (error) {
-    //         next(error);
-    //     }
-    // }
-
 }
 
 module.exports = new orderController();

@@ -1,52 +1,50 @@
-const {
-    models
-} = require('../../config/db');
-const {
-    Op
-} = require('sequelize');
-const cloudImage = require('../../config/uploadIMG/cloudinary')
+const { models } = require('../../config/db');
+const { Op } = require('sequelize');
+const cloudImage = require('../../config/uploadIMG/cloudinary');
 // support query database
 exports.getmodels = () => {
-    return models;
-}
+  return models;
+};
 
 //Get all publisher
 exports.AllNXB = () => {
-    return models.nxb.findAll({});
+  return models.nxb.findAll({});
 };
 
 // Get all books
 exports.getBooks = (title) => {
-    var condition = '';
-    if (title) {
-        condition = title;
-    }
-    return models.sach.findAll({
-        where: {
-            tensach: {
-                [Op.like]: '%' + condition + '%',
-            },
-        },
-    });
+  var condition = '';
+  if (title) {
+    condition = title;
+  }
+  return models.sach.findAll({
+    where: {
+      tensach: {
+        [Op.like]: '%' + condition + '%',
+      },
+    },
+  });
 };
 
 //Get all books from stock
 exports.getStock = (title) => {
-    var condition = '';
-    if (title) {
-        condition = title;
-    }
-    return models.tonkho.findAll({
-        include: [{
-            model: models.sach,
-            as: 'masach_sach',
-            where: {
-                tensach: {
-                    [Op.like]: '%' + condition + '%',
-                },
-            },
-        }, ],
-    });
+  var condition = '';
+  if (title) {
+    condition = title;
+  }
+  return models.tonkho.findAll({
+    include: [
+      {
+        model: models.sach,
+        as: 'masach_sach',
+        where: {
+          tensach: {
+            [Op.like]: '%' + condition + '%',
+          },
+        },
+      },
+    ],
+  });
 };
 
 // Check id exists
@@ -89,7 +87,7 @@ exports.genKeybook = async (Hinhthuc) => {
         }
         i++;
     }
-};
+}
 //Get one book
 exports.getOnebook = (MSach) => {
     return models.sach.findOne({
@@ -119,7 +117,8 @@ exports.createBook = async (req) => {
         SL: 0,
         HINHANH: req.body.HINHANH,
         IDHINHANH: req.body.IDHINHANH,
-    });
+      });
+
     if (req.body.category) {
         for (const element of req.body.category) {
             await models.theloaicuasach.create({
@@ -154,8 +153,11 @@ exports.updateBook = async (req) => {
         req.body.HINHANH = result.secure_url;
         req.body.IDHINHANH = result.public_id;
     }
-    book.set(req.body);
-    await book.save();
+    var result = await cloudImage.uploadIMG(req.file.path, path);
+    req.body.HINHANH = result.secure_url;
+    req.body.IDHINHANH = result.public_id;
+  book.set(req.body);
+  await book.save();
 };
 // count delete book
 exports.countDeleteBook = async () => {
@@ -209,5 +211,5 @@ exports.deletBookForce = async (req) => {
 
 //Get models
 exports.getmodels = () => {
-    return models;
+  return models;
 };

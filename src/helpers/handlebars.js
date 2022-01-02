@@ -2,17 +2,17 @@ const Handlebars = require('handlebars');
 
 module.exports = {
   sum: (a, b) => a + b,
-  
+
   //Tính tổn tiền cho từng loại sách
-  totalMoney: (price, quanlity) => price*quanlity,
+  totalMoney: (price, quanlity) => price * quanlity,
   //Tính tổng tiền cho 1 hóa đơn
-  totalMoneyForReceiptOrOrder:(detailReceipt) =>{
+  totalMoneyForReceiptOrOrder: (detailReceipt) => {
     var sum = 0;
-    for(var i = 0;i < detailReceipt.length; i++){
-      sum += detailReceipt[i].MASACH_sach.gia* detailReceipt[i].SL;
+    for (var i = 0; i < detailReceipt.length; i++) {
+      sum += detailReceipt[i].MASACH_sach.gia * detailReceipt[i].SL;
     }
     return sum;
-  }, 
+  },
 
   select: (value, options) => {
     var $el = $('<select />').html(options.fn(this));

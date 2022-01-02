@@ -1,39 +1,36 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'phieumua',
+    'token_pass',
     {
-      MAPM: {
-        type: DataTypes.STRING(20),
-        allowNull: false,
-        primaryKey: true,
-      },
-      NGAYMUA: {
-        type: DataTypes.DATEONLY,
-        allowNull: true,
-      },
       MAKH: {
         type: DataTypes.STRING(6),
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'khachhang',
           key: 'MAKH',
         },
       },
+      TOKEN: {
+        type: DataTypes.STRING(256),
+        allowNull: false,
+        primaryKey: true,
+      },
     },
     {
       sequelize,
-      tableName: 'phieumua',
-      timestamps: false,
+      tableName: 'token_pass',
+      timestamps: true,
+      paranoid: true,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'MAPM' }],
+          fields: [{ name: 'TOKEN' }],
         },
         {
-          name: 'FK_PMUA_KHACHHANG',
+          name: 'token_pass_khachhang_MAKH_fk',
           using: 'BTREE',
           fields: [{ name: 'MAKH' }],
         },

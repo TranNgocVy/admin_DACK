@@ -110,7 +110,7 @@
                   </th>
                   <th scope="col" class="text-center">{{this.USER}}</th>
                   <th scope="col" class="text-center">{{this.EMAIL}}</th>
-                  <th scope="col" class="text-center">{{this.createAt}}</th>
+                  <th scope="col" class="text-center">{{this.createdAt}}</th>
                   <th scope="col" style="display: flex; justify-content: center;">
                     {{#if this.deletedAt}}
                     <button type="button" class="btn btn-primary btn-danger" data-dismiss="modal"
@@ -118,7 +118,7 @@
                       <a href="/" data-toggle="modal" id="link{{this.MAKH}}" data-target="#announcementUnlock"
                         style="color: white;">
                         {{!-- <i class="fas fa-user-lock" style="padding: 2px;" id="icon{{this.MAKH}}"></i> --}}
-                        Đã khóa
+                        <i class="fas fa-lock" style="padding: 2px;" ></i>
                       </a>
                     </button>
                     {{else}}
@@ -127,7 +127,7 @@
                       <a href="/" data-toggle="modal" id="link{{this.MAKH}}" data-target="#announcementLock"
                         style="color: white;">
                         {{!-- <i class="fas fa-user-unlock" style="padding: 2px;" id="icon{{this.MAKH}}"></i> --}}
-                        Không khóa
+                        <i class="fas fa-lock-open" style="padding: 2px;" ></i>
                       </a>
                     </button>
                     {{/if}}
@@ -219,8 +219,10 @@
     document.getElementById("link" + MAKH).setAttribute("data-target", "#announcementUnlock")
     document.getElementById("btnlock" + MAKH).setAttribute("data-status", "lock")
     document.getElementById("btnlock" + MAKH).setAttribute("class", "btn btn-primary btn-danger")
-    document.getElementById("link" + MAKH).innerText = "Đã khóa"
-
+    //document.getElementById("link" + MAKH).innerHTML = '';
+    //document.getElementById("link" + MAKH).appendChild('<i class="fas fa-lock-open"></i>')
+    $(`#link${MAKH}`).empty()    
+    $(`#link${MAKH}`).append(' <i class="fas fa-lock" style="padding: 2px;" ></i>')
 
     lock_unLock(MAKH, status)
 
@@ -232,8 +234,10 @@
     document.getElementById("link" + MAKH).setAttribute("data-target", "#announcementLock")
     document.getElementById("btnlock" + MAKH).setAttribute("data-status", "unlock")
     document.getElementById("btnlock" + MAKH).setAttribute("class", "btn btn-primary btn-success")
-    document.getElementById("link" + MAKH).innerText = "Không khóa"
-
+    //document.getElementById("link" + MAKH).innerHTML = '';
+   // document.getElementById("link" + MAKH).appendChild(' <i class="fas fa-lock"></i>')
+    $(`#link${MAKH}`).empty()
+    $(`#link${MAKH}`).append(' <i class="fas fa-lock-open" style="padding: 2px;" ></i>')
 
     lock_unLock(MAKH, status)
 

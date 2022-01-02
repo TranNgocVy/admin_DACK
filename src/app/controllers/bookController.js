@@ -9,18 +9,18 @@ const {
 class bookController {
     //[PUT] : /books/save/:id
     async saveUpdate(req, res, next) {
-            try {
-                if (!req.user) {
-                    res.redirect('/login');
-                } else {
-                    const book = await bookservice.updateBook(req);
-                    res.redirect('/books/book-manager');
-                }
-            } catch (e) {
-                next(e);
+        try {
+            if (!req.user) {
+                res.redirect('/login');
+            } else {
+                const book = await bookservice.updateBook(req);
+                res.redirect('/books/book-manager');
             }
+        } catch (e) {
+            next(e);
         }
-        //[GET]: books/:id/edit
+    }
+    //[GET]: books/:id/edit
     async edit(req, res, next) {
         try {
             if (!req.user) {
@@ -44,17 +44,16 @@ class bookController {
             if (!req.user) {
                 res.redirect('/login');
             } else {
-
                 //Khi chuyển từ trang thêm phiếu nhập về trang thêm sách sẽ có thêm 1 query là bookname và NXB
-                var name = req.query.bookname
-                var NXB = req.query.NXB
-                var isAddBook = req.query.isAddBook
+                var name = req.query.bookname;
+                var NXB = req.query.NXB;
+                var isAddBook = req.query.isAddBook;
 
-                if(!name){
-                    name = ''
+                if (!name) {
+                    name = '';
                 }
-                if(!NXB){
-                    NXB = ''
+                if (!NXB) {
+                    NXB = '';
                 }
 
                 const error = req.query.namebookerro;
@@ -109,14 +108,18 @@ class bookController {
                 } else {
                     req.body.masach = await bookservice.genKeybook(req.body.hinhthuc);
                     // insert book to db
-                    const book = await  bookservice.createBook(req);
+                    const book = await bookservice.createBook(req);
                     //back to book-manager
                     // res.json(book)
-                    if (req.body.isAddBook){
-                        var order = req.session.order ? req.session.order: [];
-                        var totalmoney = req.session.totalmoney ? req.session.totalmoney: 0;
+                    if (req.body.isAddBook) {
+                        var order = req.session.order ? req.session.order : [];
+                        var totalmoney = req.session.totalmoney ? req.session.totalmoney : 0;
 
-                        order.push({item: book, quantity: 1, subtotal: Number(book.gia)});
+                        order.push({
+                            item: book,
+                            quantity: 1,
+                            subtotal: Number(book.gia)
+                        });
                         totalmoney += Number(book.gia)
 
 
@@ -125,8 +128,7 @@ class bookController {
                         req.session.totalmoney = totalmoney;
 
                         res.redirect('/orders/input-order')
-                    }
-                    else {
+                    } else {
                         res.redirect('/books/book-manager');
                     }
                 }
@@ -138,18 +140,18 @@ class bookController {
 
     //[DELETE]:  /books/save/:id
     async saveDelete(req, res, next) {
-            try {
-                if (!req.user) {
-                    res.redirect('/login');
-                } else {
-                    await bookservice.DeleteBook(req);
-                    res.redirect('/books/book-manager');
-                }
-            } catch (error) {
-                next(error);
+        try {
+            if (!req.user) {
+                res.redirect('/login');
+            } else {
+                await bookservice.DeleteBook(req);
+                res.redirect('/books/book-manager');
             }
+        } catch (error) {
+            next(error);
         }
-        //[GET]: /books/book-manager-trash
+    }
+    //[GET]: /books/book-manager-trash
     async showTrash(req, res, next) {
         try {
             if (req.user) {
