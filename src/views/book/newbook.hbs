@@ -68,11 +68,19 @@
                 id="des"></textarea>
         </div>
         
-        <button type="submit" class="btn btn-primary mt-4">Thêm truyện mới</button>
+        <button id = "submitBtn" type="submit" class="btn btn-primary mt-4">Thêm truyện mới</button>
     </form>
 </div>
 <script type="text/javascript">
     const nxb = document.getElementById('NXB').getAttribute('defaultpublisher')
-    console.log(nxb)
     document.getElementById(nxb).setAttribute('selected','selected')
+    document.getElementById('NXB').setAttribute('disabled','disabled')
+
+    document.getElementById('submitBtn').addEventListener('click', function(e){
+        if(document.getElementById('NXB').hasAttribute("disabled")){
+            document.getElementById('NXB').removeAttribute('disabled')
+        }
+    })
+
+
 </script>

@@ -61,7 +61,8 @@
     <form action="" class="needs-validation" novalidate>
         <div class=" mt-5 col-4">
             <label for="validationCustom01" class="form-label">Nhà Xuất Bản</label>
-            <select class="form-select" id='NXB' name='NXB' aria-label="Default select example">
+            <select class="form-select" id='NXB' name='NXB' aria-label="Default select example"
+                data-selected="{{publisher}}">
                 {{#each NXB}}
                 <option value="{{this.manxb}}" id="{{this.manxb}}">{{this.Ten}}</option>
                 {{/each}}
@@ -92,33 +93,34 @@
             </tr>
         </thead>
         <tbody id="orderTable">
-            {{#if book}}
-            <tr id='{{book.masach}}'>
+            {{#each order}}
+            <tr id='{{this.item.masach}}'>
                 <td data-th="Product">
                     <div class="row">
                         <div class="col-lg-3 hidden-xs">
-                            <img src="{{book.HINHANH}}" alt="{{book.tensach}}" class="img-responsive" width="100">
+                            <img src="{{this.item.HINHANH}}" alt="{{this.item.tensach}}" class="img-responsive"
+                                width="100">
                         </div>
                         <div class="col-sm-9 ">
-                            <h4 class="nomargin" id="name{{book.masach}}">{{book.tensach}}</h4>
+                            <h4 class="nomargin" id="name{{this.item.masach}}">{{this.item.tensach}}</h4>
                         </div>
                     </div>
                 </td>
-                <td data-th="Price" id="price{{book.masach}}"> {{book.gia}} đ </td>
+                <td data-th="Price" id="price{{this.item.masach}}"> {{this.item.gia}} đ </td>
                 <td data-th="Quantity">
-                    <input class="form-control text-center" id="quantity{{book.masach}}" value="1" min='1' type="number"
-                        onchange="getQuantity({{book.masach}})">
+                    <input class="form-control text-center" id="quantity{{this.item.masach}}" value="{{this.quantity}}"
+                        min='1' type="number" onchange="getQuantity({{this.item.masach}})">
                 </td>
-                <td data-th="Subtotal" id="subtotal{{book.masach}}"> {{book.gia}} đ</td>
+                <td data-th="Subtotal" id="subtotal{{this.item.masach}}"> {{this.subtotal}} đ</td>
 
                 <td class="actions" data-th="">
-                    <button class="btn btn-danger btn-sm" id="btnRemove{{book.masach}}"
-                        onclick="removeItem({{book.masach}})">
+                    <button class="btn btn-danger btn-sm" id="btnRemove{{this.item.masach}}"
+                        onclick="removeItem({{this.item.masach}})">
                         <i class="fa fa-trash-o">Loại bỏ</i>
                     </button>
                 </td>
             </tr>
-            {{/if}}
+            {{/each}}
         </tbody>
 
 
@@ -129,7 +131,7 @@
                 </td>
                 <td colspan="1" class="hidden-xs"> </td>
                 <td class="hidden-xs "><strong>Tổng tiền</strong>
-                <td class="hidden-xs " id="sumMoney"><strong>0 đ</strong>
+                <td class="hidden-xs " id="sumMoney"><strong>{{totalmoney}} đ</strong>
 
                 </td>
                 <td><button href="/" type="submit" class="btn btn-success btn-block" id="btnSave"
@@ -217,13 +219,33 @@
     crossorigin="anonymous"></script> --}}
 
 <script type="text/javascript">
-    var NXB = $('#NXB').val();
     //Danh sách tất cả các sách của NXB đã chọn
     var ListSach = [];
     //Danh sách tên/mã/số lượng sách chọn đặt hàng
     var nameList = [];
     var idList = [];
     var quantityList = [];
+
+    // Đưa các sp đã đặt trong sesion vào danh sách
+    const table = document.getElementById('orderTable')
+    if (table.childElementCount > 0) {
+        for (var i = 0; i < table.childElementCount; i++)
+        {
+            idList.push(table.children[i].id);
+            nameList.push(document.getElementById('name' + table.children[i].id).innerText)
+            quantityList.push(Number(document.getElementById('quantity' + table.children[i].id).value))    
+        }
+
+        var manxb = document.getElementById('NXB').getAttribute("data-selected")
+        document.getElementById(manxb).setAttribute('selected', 'selected')
+        document.getElementById('NXB').setAttribute('disabled', 'disabled')
+
+        document.getElementById('btnSave').removeAttribute('disabled');
+        document.getElementById('btnSave').removeAttribute('style');
+
+        var NXB = document.getElementById('NXB').value;
+        loadFunction(NXB) 
+    }
 
     function autocomplete(inp, arr) {
         var currentFocus;
@@ -296,8 +318,9 @@
         });
     }
 
-    function loadFunction() {
+    function loadFunction(NXB) {
         ListSach = [];
+
         $.ajax({
             url: `/api/orders/getBookNXB`,
             method: "GET",
@@ -322,7 +345,7 @@
 
     document.getElementById('NXB').addEventListener("input", function (e) {
         NXB = e.target.value;
-        loadFunction();
+        loadFunction(NXB);
     })
 
     document.getElementById('btnAddBook').addEventListener("click", function (e) {
@@ -345,8 +368,10 @@
                 if (linkAddBook.hasAttribute('data-target')) {
                     linkAddBook.removeAttribute('data-target');
                 }
-                loadBookNameNXB(bookName, nxb)
 
+                nameList.push(bookName);
+
+                loadBookNameNXB(bookName, nxb)
             }
             else {
                 document.getElementById('AnnouncementContent').innerText = "Chưa từng nhập truyện '" + bookName + "' từ nhà xuất bản " + $('#' + NXB).text();
@@ -407,11 +432,12 @@
 
                     $('#orderTable').append(html);
 
-                    nameList.push(data.book.tensach);
                     idList.push(data.book.masach)
                     quantityList.push(1);
+
                     document.getElementById('btnSave').removeAttribute('disabled');
                     document.getElementById('btnSave').removeAttribute('style');
+                    document.getElementById('NXB').setAttribute('disabled', 'disabled')
 
                     totalMoney();
 
@@ -420,35 +446,57 @@
         })
     }
 
-    function removeItem(id) {
-        const name = id.getElementsByTagName('h4')[0].textContent;
-        idList.splice(nameList.indexOf(name), 1);
-        quantityList.splice(nameList.indexOf(name), 1);
-        nameList.splice(nameList.indexOf(name), 1);
+    function removeItem(tag) {        
+        const name = document.getElementById('name' + tag.id).innerText;
+        const index = nameList.indexOf(name)
+        idList.splice(index, 1);
+        quantityList.splice(index, 1);
+        nameList.splice(index, 1);
+
         if (nameList.length == 0) {
             document.getElementById('btnSave').setAttribute('disabled', 'true');
             document.getElementById('btnSave').setAttribute('style', 'background-color:gray; border-color: gray;');
+            document.getElementById('NXB').removeAttribute('disabled')
         }
         //document.getElementById('submitForm').removeChild(document.getElementById('div'+id.id));
 
-        document.getElementById('orderTable').removeChild(id);
+        document.getElementById('orderTable').removeChild(tag);
 
         totalMoney();
 
-    }
-    function getQuantity(id) {
 
-        const quantityId = '#quantity' + id.id;
-        const priceId = '#price' + id.id;
-        const subtotalId = '#subtotal' + id.id;
+        //Cập nhật lại trong sesion
+        $.ajax({
+            url: `/api/orders/remove/${index}`,
+            method: "DELETE",
+            data: {
+            }, success: function (data) {
+            }
+        })
+    }
+
+    function getQuantity(tag) {
+        const quantityId = '#quantity' + tag.id;
+        const priceId = '#price' + tag.id;
+        const subtotalId = '#subtotal' + tag.id;
 
         const quantity = $(quantityId).val();
         const price = $(priceId).text().slice(0, -2);
 
         $(subtotalId).text((quantity * price) + " đ");
-        quantityList[idList.indexOf(id.id)] = quantity;
+
+        const index = idList.indexOf(tag.id)
+        quantityList[index] = quantity;
 
         totalMoney()
+
+        $.ajax({
+            url: `/api/orders/update/${index}`,
+            method: "PUT",
+            data: {
+                quantity,
+            }, success: function (data) {}
+        })
     }
 
     function totalMoney() {
@@ -460,8 +508,6 @@
             const money = $(subtotalId).text().slice(0, -2);
 
             sum += Number(money)
-
-
         }
         $('#sumMoney').text(sum + " đ")
 
@@ -488,6 +534,11 @@
     })
 
     document.getElementById('btnSave').addEventListener('click', function (e) {
+        if(document.getElementById('NXB').hasAttribute("disabled")){
+            document.getElementById('NXB').removeAttribute('disabled')
+        }
+        var NXB = document.getElementById('NXB').value
+
         $.ajax({
             url: `/api/orders/submit`,
             method: "POST",
@@ -515,7 +566,7 @@
         })
     })
 
-    loadFunction();
+    loadFunction(document.getElementById('NXB').value);
 
     //Set input của tên truyện về ""
     $('#add-btn').on("click", function (e) {

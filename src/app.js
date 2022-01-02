@@ -33,20 +33,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(session({
-//   resave: true, 
-//   saveUninitialized: true, 
-//   secret: 'somesecret', 
-//   cookie: { maxAge: 60000 }}));
-
-
 //session connect passport config
 app.use(session({ secret: process.env.SESSION_SECRET }));
+// console.log(session)
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(notBackLogout);
 app.use(middleUserOnl);
+
+
+// app.use(function(req, res, next) {
+//   res.locals.session = req.session;
+//   next();
+// });
 
 //middleware method
 app.use(methodOverride('_method'));

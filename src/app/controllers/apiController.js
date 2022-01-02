@@ -3,6 +3,7 @@ const {
     multipleSequelizeToObject,
     SequelizeToObject
 } = require('../../util/sequelize');
+const { or } = require('sequelize/dist');
 
 class apiController {
     //[GET]: /api/orders/getBookNXB
@@ -40,10 +41,19 @@ class apiController {
 
                 var book = await apiservice.getBookNameNXB(name, publisher);
                 var message;
+                
 
-                if (!book) {
-                    message = "Chưa từng nhập sách'" + name + "'";
-                }
+                var order = req.session.order ? req.session.order: [];
+
+                order.push({item: book, quantity: 1, subtotal: Number(book.gia)});
+
+                var totalmoney = req.session.totalmoney ? req.session.totalmoney: 0;
+                totalmoney += book.gia
+
+                req.session.order = order;
+                req.session.publisher = publisher;
+                req.session.totalmoney = totalmoney;
+
                 res.status(201).json({
                     book,
                     message
@@ -68,6 +78,10 @@ class apiController {
                 await apiservice.createOrder(mapn,publisher,req.user.MANV);
                 await apiservice.createDetailOrder(mapn,idList,quantityList);
 
+                req.session.order = []
+                req.session.publisher = ""
+                req.session.totalmoney = 0
+
                 res.status(201).json({})
             } else {
                 res.status(500).json({})
@@ -76,6 +90,59 @@ class apiController {
             next(error);
         }
     }
+
+    //[DELETE]: /api/orders/remove
+    async removeItem(req, res, next){
+        try {
+            if (req.user) {
+                const index = req.params.index
+                var order = req.session.order
+                var totalmoney = req.session.totalmoney
+
+                const deletedItem = order.splice(index, 1); 
+                
+                totalmoney -= deletedItem[0].subtotal
+
+                req.session.order = order
+                req.session.totalmoney = totalmoney
+
+                res.status(201).json({})
+            } else {
+                res.status(500).json({})
+            }
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    //[PUT]: /api/orders/update
+    async updateItem(req, res, next){
+        try {
+            if (req.user) {
+                const index = req.params.index;
+                const quantity = req.body.quantity;
+
+                var order = req.session.order;
+                var totalmoney = req.session.totalmoney
+
+                totalmoney -= order[index].subtotal
+
+                order[index].quantity = quantity;
+                order[index].subtotal = order[index].item.gia * quantity;
+
+                totalmoney += order[index].subtotal
+
+                req.session.order = order;
+                req.session.totalmoney = totalmoney
+                res.status(201).json({})
+            } else {
+                res.status(500).json({})
+            }
+        } catch (error) {
+            next(error);
+        }
+    }
+
 
     //[PUT]: /api/accounts/lockOrUnlockAccount
     async lockCustomer(req, res, next){

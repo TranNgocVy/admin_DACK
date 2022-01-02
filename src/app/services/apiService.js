@@ -28,16 +28,12 @@ exports.getSachNXBs = async (NXB) => {
 
 //get sach base on 'name' and 'pulisher' 
 exports.getBookNameNXB = async (name, pulisher) => {
-    console.log(pulisher)
-
     return await models.sach.findOne({
         where: {
             manxb: pulisher,
             tensach: {
                 [Op.like]: name
-
             }
-
         },
         raw: true
     })
@@ -81,9 +77,6 @@ exports.createOrder = async (mapn,publisher,manv) => {
 //Tạo các chi tiết phiếu nhập
 exports.createDetailOrder = async (mapn,idList,quantityList) => {
     for(var i = 0; i < idList.length; i++){
-        console.log(i," ", idList[i])
-        console.log(i," ", quantityList[i])
-
         await models.ct_phieunhap.create({
             MAPN: mapn,
             MASACH: idList[i],

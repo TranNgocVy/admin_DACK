@@ -1,4 +1,6 @@
 const bookservice = require('../services/bookService');
+const orderservice = require('../services/orderService');
+
 const {
     multipleSequelizeToObject,
     SequelizeToObject,
@@ -109,10 +111,20 @@ class bookController {
                     // insert book to db
                     const book = await  bookservice.createBook(req);
                     //back to book-manager
+                    // res.json(book)
                     if (req.body.isAddBook){
-                        res.redirect('/orders/input-order',{
-                            book,
-                        });
+                        var order = req.session.order ? req.session.order: [];
+                        var totalmoney = req.session.totalmoney ? req.session.totalmoney: 0;
+
+                        order.push({item: book, quantity: 1, subtotal: Number(book.gia)});
+                        totalmoney += Number(book.gia)
+
+
+                        req.session.order = order
+                        req.session.publisher = req.body.manxb
+                        req.session.totalmoney = totalmoney;
+
+                        res.redirect('/orders/input-order')
                     }
                     else {
                         res.redirect('/books/book-manager');

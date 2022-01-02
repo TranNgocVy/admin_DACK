@@ -54,7 +54,7 @@
           </form>
           <a href="/books/book-manager" class="mt-3 btn btn-link alert-danger">Quay lại</a>
           <!-- Thêm dùm link đến đơn nhập hàng -->
-          
+
           <br />
           <div>
             <table class="table table-striped mt-4">
@@ -84,7 +84,8 @@
                   <td>{{this.ngayXB}}</td>
                   <td>{{this.gia}}</td>
                   <td>
-                    <a href="" class="btn-restore btn-link mr-1 mt-1 mb-1"><i class="fas fa-trash-restore-alt" data-masach="{{this.masach}}" style="color:green" ></i></a>
+                    <a href="" class="btn-restore btn-link mr-1 mt-1 mb-1"><i class="fas fa-trash-restore-alt"
+                        data-masach="{{this.masach}}" style="color:green"></i></a>
                   </td>
                   <td>
                     <a href="" class="btn-link mr-1 mt-1 mb-1" data-bs-toggle="modal" data-idbook="{{this.masach}}"
@@ -112,7 +113,8 @@
 <form name="form-restore-books" method="post"></form>
 
 <!-- Modal delete -->
-<div class="modal fade" id="delete-book-modals" tabindex="-1" aria-labelledby="delete-book-modals-Label" aria-hidden="true">
+<div class="modal fade" id="delete-book-modals" tabindex="-1" aria-labelledby="delete-book-modals-Label"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -121,7 +123,7 @@
       </div>
       <div class="modal-body">
         Bạn có thật sự muốn xóa viễn vĩnh truyện này ?
-      </div>   
+      </div>
       <div class="modal-footer">
         <button type="button" id="btn-delete-book" class="btn btn-primary btn-danger">Xóa bỏ</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
@@ -135,25 +137,25 @@
   var deleteForm = document.forms['form-delete-books']
   var restoreForm = document.forms['form-restore-books']
   var DeleteModel = document.getElementById('delete-book-modals')
-  var maSach ;
-  DeleteModel.addEventListener('show.bs.modal', function (event) { 
-    var button = event.relatedTarget 
+  var maSach;
+  DeleteModel.addEventListener('show.bs.modal', function (event) {
+    var button = event.relatedTarget
     maSach = button.getAttribute('data-idbook')
   })
   var btnDelete = document.getElementById('btn-delete-book')
-  var btnRestores = Array.from(document.getElementsByClassName('btn-restore')) 
-  btnDelete.onclick = function(){
-    deleteForm.action = '/books/save/' + maSach +'/delete?_method=DELETE';
+  var btnRestores = Array.from(document.getElementsByClassName('btn-restore'))
+  btnDelete.onclick = function () {
+    deleteForm.action = '/books/save/' + maSach + '/delete?_method=DELETE';
     deleteForm.submit();
   }
-  for(const restoreBtn of btnRestores){
-    restoreBtn.onclick = function(e){
-        e.preventDefault();
-        var masach = e.target.dataset.masach;
-        restoreForm.action = '/books/save/'+ masach +'/restore?_method=PATCH'
-        restoreForm.submit()
+  for (const restoreBtn of btnRestores) {
+    restoreBtn.onclick = function (e) {
+      e.preventDefault();
+      var masach = e.target.dataset.masach;
+      restoreForm.action = '/books/save/' + masach + '/restore?_method=PATCH'
+      restoreForm.submit()
     }
   }
-  
+
 
 </script>

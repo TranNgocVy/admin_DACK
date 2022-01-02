@@ -1,7 +1,11 @@
-const { models } = require('../../config/db');
-const { Op } = require('sequelize');
+const {
+    models
+} = require('../../config/db');
+const {
+    Op
+} = require('sequelize');
 const cloudImage = require('../../config/uploadIMG/cloudinary')
-    // support query database
+// support query database
 exports.getmodels = () => {
     return models;
 }
@@ -46,7 +50,7 @@ exports.getStock = (title) => {
 };
 
 // Check id exists
-exports.isIdUnique = async(id) => {
+exports.isIdUnique = async (id) => {
     return await models.sach
         .count({
             where: {
@@ -61,7 +65,7 @@ exports.isIdUnique = async(id) => {
 };
 
 //Automatic create book
-exports.genKeybook = async(Hinhthuc) => {
+exports.genKeybook = async (Hinhthuc) => {
     var s_key = Hinhthuc;
     var books = await models.sach.findAll({});
     var i = 1;
@@ -88,11 +92,15 @@ exports.genKeybook = async(Hinhthuc) => {
 };
 //Get one book
 exports.getOnebook = (MSach) => {
-    return models.sach.findOne({ where: { masach: MSach } });
+    return models.sach.findOne({
+        where: {
+            masach: MSach
+        }
+    });
 };
 
 //create book
-exports.createBook = async(req) => {
+exports.createBook = async (req) => {
     req.body.HINHANH = ""
     if (req.file) {
         var path = 'img/books/' + req.body.masach + '/';
@@ -113,22 +121,30 @@ exports.createBook = async(req) => {
         IDHINHANH: req.body.IDHINHANH,
     });
     if (req.body.category) {
-        req.body.category.forEach(async(element) => {
+        for (const element of req.body.category) {
             await models.theloaicuasach.create({
                 masach: req.body.masach,
                 maTL: element,
             });
-        });
+        }
     }
     return book;
 };
 //delete book
-exports.DeleteBook = async(req) => {
-    return await models.sach.destroy({ where: { masach: req.params.id } });
+exports.DeleteBook = async (req) => {
+    return await models.sach.destroy({
+        where: {
+            masach: req.params.id
+        }
+    });
 };
 //update book
-exports.updateBook = async(req) => {
-    var book = await models.sach.findOne({ where: { masach: req.params.id } });
+exports.updateBook = async (req) => {
+    var book = await models.sach.findOne({
+        where: {
+            masach: req.params.id
+        }
+    });
     if (req.file) {
         var path = 'img/books/' + book.masach;
         if (book.IDHINHANH) {
@@ -142,7 +158,7 @@ exports.updateBook = async(req) => {
     await book.save();
 };
 // count delete book
-exports.countDeleteBook = async() => {
+exports.countDeleteBook = async () => {
     return await models.sach.count({
         where: {
             deletedAt: {
@@ -153,7 +169,7 @@ exports.countDeleteBook = async() => {
     });
 };
 //get list deleted from
-exports.getlistdeletedBook = async() => {
+exports.getlistdeletedBook = async () => {
     return await models.sach.findAll({
         where: {
             deletedAt: {
@@ -164,7 +180,7 @@ exports.getlistdeletedBook = async() => {
     });
 };
 //restore book from trash
-exports.restorebook = async(req) => {
+exports.restorebook = async (req) => {
     return await models.sach.restore({
         where: {
             masach: req.params.id,
@@ -172,12 +188,17 @@ exports.restorebook = async(req) => {
     });
 };
 //delete book force
-exports.deletBookForce = async(req) => {
-    var book = await models.sach.findOne({ where: { masach: req.params.id }, paranoid: false });
-    if(book.IDHINHANH){
-       await cloudImage.deleteIMG(book.IDHINHANH);
+exports.deletBookForce = async (req) => {
+    var book = await models.sach.findOne({
+        where: {
+            masach: req.params.id
+        },
+        paranoid: false
+    });
+    if (book.IDHINHANH) {
+        await cloudImage.deleteIMG(book.IDHINHANH);
     }
-    
+
     return await models.sach.destroy({
         where: {
             masach: req.params.id,

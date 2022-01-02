@@ -4,6 +4,7 @@ const {
     SequelizeToObject
 } = require('../../util/sequelize');
 
+
 class orderController {
     //[GET]: /order-manager
     async show(req, res, next) {
@@ -43,6 +44,7 @@ class orderController {
             next(e);
         }
     }
+
     //[GET]: /input-order
     async input(req, res, next) {
         try {
@@ -50,9 +52,16 @@ class orderController {
                 res.redirect('/login');
             } else {
                 var NXB = await orderservice.getNXBs()
+
+                const order = req.session.order;
+                const publisher = req.session.publisher;
+                const totalmoney = req.session.totalmoney ? req.session.totalmoney : 0
                 res.render('order/input-order', {
                     name: req.user.HOTEN,
-                    NXB
+                    NXB,
+                    order,
+                    publisher,
+                    totalmoney
                 });
             }
         } catch (e) {
@@ -75,55 +84,55 @@ class orderController {
         }
     }
     //[GET]: orders/api/getBookNXB
-    async getBookNXB(req, res, next) {
-        try {
-            if (req.user) {
-                var NXB = req.query.NXB
-                var books = await orderservice.getSachNXBs(NXB);
-                var publisher = await orderservice.getOneNXB(NXB);
+    // async getBookNXB(req, res, next) {
+    //     try {
+    //         if (req.user) {
+    //             var NXB = req.query.NXB
+    //             var books = await orderservice.getSachNXBs(NXB);
+    //             var publisher = await orderservice.getOneNXB(NXB);
 
-                var message;
+    //             var message;
 
-                if (!books) {
-                    message = "Loại sách này chưa nhập từ nhà xuất bản này.";
-                }
-                res.status(201).json({
-                    publisher,
-                    books,
-                    message
-                })
-            } else {
-                res.status(500).json({})
-            }
-        } catch (error) {
-            next(error);
-        }
-    }
+    //             if (!books) {
+    //                 message = "Loại sách này chưa nhập từ nhà xuất bản này.";
+    //             }
+    //             res.status(201).json({
+    //                 publisher,
+    //                 books,
+    //                 message
+    //             })
+    //         } else {
+    //             res.status(500).json({})
+    //         }
+    //     } catch (error) {
+    //         next(error);
+    //     }
+    // }
 
     //[GET]: orders/api/getBookNameNXB
-    async getBookNameNXB(req, res, next) {
-        try {
-            if (req.user) {
-                var name = req.query.bookName
-                var publisher = req.query.nxb
+    // async getBookNameNXB(req, res, next) {
+    //     try {
+    //         if (req.user) {
+    //             var name = req.query.bookName
+    //             var publisher = req.query.nxb
 
-                var book = await orderservice.getBookNameNXB(name, publisher);
-                var message;
+    //             var book = await orderservice.getBookNameNXB(name, publisher);
+    //             var message;
 
-                if (!book) {
-                    message = "Chưa từng nhập sách'" + name + "'";
-                }
-                res.status(201).json({
-                    book,
-                    message
-                })
-            } else {
-                res.status(500).json({})
-            }
-        } catch (error) {
-            next(error);
-        }
-    }
+    //             if (!book) {
+    //                 message = "Chưa từng nhập sách'" + name + "'";
+    //             }
+    //             res.status(201).json({
+    //                 book,
+    //                 message
+    //             })
+    //         } else {
+    //             res.status(500).json({})
+    //         }
+    //     } catch (error) {
+    //         next(error);
+    //     }
+    // }
 
 }
 
