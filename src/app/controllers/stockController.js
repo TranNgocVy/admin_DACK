@@ -16,7 +16,9 @@ class stockController {
           month =
             date.getFullYear().toString() +
             '-' +
-            (date.getMonth() + 1).toString();
+            ('0'+ (date.getMonth() + 1).toString()).slice(-2);
+
+            console.log(month)
         }
 
         const books = await stockservice.getStock(title, month);
