@@ -37,14 +37,27 @@
             <H3>Hàng Tồn Kho</H3>
           </div>
 
-          <form class="form-inline my-2 my-lg-0 mt-5">
+          {{!-- <form class="form-inline my-2 my-lg-0 mt-5">
             <input class="form-control mr-sm-2" type="search" placeholder="Tìm tên truyện" aria-label="Search"
               name="title">
+
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm</button>
-          </form>
+          </form> --}}
           <div class="mt-4">
-            {{!-- <h6> Tháng Năm : </h6> --}}
-            <form method="get" action='' id = "submitMonth">
+            <form method="get" action='' id="submitMonth">
+
+              <div class="row">
+                <div class="col-sm-4">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Tìm tên truyện" aria-label="Search"
+                    name="title" value={{title}}>
+                </div>
+
+                <div class="col-sm-2">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm</button>
+
+                </div>
+              </div>
+
               <input type="month" id="month" name="month" value="{{month}}" onchange="getBooks()">
             </form>
           </div>
@@ -92,6 +105,19 @@
                 </tr>
                 {{/each}}
               </tbody>
+
+              <tfoot>
+                <tr>
+                  <td colspan="7">
+                    <button class="btn btn-warning">
+                      <a href="/stocks/stock-manager?update=true" id="updatebtn" style="color: black;">
+                        <i class="fas fa-pen-square" style="padding: 3px;"></i>
+                        Cập nhật tháng
+                      </a>
+                    </button>
+                  </td>
+                </tr>
+              </tfoot>
             </table>
           </div>
         </div>
@@ -102,9 +128,6 @@
   <script>
     function getBooks() {
       const date = document.getElementById('month').value;
-      console.log(date)
-      console.log(document.getElementById('submitMonth'))
-
       document.getElementById('submitMonth').submit();
     }
 

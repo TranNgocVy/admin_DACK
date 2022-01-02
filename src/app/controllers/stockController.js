@@ -7,6 +7,8 @@ class stockController {
   async showStock(req, res, next) {
     const title = req.query.title;
     var month = req.query.month;
+    var update = req.query.update;
+
     try {
       if (!req.user) {
         res.redirect('/login');
@@ -17,14 +19,17 @@ class stockController {
             date.getFullYear().toString() +
             '-' +
             ('0'+ (date.getMonth() + 1).toString()).slice(-2);
+        }
 
-            console.log(month)
+        if(update){
+          await stockservice.updateStock(month);
         }
 
         const books = await stockservice.getStock(title, month);
         res.render('stock/stock-manager', {
           books: multipleSequelizeToObject(books),
-          month: month,
+          month,
+          title,
         });
       }
     } catch (e) {
