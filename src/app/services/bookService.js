@@ -65,7 +65,7 @@ exports.isIdUnique = async (id) => {
 //Automatic create book
 exports.genKeybook = async (Hinhthuc) => {
     var s_key = Hinhthuc;
-    var books = await models.sach.findAll({});
+    var books = await models.sach.findAll({paranoid: false,});
     var i = 1;
     var check = true;
     var str;
