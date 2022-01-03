@@ -3,8 +3,9 @@ const {
     multipleSequelizeToObject,
     SequelizeToObject,
 } = require('../../util/sequelize');
+const { or } = require('sequelize/dist');
 
-
+const MAX_ROW_ON_PAGE = 24;
 class orderController {
     //[GET]: /order-manager
     async show(req, res, next) {
@@ -12,11 +13,23 @@ class orderController {
             if (!req.user) {
                 res.redirect('/');
             } else {
+                var page = req.params.page;
+                console.log(page);
+                if (!page) {
+                    page = 1;
+                }
                 const search = req.query.search;
                 const order = await orderservice.getOrder(search);
+                const l = order[0].length;
+                const start = (page - 1) * MAX_ROW_ON_PAGE;
+                const end = (page * MAX_ROW_ON_PAGE) > (l) ? (l) : (page * MAX_ROW_ON_PAGE);
+                console.log(start);
+                console.log(end);
                 res.render('order/order-manager', {
                     title: 'Book Selling',
-                    order: order[0],
+                    order: order[0].slice(start, end),
+                    total: Math.ceil(l / MAX_ROW_ON_PAGE),
+                    current: parseInt(page - 1),
                 });
             }
         } catch (e) {

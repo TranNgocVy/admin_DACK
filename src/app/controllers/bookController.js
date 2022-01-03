@@ -5,22 +5,24 @@ const {
     multipleSequelizeToObject,
     SequelizeToObject,
 } = require('../../util/sequelize');
+const { render } = require('jade');
 
+const MAX_ROW_ON_PAGE = 24;
 class bookController {
     //[PUT] : /books/save/:id
     async saveUpdate(req, res, next) {
-        try {
-            if (!req.user) {
-                res.redirect('/login');
-            } else {
-                const book = await bookservice.updateBook(req);
-                res.redirect('/books/book-manager');
+            try {
+                if (!req.user) {
+                    res.redirect('/login');
+                } else {
+                    const book = await bookservice.updateBook(req);
+                    res.redirect('/books/book-manager');
+                }
+            } catch (e) {
+                next(e);
             }
-        } catch (e) {
-            next(e);
         }
-    }
-    //[GET]: books/:id/edit
+        //[GET]: books/:id/edit
     async edit(req, res, next) {
         try {
             if (!req.user) {
@@ -73,6 +75,7 @@ class bookController {
         }
     }
 
+
     //[GET] : /books/book-manager
     async show(req, res, next) {
         const title = req.query.title;
@@ -80,11 +83,27 @@ class bookController {
             if (!req.user) {
                 res.redirect('/login');
             } else {
+                var page = req.params.page;
+                console.log(page);
+                if (!page) {
+                    page = 1;
+                }
+
                 const books = await bookservice.getBooks(title);
                 const count = await bookservice.countDeleteBook();
+                //slice data
+                const renderBooks = multipleSequelizeToObject(books);
+                const l = renderBooks.length;
+                const start = (page - 1) * MAX_ROW_ON_PAGE;
+                const end = (page * MAX_ROW_ON_PAGE) > (l) ? (l) : (page * MAX_ROW_ON_PAGE);
+                console.log(start);
+                console.log(end);
+
                 res.render('book/book-manager', {
-                    books: multipleSequelizeToObject(books),
+                    books: renderBooks.slice(start, end),
                     count,
+                    total: Math.ceil(l / MAX_ROW_ON_PAGE),
+                    current: parseInt(page - 1),
                 });
             }
         } catch (e) {
@@ -140,18 +159,18 @@ class bookController {
 
     //[DELETE]:  /books/save/:id
     async saveDelete(req, res, next) {
-        try {
-            if (!req.user) {
-                res.redirect('/login');
-            } else {
-                await bookservice.DeleteBook(req);
-                res.redirect('/books/book-manager');
+            try {
+                if (!req.user) {
+                    res.redirect('/login');
+                } else {
+                    await bookservice.DeleteBook(req);
+                    res.redirect('/books/book-manager');
+                }
+            } catch (error) {
+                next(error);
             }
-        } catch (error) {
-            next(error);
         }
-    }
-    //[GET]: /books/book-manager-trash
+        //[GET]: /books/book-manager-trash
     async showTrash(req, res, next) {
         try {
             if (req.user) {

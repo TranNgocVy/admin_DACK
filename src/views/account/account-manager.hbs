@@ -137,7 +137,21 @@
               </tbody>
               {{/if}}
             </table>
+
+            <div class="d-flex justify-content-center" >
+      <nav aria-label="Page navigation example">
+        <ul class="pagination" id="pagination">
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          {{!-- <li class="page-item"><a class="page-link" href="#" value="-1">Previous</a></li>
+          
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li> --}}
+        </ul>
+      </nav>
+    </div>
           </div>
+          
         </div>
       </div>
     </div>
@@ -254,5 +268,25 @@
       }
     })
   }
+var mainUri="/accounts/account-manager/page/"; 
+var mainquery="?type=admin";
+if(!{{admin}})
+{
+  mainquery="?type=customer";
+}
+function generatePaginationUSER(ttPage, crPage, mainUri,mainQuery) {
+    var pagi = document.getElementById("pagination");
+    pagi.innerHTML = "\n";
+    for (let i = 0; i < ttPage; i++) {
+        var className = "page-item";
+        if (i + 1 == crPage) {
+            className += " active";
+        }
+        var liDiv = `<li class="${className}"><a class="page-link" href="${mainUri}${i+1}${mainQuery}" onclick="onPageChanged(${i+1})">${i+1}</a></li>\n`;
+        pagi.innerHTML += liDiv;
 
+    }
+
+}
+generatePaginationUSER({{total}},{{current}}+1,mainUri,mainquery);
 </script>

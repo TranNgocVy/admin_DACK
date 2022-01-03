@@ -86,7 +86,7 @@
               <tbody>
                 {{#each books}}
                 <tr>
-                  <th scope="row">{{sum @index 1}}</th>
+                  <th scope="row">{{ sum (sum @index (mul 24 ../current)) 1}}</th>
                   <td>
                     {{this.masach}}
                     {{!-- <a href="#" class="-link">{{this.masach}}</a> --}}
@@ -97,7 +97,7 @@
                   <td>{{this.ngayXB}}</td>
                   <td>{{this.gia}}</td>
                   <td>
-                    <a href="/books/{{this.masach}}/edit" class="btn-link mr-1 mt-1 mb-1"><i class="fas fa-cog"></i></a>
+                    <a href="/books/{{this.masach}}/edit" class="btn-link mr-1 mt-1 mb-1"><i class="fas fa-edit"></i></a>
                   </td>
                   <td>
                     <a href="" class="btn-link mr-1 mt-1 mb-1" data-bs-toggle="modal" data-idbook="{{this.masach}}"
@@ -114,6 +114,19 @@
 
               </tbody>
             </table>
+          <div class="d-flex justify-content-center" >
+      <nav aria-label="Page navigation example">
+        <ul class="pagination" id="pagination">
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          {{!-- <li class="page-item"><a class="page-link" href="#" value="-1">Previous</a></li>
+          
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li> --}}
+        </ul>
+      </nav>
+    </div>
+
           </div>
         </div>
       </div>
@@ -156,5 +169,8 @@
     deleteForm.action = '/books/save/' + maSach +'?_method=DELETE';
     deleteForm.submit();
   }
+mainUri="/books/book-manager/page/"; 
 
+
+generatePagination({{total}},{{current}}+1,mainUri);
 </script>

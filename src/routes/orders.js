@@ -8,5 +8,6 @@ router.get('/input-order', orderController.input);
 router.post('/input-order', orderController.submit);
 
 router.get('/order-manager', orderController.show);
+router.get('/order-manager/page/:page', orderController.show);
 
 module.exports = router;
