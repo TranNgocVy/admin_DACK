@@ -1,0 +1,237 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<div class="container">
+
+        <div class="row d-flex justify-content-center card">
+            <div class="col mb-3">
+
+                <h2 class="text-center mb-4">Doanh thu theo tháng</h3>
+                <form>
+                    <div class="row">
+                        <div class="col-md-4 col-6">
+                            Tháng bắt đầu:
+                            <select class="form-select" aria-label="Default select example" id="startMonth">
+                            {{#each months}}
+                                <option value="{{@index}}">{{this}}</option>
+                            {{/each}}
+                   
+                          </select>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            Tháng kết thúc
+                            <select class="form-select" aria-label="Default select example"  id="endMonth">
+                            
+                                {{#each months}}
+                                <option value="{{@index}}">{{this}}</option>
+                            {{/each}}
+                              </select>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            Tính theo
+                            <select class="form-select" aria-label="Default select example" id="modeDisplay">
+                                
+                                <option value="1">Số lượng</option>
+                                <option value="2">Tiền</option>
+                                
+                              </select>
+                        </div>
+                    </div>
+
+
+
+                </form>
+                <button class="btn btn-success" onclick="showDataByMonth()">Xem</button>
+            </div>
+            <div class="col-12 " style="position: relative;">
+                <canvas id="chart2"></canvas>
+            </div>
+
+        </div>
+
+
+    </div>
+    <script>
+        function generateColorColumn(opacity) {
+            var ret = "rgba(";
+            const red = String(parseInt(Math.random() * 256)) + ",";
+            const green = String(parseInt(Math.random() * 256)) + ",";
+            const blue = String(parseInt(Math.random() * 256)) + ",";
+            ret += red + green + blue + String(opacity) + ")";
+            return ret;
+        }
+
+        function genrateLineChart(canvasID, chartName, colNames, datas) {
+
+            const ctx = document.getElementById(canvasID).getContext('2d');
+            var colors = [];
+            for (let i = 0; i < colNames.length; i++) {
+                const color = generateColorColumn(0.8);
+                colors.push(color);
+            }
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: colNames,
+                    datasets: [{
+                        label: chartName,
+                        data: datas,
+                        backgroundColor: colors,
+                        // borderColor: [
+                        //     'rgba(255, 99, 132, 1)',
+                        //     'rgba(54, 162, 235, 1)',
+                        //     'rgba(255, 206, 86, 1)',
+                        //     'rgba(75, 192, 192, 1)',
+                        //     'rgba(153, 102, 255, 1)',
+                        //     'rgba(255, 159, 64, 1)'
+                        // ],
+                        fill: false,
+                        // borderColor: generateColorColumn(1),
+                        backgroundColor: generateColorColumn(0.8),
+                        tension: 0,
+                    }]
+                },
+                responsive: true,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+        }
+
+        const names = ["col1", "col2", "col3", "col4", "col5", "col6"];
+        const datas = [10, 20, 12, 24, 26, 8];
+        //genrateLineChart("chart2", "OK DONE", names, datas);
+        var oldChart=null;
+        function genrateBarChart(canvasID, chartName, colNames, datas) {
+
+            var ctx = document.getElementById(canvasID).getContext('2d');
+            if(oldChart!=null)
+            {
+                oldChart.destroy();
+            }
+            var colors = [];
+            for (let i = 0; i < colNames.length; i++) {
+                const color = generateColorColumn(0.8);
+                colors.push(color);
+            }
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: colNames,
+                    datasets: [{
+                        label: chartName,
+                        data: datas,
+                        backgroundColor: colors,
+                         borderColor: [
+                             'rgba(255, 99, 132, 1)',
+                             'rgba(54, 162, 235, 1)',
+                             'rgba(255, 206, 86, 1)',
+                             'rgba(75, 192, 192, 1)',
+                             'rgba(153, 102, 255, 1)',
+                             'rgba(255, 159, 64, 1)'
+                         ],
+                        //fill: false,
+                         borderColor: generateColorColumn(1),
+                        //backgroundColor: generateColorColumn(0.8),
+                        //tension: 0,
+                    }]
+                },
+                responsive: true,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            oldChart=myChart;
+
+        }
+    </script>
+    <script>
+    function showDataByMonth()
+    {
+
+    
+        const start=parseInt(document.getElementById("startMonth").value);
+        const end=parseInt(document.getElementById("endMonth").value)+1;
+        const mode=parseInt(document.getElementById("modeDisplay").value);
+        $.ajax({
+            url:'/api/revenue',
+            method:'GET',
+            success:function(data)
+            {
+                var colNames=Object.keys(data)
+                colNames=colNames.slice(start,end);
+                var dataValues=Object.values(data);
+                dataValues=dataValues.slice(start,end);
+                var datashow=[];
+                var colshow=[];
+                for (let i =0;i<dataValues.length;i++)
+                {
+                    var pushVal=0;
+                    if(mode==1)
+                    {
+                        pushVal=dataValues[i].qty;
+                    }
+                    else
+                    {
+                        pushVal=dataValues[i].money;
+                    }
+                    datashow.push(pushVal);
+                    colshow.push(colNames[i]);
+                    
+                }
+
+                genrateBarChart("chart2","Biểu đồ doanh thu",colNames,datashow);
+                console.log(dataValues);
+            }
+        });
+    }
+        showDataByMonth()
+    </script>
+
+    <!-- <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 102, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)'
+                    ],
+                    // borderColor: [
+                    //     'rgba(255, 99, 132, 1)',
+                    //     'rgba(54, 162, 235, 1)',
+                    //     'rgba(255, 206, 86, 1)',
+                    //     'rgba(75, 192, 192, 1)',
+                    //     'rgba(153, 102, 255, 1)',
+                    //     'rgba(255, 159, 64, 1)'
+                    // ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script> -->
+

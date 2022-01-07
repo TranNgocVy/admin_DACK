@@ -9,15 +9,15 @@ const userRouter = require('./users');
 const publisherRouter = require('./publishers');
 
 function route(app) {
-  app.use('/publishers', publisherRouter);
-  app.use('/books', bookRouter);
-  app.use('/stocks', stockRouter);
-  app.use('/orders', orderRouter);
-  app.use('/receipts', receiptRouter);
-  app.use('/accounts', accountRouter);
-  app.use('/users', userRouter);
-  app.use('/api', apiRouter);
-  app.use('/', adminRouter);
+    app.use('/publishers', publisherRouter);
+    app.use('/books', bookRouter);
+    app.use('/stocks', stockRouter);
+    app.use('/orders', orderRouter);
+    app.use('/receipts', receiptRouter);
+    app.use('/accounts', accountRouter);
+    app.use('/users', userRouter);
+    app.use('/api', apiRouter);
+    app.use('/', adminRouter);
 }
 
 module.exports = route;
