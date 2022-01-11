@@ -90,30 +90,35 @@ class adminController {
         }
         //[GET] /revenue
     async showRevenue(req, res, next) {
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ];
-        const datas = await orderservice.getAllDatHang();
-        const data = datas[0];
+        if (req.user) {
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            const datas = await orderservice.getAllDatHang();
+            const data = datas[0];
 
-        var displayDatas = {};
-        for (let i = 0; i < data.length; i++) {
-            const month = monthNames[parseInt((new Date(data[i].THOIGIAN)).getUTCMonth())];
-            const year = String((new Date(data[i].THOIGIAN)).getUTCFullYear());
-            const key = month + "-" + year;
-            if (!displayDatas[key]) {
-                displayDatas[key] = {
-                    qty: data[i].SOLUONG,
-                    money: data[i].SOLUONG * data[i].gia,
-                };
-            } else {
+            var displayDatas = {};
+            for (let i = 0; i < data.length; i++) {
+                const month = monthNames[parseInt((new Date(data[i].THOIGIAN)).getUTCMonth())];
+                const year = String((new Date(data[i].THOIGIAN)).getUTCFullYear());
+                const key = month + "-" + year;
+                if (!displayDatas[key]) {
+                    displayDatas[key] = {
+                        qty: data[i].SOLUONG,
+                        money: data[i].SOLUONG * data[i].gia,
+                    };
+                } else {
 
-                displayDatas[key].qty += data[i].SOLUONG;
-                displayDatas[key].money += data[i].SOLUONG * data[i].gia;
+                    displayDatas[key].qty += data[i].SOLUONG;
+                    displayDatas[key].money += data[i].SOLUONG * data[i].gia;
+                }
             }
+
+            res.render("revenue", { months: Object.keys(displayDatas) });
+        } else {
+            res.redirect('/login');
         }
 
-        res.render("revenue", { months: Object.keys(displayDatas) });
     }
 }
 

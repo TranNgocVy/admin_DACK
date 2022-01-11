@@ -166,6 +166,7 @@
             method:'GET',
             success:function(data)
             {
+                console.log('ok here');
                 var colNames=Object.keys(data)
                 colNames=colNames.slice(start,end);
                 var dataValues=Object.values(data);
@@ -184,7 +185,7 @@
                         pushVal=dataValues[i].money;
                     }
                     datashow.push(pushVal);
-                    colshow.push(colNames[i]);a
+                    colshow.push(colNames[i]);
                     
                 }
 
@@ -193,7 +194,8 @@
             }
         });
     }
-        showDataByMonth()
+    
+    showDataByMonth()
     </script>
 
     <!-- <script>
