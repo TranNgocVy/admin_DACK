@@ -10,7 +10,7 @@ class accountController {
             try {
                 if (req.user) {
                     var page = req.params.page;
-                    console.log(page);
+
                     if (!page) {
                         page = 1;
                     }
@@ -31,8 +31,7 @@ class accountController {
                     const l = renderAccounts.length;
                     const start = (page - 1) * MAX_ROW_ON_PAGE;
                     const end = (page * MAX_ROW_ON_PAGE) > (l) ? (l) : (page * MAX_ROW_ON_PAGE);
-                    console.log(start);
-                    console.log(end);
+
 
                     res.render('account/account-manager', {
                         title: 'Book Selling',

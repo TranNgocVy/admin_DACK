@@ -12,7 +12,7 @@ class receiptController {
                 res.redirect('/login');
             } else {
                 var page = req.params.page;
-                console.log(page);
+
                 if (!page) {
                     page = 1;
                 }
@@ -21,8 +21,7 @@ class receiptController {
                 const l = receipt[0].length;
                 const start = (page - 1) * MAX_ROW_ON_PAGE;
                 const end = (page * MAX_ROW_ON_PAGE) > (l) ? (l) : (page * MAX_ROW_ON_PAGE);
-                console.log(start);
-                console.log(end);
+
                 res.render('receipt/receipt-manager', {
                     title: 'Book Selling',
                     receipt: receipt[0].slice(start, end),

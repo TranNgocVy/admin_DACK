@@ -174,7 +174,7 @@ class apiController {
         ];
         const datas = await orderservice.getAllDatHang();
         const data = datas[0];
-        console.log(datas[0][0]);
+
         var displayDatas = {};
         for (let i = 0; i < data.length; i++) {
             const month = monthNames[parseInt((new Date(data[i].THOIGIAN)).getUTCMonth())];

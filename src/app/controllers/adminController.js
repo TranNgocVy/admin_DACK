@@ -95,7 +95,7 @@ class adminController {
         ];
         const datas = await orderservice.getAllDatHang();
         const data = datas[0];
-        console.log(datas[0][0]);
+
         var displayDatas = {};
         for (let i = 0; i < data.length; i++) {
             const month = monthNames[parseInt((new Date(data[i].THOIGIAN)).getUTCMonth())];
@@ -112,9 +112,7 @@ class adminController {
                 displayDatas[key].money += data[i].SOLUONG * data[i].gia;
             }
         }
-        console.log(displayDatas);
-        console.log(Object.keys(displayDatas));
-        console.log(Object.values(displayDatas));
+
         res.render("revenue", { months: Object.keys(displayDatas) });
     }
 }
