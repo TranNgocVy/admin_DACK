@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcrypt');
 
 exports.findUserAdmin = (username) => {
-    return models.nhanvien.findOne({ where: { USER: username } });
+    return models.nhanvien.findOne({ where: { USER: username },raw : true});
 };
 
 //Get models
