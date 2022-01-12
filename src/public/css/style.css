@@ -3536,7 +3536,7 @@ main>.container {
 }
 
 
-/* --------------------------CUSTOM CSS--------------------------------------- */
+/* ------------------------------CUSTOM CSS--------------------------------------- */
 
 body {
     padding: 0px;
@@ -3557,4 +3557,8 @@ a {
 .empty-space {
     width: max-content;
     height: 250px;
+}
+
+.container {
+    min-height: 600px;
 }

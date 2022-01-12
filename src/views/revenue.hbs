@@ -41,7 +41,7 @@
                 </form>
                 <button class="btn btn-success" onclick="showDataByMonth()">Xem</button>
             </div>
-            <div class="col-12 " style="position: relative;">
+            <div class="col-12 " style="position: relative;min-height:600px;">
                 <canvas id="chart2"></canvas>
             </div>
 
@@ -122,7 +122,7 @@
                 data: {
                     labels: colNames,
                     datasets: [{
-                        label: chartName,
+                        label:chartName,
                         data: datas,
                         backgroundColor: colors,
                          borderColor: [
@@ -140,11 +140,23 @@
                     }]
                 },
                 responsive: true,
+                //callbacks: {
+                  //  label: function(tooltipItems, data) { 
+                    //    return tooltipItems.yLabel + ' €';
+                    //}
+                //},
                 options: {
                     scales: {
                         y: {
                             beginAtZero: true
                         }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: chartName,
+                        },
+                        
                     }
                 }
             });
