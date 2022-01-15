@@ -3,52 +3,50 @@ const { Op } = require('sequelize');
 const cloudImage = require('../../config/uploadIMG/cloudinary');
 // support query database
 exports.getmodels = () => {
-  return models;
+    return models;
 };
 
 //Get all publisher
 exports.AllNXB = () => {
-  return models.nxb.findAll({});
+    return models.nxb.findAll({});
 };
 
 // Get all books
 exports.getBooks = (title) => {
-  var condition = '';
-  if (title) {
-    condition = title;
-  }
-  return models.sach.findAll({
-    where: {
-      tensach: {
-        [Op.like]: '%' + condition + '%',
-      },
-    },
-  });
+    var condition = '';
+    if (title) {
+        condition = title;
+    }
+    return models.sach.findAll({
+        where: {
+            tensach: {
+                [Op.like]: '%' + condition + '%',
+            },
+        },
+    });
 };
 
 //Get all books from stock
 exports.getStock = (title) => {
-  var condition = '';
-  if (title) {
-    condition = title;
-  }
-  return models.tonkho.findAll({
-    include: [
-      {
-        model: models.sach,
-        as: 'masach_sach',
-        where: {
-          tensach: {
-            [Op.like]: '%' + condition + '%',
-          },
-        },
-      },
-    ],
-  });
+    var condition = '';
+    if (title) {
+        condition = title;
+    }
+    return models.tonkho.findAll({
+        include: [{
+            model: models.sach,
+            as: 'masach_sach',
+            where: {
+                tensach: {
+                    [Op.like]: '%' + condition + '%',
+                },
+            },
+        }, ],
+    });
 };
 
 // Check id exists
-exports.isIdUnique = async (id) => {
+exports.isIdUnique = async(id) => {
     return await models.sach
         .count({
             where: {
@@ -63,32 +61,32 @@ exports.isIdUnique = async (id) => {
 };
 
 //Automatic create book
-exports.genKeybook = async (Hinhthuc) => {
-    var s_key = Hinhthuc;
-    var books = await models.sach.findAll({paranoid: false,});
-    var i = 1;
-    var check = true;
-    var str;
-    while (true) {
-        check = true;
-        str = '' + i;
-        while (str.length < 4) {
-            str = 0 + str;
-        }
-        s_key = Hinhthuc + str;
-        for (let index = 0; index < books.length; index++) {
-            if (books[index]['masach'] === s_key) {
-                check = false;
-                break;
+exports.genKeybook = async(Hinhthuc) => {
+        var s_key = Hinhthuc;
+        var books = await models.sach.findAll({ paranoid: false, });
+        var i = 1;
+        var check = true;
+        var str;
+        while (true) {
+            check = true;
+            str = '' + i;
+            while (str.length < 4) {
+                str = 0 + str;
             }
+            s_key = Hinhthuc + str;
+            for (let index = 0; index < books.length; index++) {
+                if (books[index]['masach'] === s_key) {
+                    check = false;
+                    break;
+                }
+            }
+            if (check) {
+                return s_key;
+            }
+            i++;
         }
-        if (check) {
-            return s_key;
-        }
-        i++;
     }
-}
-//Get one book
+    //Get one book
 exports.getOnebook = (MSach) => {
     return models.sach.findOne({
         where: {
@@ -98,7 +96,7 @@ exports.getOnebook = (MSach) => {
 };
 
 //create book
-exports.createBook = async (req) => {
+exports.createBook = async(req) => {
     req.body.HINHANH = ""
     if (req.file) {
         var path = 'img/books/' + req.body.masach + '/';
@@ -117,7 +115,7 @@ exports.createBook = async (req) => {
         SL: 0,
         HINHANH: req.body.HINHANH,
         IDHINHANH: req.body.IDHINHANH,
-      });
+    });
 
     if (req.body.category) {
         for (const element of req.body.category) {
@@ -130,7 +128,7 @@ exports.createBook = async (req) => {
     return book;
 };
 //delete book
-exports.DeleteBook = async (req) => {
+exports.DeleteBook = async(req) => {
     return await models.sach.destroy({
         where: {
             masach: req.params.id
@@ -138,7 +136,7 @@ exports.DeleteBook = async (req) => {
     });
 };
 //update book
-exports.updateBook = async (req) => {
+exports.updateBook = async(req) => {
     var book = await models.sach.findOne({
         where: {
             masach: req.params.id
@@ -152,15 +150,14 @@ exports.updateBook = async (req) => {
         var result = await cloudImage.uploadIMG(req.file.path, path);
         req.body.HINHANH = result.secure_url;
         req.body.IDHINHANH = result.public_id;
+
     }
-    var result = await cloudImage.uploadIMG(req.file.path, path);
-    req.body.HINHANH = result.secure_url;
-    req.body.IDHINHANH = result.public_id;
-  book.set(req.body);
-  await book.save();
+
+    book.set(req.body);
+    await book.save();
 };
 // count delete book
-exports.countDeleteBook = async () => {
+exports.countDeleteBook = async() => {
     return await models.sach.count({
         where: {
             deletedAt: {
@@ -171,7 +168,7 @@ exports.countDeleteBook = async () => {
     });
 };
 //get list deleted from
-exports.getlistdeletedBook = async () => {
+exports.getlistdeletedBook = async() => {
     return await models.sach.findAll({
         where: {
             deletedAt: {
@@ -182,7 +179,7 @@ exports.getlistdeletedBook = async () => {
     });
 };
 //restore book from trash
-exports.restorebook = async (req) => {
+exports.restorebook = async(req) => {
     return await models.sach.restore({
         where: {
             masach: req.params.id,
@@ -190,7 +187,7 @@ exports.restorebook = async (req) => {
     });
 };
 //delete book force
-exports.deletBookForce = async (req) => {
+exports.deletBookForce = async(req) => {
     var book = await models.sach.findOne({
         where: {
             masach: req.params.id
@@ -211,5 +208,5 @@ exports.deletBookForce = async (req) => {
 
 //Get models
 exports.getmodels = () => {
-  return models;
+    return models;
 };
