@@ -1,12 +1,12 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('token_pass', {
-    MAKH: {
+  return sequelize.define('token_NV', {
+    MANV: {
       type: DataTypes.STRING(6),
-      allowNull: false,
+      allowNull: true,
       references: {
-        model: 'khachhang',
-        key: 'MAKH'
+        model: 'nhanvien',
+        key: 'MANV'
       }
     },
     TOKEN: {
@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'token_pass',
+    tableName: 'token_NV',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -29,10 +29,10 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "token_pass_khachhang_MAKH_fk",
+        name: "token_NV_nhanvien_MANV_fk",
         using: "BTREE",
         fields: [
-          { name: "MAKH" },
+          { name: "MANV" },
         ]
       },
     ]

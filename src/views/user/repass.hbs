@@ -3,22 +3,19 @@
         <h3 class="mb-0">Đổi mật khẩu</h3>
     </div>
     <div class="card-body">
-        <form class="form" method="post" action="/users/{{user.USER}}/changepass" role="form" autocomplete="off">
-            <div class="form-group">
-                <label for="inputPasswordOld">Mật khẩu hiện tại</label>
-                <input type="password" class="form-control" id="inputPasswordOld" name="pass" required="">
-            </div>
+        <form class="form" method="post" role="form" action="/reset-password" autocomplete="off">
+            {{#if token}}
+                <input type="hidden" name="token" value="{{token}} ">
+            {{/if}}
             <div class="form-group">
                 <label for="inputPasswordNew">Mật khẩu mới</label>
                 <input type="password" class="form-control" name="newpass" id="inputPasswordNew" required="">
-                <span class="form-text small text-muted">
-                </span>
             </div>
             <div class="form-group">
-                <label for="inputPasswordNewVerify">Xác nhận lại mật khẩu mới</label>
+                <label for="inputPasswordNewVerify">Xác nhận lại mật khẩu</label>
                 <input type="password" class="form-control" name="renewpass" id="inputPasswordNewVerify" required="">
                 <span class="form-text small text-muted">
-                   Kiểm tra xem mật khẩu mới nhập có đúng không .
+                   Để kiểm tra lại mật khẩu mới
                 </span>
             </div>
             <div class="mt-4" id="message">
@@ -26,7 +23,7 @@
                  <div class="mt-1 mb-1 text-center text-danger"> {{message}}</div>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-success btn-lg float-right" id="btn" disabled>Lưu</button>
+                <button type="submit" class="btn btn-success btn-lg float-right" id="btn" disabled> Lưu </button>
             </div>
         </form>
     </div>
