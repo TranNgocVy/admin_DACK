@@ -87,7 +87,7 @@ class adminController {
         let hide = email.EMAIL.split("@")[0].length - 2; //<-- number of characters to hide
         var r = new RegExp(".{" + hide + "}@", "g");
         var jmail = email.EMAIL.replace(r, "***@");
-        messages = ` vui lòng check mail ${jmail} để lấy link  ( tồn tại trong 20 phút ) `;
+        messages = ` Vui lòng check mail ${jmail} để lấy link  ( tồn tại trong 20 phút ) `;
       } else {
         messages = ` Đã có lỗi xảy ra , xin hãy thử lại  `;
       }
