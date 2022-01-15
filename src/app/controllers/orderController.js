@@ -13,7 +13,7 @@ class orderController {
             if (!req.user) {
                 res.redirect('/');
             } else {
-                var page = req.params.page;
+                var page = req.query.page;
 
                 if (!page) {
                     page = 1;
@@ -29,6 +29,7 @@ class orderController {
                     order: order[0].slice(start, end),
                     total: Math.ceil(l / MAX_ROW_ON_PAGE),
                     current: parseInt(page - 1),
+                    search
                 });
             }
         } catch (e) {

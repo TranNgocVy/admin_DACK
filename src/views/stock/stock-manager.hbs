@@ -48,7 +48,7 @@
 
               <div class="row">
                 <div class="col-sm-4">
-                  <input class="form-control mr-sm-2" type="search" placeholder="Tìm tên truyện" aria-label="Search"
+                  <input id="search" class="form-control mr-sm-2" type="search" placeholder="Tìm tên truyện" aria-label="Search"
                     name="title" value={{title}}>
                 </div>
 
@@ -142,8 +142,13 @@
       const date = document.getElementById('month').value;
       document.getElementById('submitMonth').submit();
     }
-    mainUri="/stocks/stock-manager/page/"; 
 
+
+    var mainUri="/stocks/stock-manager?page="; 
+    var title = document.getElementById('search').value;
+    if(title){
+      mainUri = "/stocks/stock-manager?title="+title+"&page="
+    }
 
   generatePagination({{total}},{{current}}+1,mainUri);
 

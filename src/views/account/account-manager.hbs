@@ -268,7 +268,7 @@
       }
     })
   }
-var mainUri="/accounts/account-manager/page/"; 
+var mainUri="/accounts/account-manager"; 
 var mainquery="?type=admin";
 if(!{{admin}})
 {
@@ -282,7 +282,7 @@ function generatePaginationUSER(ttPage, crPage, mainUri,mainQuery) {
         if (i + 1 == crPage) {
             className += " active";
         }
-        var liDiv = `<li class="${className}"><a class="page-link" href="${mainUri}${i+1}${mainQuery}" onclick="onPageChanged(${i+1})">${i+1}</a></li>\n`;
+        var liDiv = `<li class="${className}"><a class="page-link" href="${mainUri}${mainQuery}&page=${i+1}" onclick="onPageChanged(${i+1})">${i+1}</a></li>\n`;
         pagi.innerHTML += liDiv;
 
     }

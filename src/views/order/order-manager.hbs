@@ -46,8 +46,8 @@
             <H3>Phiếu Nhập hàng </H3>
           </div>
           <form class="form-inline my-2 my-lg-0 mt-5">
-            <input class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm mã hóa đơn hoặc nhà xuất bản"
-              aria-label="Search">
+            <input id = "search" class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm mã hóa đơn hoặc nhà xuất bản"
+              aria-label="Search" value = "{{search}}">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm</button>
           </form>
 
@@ -114,8 +114,11 @@
     </div>
   </div>
   <script>
-   mainUri="/orders/order-manager/page/"; 
-
+    var mainUri="/orders/order-manager?page="; 
+    var search = document.getElementById('search').value;
+    if(search){
+      mainUri = "/orders/order-manager?search="+search+"&page="
+    }
 
   generatePagination({{total}},{{current}}+1,mainUri);
 

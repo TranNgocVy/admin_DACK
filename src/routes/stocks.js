@@ -4,6 +4,6 @@ var router = express.Router();
 const stockController = require('../app/controllers/stockController');
 
 router.get('/stock-manager', stockController.showStock);
-router.get('/stock-manager/page/:page', stockController.showStock);
+// router.get('/stock-manager', stockController.showStock);
 
 module.exports = router;
