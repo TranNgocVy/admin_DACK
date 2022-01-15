@@ -40,7 +40,7 @@ class adminController {
           title: "Book Selling",
           invalidlogin: req.query.invalidlogin,
         });
-      } else res.render("/account/account-manager");
+      } else res.redirect("/accounts/account-manager");
     } catch (e) {
       next(e);
     }
