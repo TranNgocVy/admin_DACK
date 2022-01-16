@@ -9,7 +9,7 @@ class accountController {
     async show(req, res, next) {
             try {
                 if (req.user) {
-                    var page = req.params.page;
+                    var page = req.query.page;
 
                     if (!page) {
                         page = 1;

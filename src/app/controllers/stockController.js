@@ -15,7 +15,7 @@ class stockController {
             if (!req.user) {
                 res.redirect('/login');
             } else {
-                var page = req.params.page;
+                var page = req.query.page;
 
                 if (!page) {
                     page = 1;

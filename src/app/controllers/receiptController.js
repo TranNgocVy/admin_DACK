@@ -11,7 +11,7 @@ class receiptController {
             if (!req.user) {
                 res.redirect('/login');
             } else {
-                var page = req.params.page;
+                var page = req.query.page;
 
                 if (!page) {
                     page = 1;
@@ -27,6 +27,7 @@ class receiptController {
                     receipt: receipt[0].slice(start, end),
                     total: Math.ceil(l / MAX_ROW_ON_PAGE),
                     current: parseInt(page - 1),
+                    search
                 });
             }
         } catch (e) {
